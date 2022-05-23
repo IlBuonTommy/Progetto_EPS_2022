@@ -8,4 +8,5 @@ Powered by Tommy, Ale e Paolo
 - [Qui](https://github.com/mrpaulblack/human-dont-get-mad)
 - [Qui anche](https://github.com/Creator032/LUDO-GAME)
 - [Idem qui](https://github.com/AlexandrosPlessias/Ludo-Griniaris-Game)
+- [Idem qui: il ritorno] (https://github.com/himanshusandha/JAVA-LUDO)
 - [Idee per i bot](https://github.com/yan14171/Ludo-Game-Genetic-Heuristics-AI)
