@@ -1,5 +1,5 @@
 # Progetto_EPS_2022
-Powered by Tommy, Ale e
+Powered by Tommy, Ale e Paolo
 ## Link utili per lo sviluppo
 - [Regole del gioco](https://it.wikipedia.org/wiki/Ludo_(gioco))
 - [Regole del gioco serie](https://www.wikihow.it/Giocare-a-Ludo)
