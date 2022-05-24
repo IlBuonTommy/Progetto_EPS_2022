@@ -10,5 +10,3 @@ Powered by Tommy, Ale e Paolo
 - [Idem qui](https://github.com/AlexandrosPlessias/Ludo-Griniaris-Game)
 - [Idem qui: il ritorno](https://github.com/himanshusandha/JAVA-LUDO)
 - [Idee per i bot](https://github.com/yan14171/Ludo-Game-Genetic-Heuristics-AI)
-test modifica.
-ALESSIO
