@@ -1,0 +1,23 @@
+"I giocatori, a turno, tirano il dado e spostano un pezzo dello stesso numero di caselle indicato dal dado" 
+--> tiraDado() , muoviPezzo(int numDado)
+
+"Se il numero è un 6, il giocatore ha diritto ad un nuovo lancio e può decidere se introdurre un pezzo nel tabellone o spostare uno già presente di 6 caselle;"
+--> muoviPezzo(int numDado) [ se 6 dare scelta a giocatore... ] 
+                              -Se introduce nuovo pezzo il pezzo va posizionato nella casella di partenza, sul bordo della croce --> si può sempre usare muoviPezzo()
+                              
+
+END TURN CONDITIONS:
+listaDadi conviene arrayList, listaPezzi forse utile hashmap (posizione - colore)
+
+"Nel caso il 6 esca per tre volte consecutive il giocatore perde il turno" 
+--> tenere in memoria i dadi tirati da ogni giocatore --> Array?
+-->checkMultipleSix(Dice[] listaDadi)
+
+"Un pezzo non può finire su una casella già occupata da un pezzo dello stesso colore: in questo caso il suo turno finisce"
+-->checkSamePiece(Piece[] listaPezzi)
+"se invece il colore è diverso, questo pezzo viene tolto dal tabellone."
+--> removePiece(Piece[] listaPezzi)
+
+WIN CONDITION
+"Lo scopo è di completare per primo il percorso con tutti i pezzi"
+-->checkWin()
