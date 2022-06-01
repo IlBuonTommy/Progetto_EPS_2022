@@ -20,7 +20,7 @@ Ogni volta che un giocatore ottiene un 6 ha facoltà di scelta fra il far uscire
 ### Sovrapposizione
 Quando invece una pedina raggiunge una casella occupata da una pedina dello stesso colore, le due pedine si "sovrappongono" momentaneamente: finchè una delle due non si sposta, esse non possono essere sorpassate da altre pedine (avversarie o amiche) e non possono neppure essere rimandate alla base. **Attenzione però!**
 - Le pedine sovrapposte possono essere solo 2. Non esistono sovrapposizioni da 3 o 4.
-- Non si possono effettuare sovrapposizioni nella propria casella di spawn. Perciò se la prima casella del percorso è occupata da un propria pedina, con un 6 non si può far entrare nel circuito un altra pedina, ma bisogna utilizzare il punteggio per un'altra mossa e quindi ripetere il lancio del dado.
+- Non si possono effettuare sovrapposizioni nella casella di spawn ne propria ne altrui. Perciò se la prima casella del percorso è occupata da un propria pedina, con un 6 non si può far entrare nel circuito un altra pedina, ma bisogna utilizzare il punteggio per un'altra mossa e quindi ripetere il lancio del dado.
 - Le pedine sovrapposte non possono essere sorpassate in nessun caso, ne da pedine amiche ne da quelle avversarie. Può quindi succedere che al proprio turno un giocatore non possa fare nessuna mossa con il punteggio ottenuto: in questo caso egli non muove e il turno passa al giocatore successivo, senza altre conseguenze.
 ### Mangiata
 Quando muovendo un proprio piolino si raggiunge esattamente una casella occupata da un piolino avversario, quest'ultimo viene "mangiato" e rimandato nella sua base di partenza, da dove dovrà poi ricominciare il percorso (sempre con un 6). 
