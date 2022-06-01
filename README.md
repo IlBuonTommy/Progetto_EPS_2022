@@ -2,7 +2,7 @@
 Powered by Tommy, Ale e Paolo
 ## Link utili per lo sviluppo
 - [Regole del gioco](https://it.wikipedia.org/wiki/Ludo_(gioco))
-- [Regole del gioco serie](https://www.wikihow.it/Giocare-a-Ludo)
+- [Regole del gioco serie](https://it.wikipedia.org/wiki/Non_t%27arrabbiare)
 - [Bacheca trello](https://trello.com/invite/b/eaNeZaxM/313d2b548018af72a80c75691be17ea0/progetto-eps)
 ## Repo da dove prendere "spunto"
 - [Qui](https://github.com/mrpaulblack/human-dont-get-mad)
@@ -10,3 +10,7 @@ Powered by Tommy, Ale e Paolo
 - [Idem qui](https://github.com/AlexandrosPlessias/Ludo-Griniaris-Game)
 - [Idem qui: il ritorno](https://github.com/himanshusandha/JAVA-LUDO)
 - [Idee per i bot](https://github.com/yan14171/Ludo-Game-Genetic-Heuristics-AI)
+## Regole di gioco
+
+### Tabellone
+![Tabellone fatto bene](https://upload.wikimedia.org/wikipedia/commons/9/91/Menschenaergern.svg)
