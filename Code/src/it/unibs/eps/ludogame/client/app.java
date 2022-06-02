@@ -1,4 +1,4 @@
-package it.unibs.eps.ludogame;
+package it.unibs.eps.ludogame.client;
 
 public class app {
 
