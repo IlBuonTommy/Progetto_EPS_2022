@@ -176,20 +176,21 @@ public class ServerController {
 				broadcastMessage(client, json.getString("message"));
 			}
 			else {
-				LogController.log(Log.INFO, "Message from " + client + ": " + json.getString("message"));
+				System.out.printf("Messaggio da %s : %s",client,json.getString("message"));
+				
 			}
 		}
 
 		// error
 		else if (json.get("type").equals(MsgType.ERROR.toString())) {
-			LogController.log(Log.ERROR, "Error from " + client + ": " + json.get("type"));
-			throw new IllegalArgumentException("Error message from client recieved");
+			System.out.printf("Errore da %s : %s",client,json.getString("type"));
+			throw new IllegalArgumentException("Errore da client");
 		}
 		
 		// unsupported
 		else {
 			sendError(client, MsgError.UNSUPPORTEDMESSAGETYPE, null);
-			throw new IllegalArgumentException("Message Type not supported or out of order");
+			throw new IllegalArgumentException("Message Type non supportato");
 		}
 	}
 	
