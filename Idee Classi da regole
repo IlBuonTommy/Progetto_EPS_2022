@@ -9,11 +9,12 @@
 END TURN CONDITIONS:
 listaDadi conviene arrayList, listaPezzi forse utile hashmap (posizione - colore)
 
-"Nel caso il 6 esca per tre volte consecutive il giocatore perde il turno" 
+"Nel caso il 6 esca per tre volte consecutive il giocatore perde il turno"  
+ATTENZIONE ALLE REGOLE: QUESTO PEZZO NON C'è NELLE REGOLE
 --> tenere in memoria i dadi tirati da ogni giocatore --> Array?
 -->checkMultipleSix(Dice[] listaDadi)
 
-"Un pezzo non può finire su una casella già occupata da un pezzo dello stesso colore: in questo caso il suo turno finisce"
+"Un pezzo non può finire su una casella già occupata da un pezzo dello stesso colore: in questo caso il suo turno finisce" ATTENZIONE ALLE REGOLE: NO, se va sulla stesa casella raddoppia
 -->checkSamePiece(Piece[] listaPezzi)
 "se invece il colore è diverso, questo pezzo viene tolto dal tabellone."
 --> removePiece(Piece[] listaPezzi)
