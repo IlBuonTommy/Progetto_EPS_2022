@@ -32,5 +32,5 @@ Naturalmente le pedine nelle caselle d'arrivo sono inattaccabili dai pezzi avver
 # Tabellone
 ![Tabellone fatto bene](https://upload.wikimedia.org/wikipedia/commons/9/91/Menschenaergern.svg)
 
-#Array nel tabellone
-![Tabellone con array](https://upload.wikimedia.org/wikipedia/commons/9/91/Menschenaergern.svg)
+# Array nel tabellone
+![Tabellone con array](https://github.com/IlBuonTommy/Progetto_EPS_2022/blob/main/Menschenaergern.jpg)
