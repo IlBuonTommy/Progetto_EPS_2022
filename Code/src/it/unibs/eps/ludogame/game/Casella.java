@@ -24,5 +24,4 @@ public class Casella {
     public void setDoppio(boolean doppio) {
         this.doppio = doppio;
     }
-
 }
