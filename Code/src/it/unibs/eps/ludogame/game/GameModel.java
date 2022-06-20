@@ -55,4 +55,38 @@ public class GameModel {
         }
         return -1;
     }
+
+    
+    /** Questo metodo valuta e/o esegue un movimento di una pedina che inizialmente si trova sulla plancia
+     * @param posizione indica la posizione della pedina da muovere sulla plancia
+     * @param valoreDado indica il valore del dado da considerare
+     * @param daEseguire se messo a true il metodo effettua il movimento dopo aver valutato se fattibile
+     * @return boolean se true, il movimento è fattibile, se false il movimento non si può fare
+     */
+    public boolean movimentoDaPlancia(int posizione, int valoreDado, boolean daEseguire){
+        return true;
+    }
+
+    
+    /** Questo metodo valuta e/o esegue un movimento di una pedina che inizialmente si trova nella base di un giocatore
+     * @param colore indica il colore della pedina da muovere sulla plancia dalla base
+     * @param valoreDado indica il valore del dado da considerare
+     * @param daEseguire se messo a true il metodo effettua il movimento dopo aver valutato se fattibile
+     * @return boolean se true, il movimento è fattibile, se false il movimento non si può fare
+     */
+    public boolean movimentoDaBase(int colore, int valoreDado, boolean daEseguire){
+        return true;
+    }
+
+    
+    /** Questo metodo valuta e/o esegue un movimento di una pedina che si trova già nel tratto finale
+     * @param posizione indica la posizione della pedina
+     * @param colore indica il colore della pedina da muovere
+     * @param valoreDado indica il valore del dado da considerare
+     * @param daEseguire se messo a true il metodo effettua il movimento dopo aver valutato se fattibile
+     * @return boolean se true, il movimento è fattibile, se false il movimento non si può fare
+     */
+    public boolean movimentoDaFinale(int posizione, int colore, int valoreDado, boolean daEseguire){
+        return true;
+    }
 }
