@@ -75,6 +75,19 @@ public class GameModel {
      * @return boolean se true, il movimento è fattibile, se false il movimento non si può fare
      */
     public boolean movimentoDaBase(int colore, int valoreDado, boolean daEseguire){
+        if(valoreDado != 6)
+            return false;
+        if(!someoneInBase(colore))
+            return false;
+        //controllo casella uscita occupata
+        if(plancia[colore*10].getDoppio())
+            return false;
+        if(plancia[colore*10].getColore()==colore){
+            return false;
+        }
+
+        //mangiata
+        //esecuzione mossa
         return true;
     }
 
