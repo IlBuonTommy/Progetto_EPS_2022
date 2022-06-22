@@ -3,6 +3,7 @@ package it.unibs.eps.ludogame.game;
 public class Casella {
     private int colore;
     private boolean doppio;
+    private int id;
 
     public Casella() {
         this.colore = -1;
@@ -15,6 +16,14 @@ public class Casella {
 
     public void setColore(int colore) {
         this.colore = colore;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public boolean getDoppio() {

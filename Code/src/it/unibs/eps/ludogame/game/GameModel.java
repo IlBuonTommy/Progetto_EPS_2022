@@ -20,10 +20,26 @@ public class GameModel {
         for(int i=0; i<numGiocatori; i++){
             for(int j=0; j<4; j++){
                 this.base[i][j].setColore(i);
+                this.base[i][j].setId(j);
             }
         }
     }
 
+    /**
+     * Questo metodo serve per resettare il tabellone alle condizioni iniziali
+     * NON I GIOCATORI O IL LORO NUMERO
+     */
+    public void reset(){
+        this.plancia = new Casella[40];
+        this.base = new Casella[numGiocatori][4];
+        this.finale = new Casella[numGiocatori][4];
+        for(int i=0; i<numGiocatori; i++){
+            for(int j=0; j<4; j++){
+                this.base[i][j].setColore(i);
+                this.base[i][j].setId(j);
+            }
+        }
+    }
     
     /** Questo metodo controlla se è rimasta qualche pedina nella base di un giocatore
      * @param colore il colore sul quale si vuole effettuare il controllo
@@ -56,6 +72,23 @@ public class GameModel {
         return -1;
     }
 
+    /** Questo metodo esegue una mangiata sulla plancia
+     * @param posizione indica la posizione della pedina da mangiare sulla plancia
+     * @return boolean se true, la mangiata è stata eseguita correttamente
+     */
+    private boolean mangiata(int posizione){
+        for(int i=0; i<4; i++){
+            if(base[plancia[posizione].getColore()][i].getColore()==-1){
+                base[plancia[posizione].getColore()][i].setColore(plancia[posizione].getColore());
+                base[plancia[posizione].getColore()][i].setId(plancia[posizione].getId());
+                plancia[posizione].setColore(-1);
+                plancia[posizione].setId(-1);
+                return true;
+            }
+        }
+        return false;
+    }
+
     
     /** Questo metodo valuta e/o esegue un movimento di una pedina che inizialmente si trova sulla plancia
      * @param posizione indica la posizione della pedina da muovere sulla plancia
@@ -72,10 +105,11 @@ public class GameModel {
      * @param colore indica il colore della pedina da muovere sulla plancia dalla base
      * @param valoreDado indica il valore del dado da considerare
      * @param daEseguire se messo a true il metodo effettua il movimento dopo aver valutato se fattibile
+     * @param id indica l'id della pedina da considerare
      * @return boolean se true, il movimento è fattibile, se false il movimento non si può fare
      */
-    public boolean movimentoDaBase(int colore, int valoreDado, boolean daEseguire){
-        if(valoreDado != 6)
+    public boolean movimentoDaBase(int colore, int valoreDado, boolean daEseguire, int id){
+        if(valoreDado != 6)                         
             return false;
         if(!someoneInBase(colore))
             return false;
@@ -85,9 +119,24 @@ public class GameModel {
         if(plancia[colore*10].getColore()==colore){
             return false;
         }
-
-        //mangiata
         //esecuzione mossa
+        if(!daEseguire)
+            return true;
+
+        if(plancia[colore*10].getColore()!=-1){ //casella occupata, bisogna eseguire una mangiata
+            mangiata(colore*10);
+        }
+        //movimento pedina
+        for(int i=0; i<4; i++){
+            if(base[colore][i].getColore()!=-1){
+                plancia[colore*10].setColore(colore);
+                plancia[colore*10].setId(base[colore][i].getId());
+                plancia[colore*10].setDoppio(false);
+                base[colore][i].setColore(-1);
+                base[colore][i].setId(-1);
+                return true;
+            }
+        }
         return true;
     }
 
