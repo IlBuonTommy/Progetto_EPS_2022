@@ -20,7 +20,6 @@ public class GameModel {
         for(int i=0; i<numGiocatori; i++){
             for(int j=0; j<4; j++){
                 this.base[i][j].setColore(i);
-                this.base[i][j].setId(j);
             }
         }
     }
@@ -36,7 +35,6 @@ public class GameModel {
         for(int i=0; i<numGiocatori; i++){
             for(int j=0; j<4; j++){
                 this.base[i][j].setColore(i);
-                this.base[i][j].setId(j);
             }
         }
     }
@@ -77,12 +75,12 @@ public class GameModel {
      * @return boolean se true, la mangiata è stata eseguita correttamente
      */
     private boolean mangiata(int posizione){
+        if(plancia[posizione].getDoppio())
+            return false;
         for(int i=0; i<4; i++){
             if(base[plancia[posizione].getColore()][i].getColore()==-1){
                 base[plancia[posizione].getColore()][i].setColore(plancia[posizione].getColore());
-                base[plancia[posizione].getColore()][i].setId(plancia[posizione].getId());
                 plancia[posizione].setColore(-1);
-                plancia[posizione].setId(-1);
                 return true;
             }
         }
@@ -105,10 +103,9 @@ public class GameModel {
      * @param colore indica il colore della pedina da muovere sulla plancia dalla base
      * @param valoreDado indica il valore del dado da considerare
      * @param daEseguire se messo a true il metodo effettua il movimento dopo aver valutato se fattibile
-     * @param id indica l'id della pedina da considerare
      * @return boolean se true, il movimento è fattibile, se false il movimento non si può fare
      */
-    public boolean movimentoDaBase(int colore, int valoreDado, boolean daEseguire, int id){
+    public boolean movimentoDaBase(int colore, int valoreDado, boolean daEseguire){
         if(valoreDado != 6)                         
             return false;
         if(!someoneInBase(colore))
@@ -130,10 +127,8 @@ public class GameModel {
         for(int i=0; i<4; i++){
             if(base[colore][i].getColore()!=-1){
                 plancia[colore*10].setColore(colore);
-                plancia[colore*10].setId(base[colore][i].getId());
                 plancia[colore*10].setDoppio(false);
                 base[colore][i].setColore(-1);
-                base[colore][i].setId(-1);
                 return true;
             }
         }
@@ -149,6 +144,14 @@ public class GameModel {
      * @return boolean se true, il movimento è fattibile, se false il movimento non si può fare
      */
     public boolean movimentoDaFinale(int posizione, int colore, int valoreDado, boolean daEseguire){
+        if(posizione+valoreDado>=4)
+            return false;
+        if(finale[colore][posizione+valoreDado].getColore()!=-1)
+            return false;
+        if(!daEseguire)
+            return true;
+        finale[colore][posizione].setColore(-1);
+        finale[colore][posizione+valoreDado].setColore(colore);
         return true;
     }
 }
