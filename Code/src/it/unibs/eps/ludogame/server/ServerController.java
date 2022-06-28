@@ -15,6 +15,7 @@ public class ServerController {
 	private HashMap<ClientThread, PlayerColor> clients = new HashMap<ClientThread, PlayerColor>();
 	private GameController game = new Game();
 	
+	
 	//manda messaggio di benvenuto
 	protected synchronized void sendWelcome(ClientThread client) {
 		JSONObject json = new JSONObject();

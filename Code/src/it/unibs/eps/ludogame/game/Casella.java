@@ -1,6 +1,8 @@
 package it.unibs.eps.ludogame.game;
 
-public class Casella {
+import java.io.Serializable;
+
+public class Casella implements Serializable{
     private int colore;
     private boolean doppio;
 
@@ -24,4 +26,11 @@ public class Casella {
     public void setDoppio(boolean doppio) {
         this.doppio = doppio;
     }
+
+	@Override
+	public String toString() {
+		return "Casella [colore=" + colore + ", doppio=" + doppio + "]";
+	}
+    
+    
 }
