@@ -1,6 +1,6 @@
 package it.unibs.eps.ludogame.game;
 
-
+import it.unibs.eps.ludogame.server.Controllore;
 
 public class GameModel{
     //RED(0),BLUE(1),GREEN(2),YELLOW(3),EMPTY(-1)
@@ -18,7 +18,7 @@ public class GameModel{
         this.finale = new Casella[numGiocatori][4];
         this.player = new Giocatore[numGiocatori];
         this.player = player;
-
+        
         for(int i=0; i<numGiocatori; i++){
             for(int j=0; j<4; j++){
                 this.base[i][j].setColore(i);
@@ -155,6 +155,15 @@ public class GameModel{
         finale[colore][posizione].setColore(-1);
         finale[colore][posizione+valoreDado].setColore(colore);
         return true;
+    }
+    
+    
+    public void updateServer(Controllore c) {
+    	c.setBase(base);
+    	c.setFinale(finale);
+    	c.setNumGiocatori(numGiocatori);
+    	c.setPlancia(plancia);
+    	c.setPlayer(player);
     }
 
 }

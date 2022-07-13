@@ -22,9 +22,14 @@ public class Server {
 		//	ServerController controller = new ServerController();
 			Controllore controller = new Controllore();
 			ExecutorService  pool = Executors.newFixedThreadPool(8);
+			int num=0;
 			while (true) {
 				pool.execute(new ClientThread2(serverSocket.accept(), controller));
+				num++;
+				System.out.println("Nuovo Client collegato: #" + num);
+				
 			}
+			
 		}
 		catch (Exception e) { /*LogController.log(Log.ERROR, e.toString());*/ }
 	}

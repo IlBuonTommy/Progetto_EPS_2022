@@ -1,6 +1,8 @@
 package it.unibs.eps.ludogame.game;
 
-public class Giocatore {
+import java.io.Serializable;
+
+public class Giocatore implements Serializable{
     private int colore;
     private String username;
 
