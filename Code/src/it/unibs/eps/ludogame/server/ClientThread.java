@@ -1,68 +1,59 @@
 package it.unibs.eps.ludogame.server;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Scanner;
 import it.unibs.eps.ludogame.game.*;
 
-
+//singolo giocatore...
 public class ClientThread implements Runnable {
 	private Socket socket;
-	private ServerController controller;
-	private Scanner in;
-	private PrintWriter out;
-	private String bufferIn;
-	private MsgType state = MsgType.WELCOME;
+	private Controllore controller;
+	private ObjectInputStream in;
+	private  ObjectOutputStream out;
+
 	
-	ClientThread(Socket socket, ServerController controller) {
+	ClientThread(Socket socket, Controllore controller) {
 		this.socket = socket;
 		this.controller = controller;
 	}
+
 	
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		//Qua vanno inseriti i metodi che il client deve fare
 		try {
-			in = new Scanner(socket.getInputStream());
-			out = new PrintWriter(socket.getOutputStream(), true);
-	        controller.sendWelcome(this);
+			in = new ObjectInputStream(socket.getInputStream());
+			out = new ObjectOutputStream(socket.getOutputStream());
+			controller = (Controllore)in.readObject();
+	        controller.mandaBenvenuto();
+			System.out.println(controller.toString());
 			
-			while (in.hasNextLine()) {
-				bufferIn = in.nextLine();
-				controller.decoder(this, bufferIn);
-			}
 		}
-		catch (Exception e) { e.getStackTrace(); }
+		catch (Exception e) {  }
 		finally {
 			try {
 				in.close();
 				out.close();
 				socket.close();
 			}
-			catch (IOException e) { e.getStackTrace();}
-			System.out.println("CLIENT DISCONNECTED: " + socket);
-			controller.disconnect(this);
+			catch (IOException e) { }
+	
 		}
 	}
-	
-	//manda stringa in output
-	protected void out(String data) {
-		out.println(data);
+
+
+	protected void out(String data){
+		
+		try {
+			out.writeObject(data);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	
-	//Setta lo stato del client
-	protected void setState(MsgType newState) {
-		 state = newState;
-	}
-	
-	//get dello stato del client
-	protected MsgType getState() {
-		return state;
-	}
-	
-	
 
 }

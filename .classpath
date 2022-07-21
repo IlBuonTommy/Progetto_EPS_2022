@@ -6,11 +6,5 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/alela/Downloads/json-simple-1.1.1.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/human-dont-get-mad/lib/json-20210307.jar"/>
 	<classpathentry kind="output" path="Code/bin"/>
 </classpath>
