@@ -97,6 +97,14 @@ public class GameModel{
      * @return boolean se true, il movimento è fattibile, se false il movimento non si può fare
      */
     public boolean movimentoDaPlancia(int posizione, int valoreDado, boolean daEseguire){
+        int nuovaPosizione = posizione + valoreDado;
+        if(nuovaPosizione>39)
+            nuovaPosizione = nuovaPosizione - 40;
+        //controlla se deve andare in finale
+        //controllo se ha pedina doppia davanti
+        //controlla se deve mangiare
+        //controlla se crea una doppia
+
         return true;
     }
 
