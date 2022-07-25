@@ -100,11 +100,101 @@ public class GameModel{
         int nuovaPosizione = posizione + valoreDado;
         if(nuovaPosizione>39)
             nuovaPosizione = nuovaPosizione - 40;
-        //controlla se deve andare in finale
         //controllo se ha pedina doppia davanti
-        //controlla se deve mangiare
-        //controlla se crea una doppia
+        for(int i=1; i<=valoreDado; i++){
+            if(plancia[posizione].getColore()==0){
+                if(posizione <= 39 && posizione+i >= (10*plancia[posizione].getColore())){
+                    i=valoreDado+1;
+                }else{
+                    if(posizione+i>39){
+                        if(plancia[posizione+i-40].getDoppio())
+                            return false;
+                    }else{
+                        if(plancia[posizione+i].getDoppio())
+                            return false;
+                    }
+                }
+            }else{
+                if(posizione <= (10*plancia[posizione].getColore())-1 && posizione+i >= (10*plancia[posizione].getColore())){
+                    i=valoreDado+1;
+                }else{
+                    if(posizione+i>39){
+                        if(plancia[posizione+i-40].getDoppio())
+                            return false;
+                    }else{
+                        if(plancia[posizione+i].getDoppio())
+                            return false;
+                    }
+                }
+            }
+        }
 
+        //controlla se deve andare in finale
+        boolean finaleT = false;
+        if(plancia[posizione].getColore()==0){
+            if(posizione <= 39 && nuovaPosizione >= (10*plancia[posizione].getColore())){
+                finaleT = true;
+            }
+        }else{
+            if(posizione <= (10*plancia[posizione].getColore())-1 && nuovaPosizione >= (10*plancia[posizione].getColore())){
+                finaleT = true;
+            }
+        }
+        if(finaleT){
+            int nuovaPosizioneT=nuovaPosizione;
+            if(nuovaPosizione>3)
+                nuovaPosizioneT=3;
+            
+            if(finale[plancia[posizione].getColore()][nuovaPosizioneT].getColore()!=-1)
+                return false;
+            
+            if(daEseguire){
+                finale[plancia[posizione].getColore()][nuovaPosizioneT].setColore(plancia[posizione].getColore());
+                if(plancia[posizione].getDoppio()){
+                    plancia[posizione].setDoppio(false);
+                }else{
+                    plancia[posizione].setColore(-1);
+                }
+            }
+            return true;
+        }
+        
+        //controlla se deve mangiare
+        if(plancia[nuovaPosizione].getColore()!=-1 && plancia[nuovaPosizione].getColore()!=plancia[posizione].getColore()){
+            if(plancia[nuovaPosizione].getDoppio())
+                return false;
+            if(daEseguire){
+                mangiata(nuovaPosizione);
+                plancia[nuovaPosizione].setColore(plancia[posizione].getColore());
+                if(plancia[posizione].getDoppio()){
+                    plancia[posizione].setDoppio(false);
+                }else{
+                    plancia[posizione].setColore(-1);
+                }
+                return true;
+            }
+        }
+
+        //controlla se crea una doppia
+        if(plancia[nuovaPosizione].getColore()==plancia[posizione].getColore() && !plancia[nuovaPosizione].getDoppio()){
+            if(daEseguire){
+                plancia[nuovaPosizione].setDoppio(true);
+                if(plancia[posizione].getDoppio()){
+                    plancia[posizione].setDoppio(false);
+                }else{
+                    plancia[posizione].setColore(-1);
+                }
+                return true;
+            }
+        }
+
+        //effettua la mossa
+        plancia[nuovaPosizione].setColore(-1);;
+        if(plancia[posizione].getDoppio()){
+            plancia[posizione].setDoppio(false);
+        }else{
+            plancia[posizione].setColore(-1);
+        }
         return true;
     }
 
