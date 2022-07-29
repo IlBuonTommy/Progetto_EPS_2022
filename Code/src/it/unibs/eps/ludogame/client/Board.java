@@ -1,10 +1,12 @@
-package it.unibs.eps.ludogame.client;
+package src.it.unibs.eps.ludogame.client;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -23,13 +25,16 @@ public class Board extends JPanel {
 	private static String verdecasella="#008000";
 	private static String giallocasella="#E1E100";
 	private static String white="#FFFFFF";
+	
+	
+	
 	/**
 	 * Create the panel.
 	 */	public Board() {
 		this.setLayout(new GridLayout(11, 11, 0, 0));
 		ArrayList a=new ArrayList();
 		for(int i=0;i<11*11;i++) {
-			MyButton b = new MyButton();
+			MyButton b = new MyButton(i);
 			b.setBackground(Color.decode(getColor(i)));
 			b.setOpaque(true);
 			
@@ -50,6 +55,18 @@ public class Board extends JPanel {
 		    		b.setState(true,verdepedina);
 		    	if(i==66)
 		    		b.setState(true,verdepedina,true);
+		    	
+		    	b.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						MyButton o = (MyButton)e.getSource();
+						o.getPosition();
+						
+						
+					}
+				}
+				);
 			}	
 			else {
 				b.setBorderPainted(false);
@@ -154,7 +171,8 @@ public class Board extends JPanel {
 			
 			return white;
 		}
-		
+	
+	
 	
 	
 	private boolean getBorder(int n) {

@@ -1,4 +1,4 @@
-package it.unibs.eps.ludogame.client;
+package src.it.unibs.eps.ludogame.client;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -10,11 +10,14 @@ public class MyButton extends JButton {
 	private boolean draw;
 	private String color;
 	private boolean doppio;
+	private Posizione posizione;
 	
-	public MyButton () {
+	
+	public MyButton (int p) {
 		draw=false;
 		color="#ffffff";
 		doppio=false;
+		this.posizione=new Posizione(p);
 	}
 	
 	 public void paintComponent(Graphics g) {
@@ -67,6 +70,11 @@ public class MyButton extends JButton {
 	 public void setState(boolean state,boolean doppio) {
 		 this.draw=state;
 		 this.doppio=doppio;
+	 }
+	 
+	 public void getPosition() {
+		 System.out.println(this.posizione.getNomeposizione()+"   "+this.posizione.getArrayposizione());
+		 return ;
 	 }
 	 
 }
