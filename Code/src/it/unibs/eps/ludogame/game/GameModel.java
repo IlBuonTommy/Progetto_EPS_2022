@@ -65,7 +65,7 @@ public class GameModel{
      * @return int il colore del vincitore, -1 se non ha trovato vincitori.
      */
     public int checkWin(){
-        int test=-1, cont=0;
+        int cont=0;
         for(int i=0; i<numGiocatori; i++){
             for(int j=0; j<4; j++){
                 if(finale[i][j].getColore()!=-1)
