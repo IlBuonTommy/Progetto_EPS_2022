@@ -12,6 +12,9 @@ public class GameModel{
     int numGiocatori;
 
     public GameModel (int numGiocatori, Giocatore player[]){
+        //DEBUG ONLY
+        System.out.println("GameModel: inizializzazione tabellone con "+numGiocatori+" giocatori");
+
         this.numGiocatori=numGiocatori;
         this.plancia = new Casella[40];
         this.base = new Casella[numGiocatori][4];
@@ -31,6 +34,9 @@ public class GameModel{
      * NON I GIOCATORI O IL LORO NUMERO
      */
     public void reset(){
+        //DEBUG ONLY
+        System.out.println("GameModel: reset tabellone");
+
         this.plancia = new Casella[40];
         this.base = new Casella[numGiocatori][4];
         this.finale = new Casella[numGiocatori][4];
@@ -65,10 +71,17 @@ public class GameModel{
                 if(finale[i][j].getColore()!=-1)
                     cont++;
             }
-            if(cont == 4)
+            if(cont == 4){
+                //DEBUG ONLY
+                System.out.println("GameModel: Richiesta controllo vincita con esito: "+i);
+
                 return i;
+            }
             cont=0;
         }
+        //DEBUG ONLY
+        System.out.println("GameModel: Richiesta controllo vincita con esito negativo");
+
         return -1;
     }
 
@@ -83,9 +96,17 @@ public class GameModel{
             if(base[plancia[posizione].getColore()][i].getColore()==-1){
                 base[plancia[posizione].getColore()][i].setColore(plancia[posizione].getColore());
                 plancia[posizione].setColore(-1);
+                
+                //DEBUG ONLY
+                System.out.println("GameModel: Mangiata eseguita su posizione "+posizione);
+
                 return true;
             }
         }
+        
+        //DEBUG ONLY
+        System.out.println("GameModel: errore su mangiata");
+
         return false;
     }
 
@@ -97,6 +118,9 @@ public class GameModel{
      * @return boolean se true, il movimento è fattibile, se false il movimento non si può fare
      */
     public boolean movimentoDaPlancia(int posizione, int valoreDado, boolean daEseguire){
+        //DEBUG ONLY
+        System.out.println("GameModel: Richiesto movimento da plancia dalla posizione "+posizione+" e con valore dado "+valoreDado);
+
         int nuovaPosizione = posizione + valoreDado;
         if(nuovaPosizione>39)
             nuovaPosizione = nuovaPosizione - 40;
@@ -206,6 +230,9 @@ public class GameModel{
      * @return boolean se true, il movimento è fattibile, se false il movimento non si può fare
      */
     public boolean movimentoDaBase(int colore, int valoreDado, boolean daEseguire){
+        //DEBUG ONLY
+        System.out.println("GameModel: richiesto moviemnto da base di colore "+ PlayerColor.valueOf(colore));
+
         if(valoreDado != 6)                         
             return false;
         if(!someoneInBase(colore))
@@ -244,6 +271,9 @@ public class GameModel{
      * @return boolean se true, il movimento è fattibile, se false il movimento non si può fare
      */
     public boolean movimentoDaFinale(int posizione, int colore, int valoreDado, boolean daEseguire){
+        //DEBUG ONLY
+        System.out.println("GameModel: richiesto moviemnto da finale del colore "+PlayerColor.valueOf(colore)+" dalla posizione: "+posizione);
+
         if(posizione+valoreDado>=4)
             return false;
         if(finale[colore][posizione+valoreDado].getColore()!=-1)
@@ -257,6 +287,9 @@ public class GameModel{
     
     
     public void updateServer(Controllore c) {
+        //DEBUG ONLY
+        System.out.println("GameModel: è stato effettuato l'update sul server, classe Controllore");
+
     	c.setBase(base);
     	c.setFinale(finale);
     	c.setNumGiocatori(numGiocatori);
