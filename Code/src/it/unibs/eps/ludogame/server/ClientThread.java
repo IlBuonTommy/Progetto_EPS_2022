@@ -31,6 +31,7 @@ public class ClientThread implements Runnable {
 			controller = (Controllore)in.readObject();
 	        controller.mandaBenvenuto();
 			System.out.println(controller.toString());
+		
 			
 		}
 		catch (Exception e) {  }

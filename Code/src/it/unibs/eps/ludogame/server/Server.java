@@ -27,6 +27,7 @@ public class Server {
 				pool.execute(new ClientThread(serverSocket.accept(), controller));
 				num++;
 				System.out.println("Nuovo Client collegato: #" + num);
+				controller.mandaBenvenuto();
 				
 			}
 			
