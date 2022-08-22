@@ -7,23 +7,28 @@ import javax.swing.JLabel;
 
 public class MyButton extends JButton {
 	
+
+	private String[] listaColori=new String[]{"#E74C3C","#0E5DF1","#2AC503","#FCFC5C","#FFFFFF"};
+	private int color;
 	private boolean draw;
-	private String color;
 	private boolean doppio;
 	private Posizione posizione;
 	
 	
 	public MyButton (int p) {
-		draw=false;
-		color="#ffffff";
+		this.color=-1;
+		this.draw=false;
 		doppio=false;
 		this.posizione=new Posizione(p);
 	}
 	
 	 public void paintComponent(Graphics g) {
 	       super.paintComponent(g);
-	       if(draw) {
-	    	   g.setColor(Color.decode(color));
+	       //controllo se è presente una pedina
+	       if(color>-1) {
+	    	   String c=this.listaColori[color];
+	    	   g.setColor(Color.decode(c));
+	    	   
 	    	   int w=getWidth();
 		       int h=getHeight();
 		       int min=w;
@@ -49,32 +54,55 @@ public class MyButton extends JButton {
 	       }
 	       
 	    }
-	 
-	 public void setState(boolean state,String color) {
+	 /**
+	  * 
+	  * @param state
+	  * @param color
+	  */
+	 public void setState(boolean state,int color) {
 		 this.draw=state;
 		 this.color=color;
 		 
 	 }
 	 
+	 /**
+	  * 
+	  * @param state
+	  */
 	 public void setState(boolean state) {
 		 this.draw=state;
 	 }
 	 
-	 public void setState(boolean state,String color,boolean doppio) {
+	 /**
+	  * 
+	  * @param state
+	  * @param color
+	  * @param doppio
+	  */
+	 public void setState(boolean state,int color,boolean doppio) {
 		 this.draw=state;
 		 this.color=color;
 		 this.doppio=doppio;
 		 
 	 }
 	 
+	 /**
+	  * 
+	  * @param state
+	  * @param doppio
+	  */
 	 public void setState(boolean state,boolean doppio) {
 		 this.draw=state;
 		 this.doppio=doppio;
 	 }
 	 
-	 public void getPosition() {
-		 System.out.println(this.posizione.getNomeposizione()+"   "+this.posizione.getArrayposizione());
-		 return ;
+	 /**
+	  * 
+	  * @return
+	  */
+	 public Posizione getButtonPosition() {
+		 System.out.println(this.posizione.getNomeposizione()+"   riga   "+this.posizione.getColor()+" colonna "+this.posizione.getArrayposizione());
+		 return this.posizione ;
 	 }
 	 
 }

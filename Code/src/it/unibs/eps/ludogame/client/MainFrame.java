@@ -21,11 +21,11 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JLabel;
 
 public class MainFrame extends JFrame {
 	
 	private JPanel contentPane;
-	private JTextField textField;
 	
 
 	/**
@@ -50,19 +50,17 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 450);
-		Board p=new Board();
-		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout(0, 0));
+		Board board=new Board();
 		
-		textField = new JTextField();
-		panel.add(textField, BorderLayout.EAST);
-		textField.setColumns(10);
+		SidePanel panel=new SidePanel();
 		setMinimumSize(new Dimension(600,600));
 		setMaximumSize(new Dimension(700,700));
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		getContentPane().add(p);
+		getContentPane().add(board);
 		getContentPane().add(panel, BorderLayout.EAST);
+		
+		board.resetta(new Casella[] {},new Casella[][] {},new Casella[][] {});
 		
 	}
 	

@@ -25,48 +25,74 @@ public class Board extends JPanel {
 	private static String verdecasella="#008000";
 	private static String giallocasella="#E1E100";
 	private static String white="#FFFFFF";
+	private MyButton boardButton[]=new MyButton[40];
+	private MyButton baseButton[][]=new MyButton[4][4];
+	private MyButton fineButton[][]=new MyButton[4][4];
 	
-	
+	//RED(0),BLUE(1),GREEN(2),YELLOW(3),EMPTY(-1)
+    //3 array di caselle: plancia[40] base[colore][4] finale[colore][4]
 	
 	/**
 	 * Create the panel.
 	 */	public Board() {
 		this.setLayout(new GridLayout(11, 11, 0, 0));
-		ArrayList a=new ArrayList();
-		for(int i=0;i<11*11;i++) {
+		
+		
+		
+		//creo ciclo data una griglie di 11*11
+		for(int y=0;y<11;y++)
+		for(int x=0;x<11;x++){
+			
+			int i=y*11+x;
+			
 			MyButton b = new MyButton(i);
 			b.setBackground(Color.decode(getColor(i)));
 			b.setOpaque(true);
-			
-			if(getBorder(i)) {
+			//controllo se è un bottone visibile
+			if(isVisible(i)) {
+				//inserisco bottone in matrix base
+				if(b.getButtonPosition().getNomeposizione()==Posizione.NomePosizione.Base) {
+					this.baseButton[b.getButtonPosition().getColor()][b.getButtonPosition().getArrayposizione()]=b;
+				}else {
+					if(b.getButtonPosition().getNomeposizione()==Posizione.NomePosizione.Fine) {
+						this.fineButton[b.getButtonPosition().getColor()][b.getButtonPosition().getArrayposizione()]=b;
+					}else {
+						this.boardButton[b.getButtonPosition().getArrayposizione()]=b;
+					}
+					
+				}
 				
 		    	b.setBorder(new RoundedBorder(10));
-		    	setComponentZOrder(b, i);
 		    	
+		    	// STATO INIZIALE DA CAMBIARE!!!!
 		    	if(i==0||i==5||i==11||i==6)
-		    		b.setState(true,redpedina);
+		    		b.setState(true,0);
 		    	if(i==110||i==111||i==92||i==70)
-		    		b.setState(true,giallopedina);
+		    		b.setState(true,3);
 		    	if(i==10||i==73)
-		    		b.setState(true,blupedina);
+		    		b.setState(true,1);
 		    	if(i==74)
-		    		b.setState(true,blupedina,true);
+		    		b.setState(true,1,true);
 		    	if(i==45||i==54)
-		    		b.setState(true,verdepedina);
+		    		b.setState(true,2);
 		    	if(i==66)
-		    		b.setState(true,verdepedina,true);
+		    		b.setState(true,2,true);
 		    	
+		    	
+		    	//aggiungo un action listener ai bottoni
 		    	b.addActionListener(new ActionListener() {
-
+		    		
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						MyButton o = (MyButton)e.getSource();
-						o.getPosition();
+						o.getButtonPosition();
 						
 						
 					}
 				}
 				);
+		    
+		    	
 			}	
 			else {
 				b.setBorderPainted(false);
@@ -78,20 +104,25 @@ public class Board extends JPanel {
 		}
 		
 		
-	   
 	}
+	 
 	
+	 
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		//ottengo dimensioni
 		int w=getWidth();
 		int h=getHeight();
+		
+		//calcolo posizioni di partenza delle 2 frecce
 		int x1=(int) (w*0.3);
 		int y1=(int) (h*0.2);
 		int x2=(int) (w*0.7);
 		int y2=(int) (h*0.7);
-		
+		//calcolo lunghezze delle frecce
 		int dy=(int) (h*0.1);
 		int dx=dy/5;
+		
 		//disegno freccia sulla sinistra
 		g.drawLine(x1,y1 ,x1 ,y1+dy );
 		g.drawLine(x1, y1, x1+dx, y1+dx);
@@ -105,6 +136,7 @@ public class Board extends JPanel {
 		g.drawLine(x2, y2+dy, x2-dx, y2+dy-dx);
 		g.drawLine(x2, y2, x2+dx*2, y2);
 		
+		//calcolo coordinate del centro e di un quadratino
 		int cx=(int)w/2;
 		int cy=(int)h/2;
 		
@@ -132,12 +164,22 @@ public class Board extends JPanel {
 		g.setColor(Color.BLACK);
 		g.drawLine(cx-qx,cy+qy ,cx+qx , cy+qy);
 		
+		//inseirsco filtro 
 		 Graphics2D g2 = (Graphics2D)g;
 		 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 		     RenderingHints.VALUE_ANTIALIAS_ON);
+		 
 	}
 	
-
+	public void prova() {
+		this.baseButton[0][0].setState(false);
+	}
+	
+/**
+ * dato la posizione in input ritorna il colore della casella
+ * @param n
+ * @return
+ */
 	private String getColor(int n) {
 			
 			//verde
@@ -172,10 +214,48 @@ public class Board extends JPanel {
 			return white;
 		}
 	
+		/**
+		 * setta come false lo stato di tutte le caselle
+		 * controlla gli array passati dal model e setta tutte le caselle
+		 * @param board
+		 * @param base
+		 * @param fine
+		 */
+		public void resetta(Casella[] board, Casella[][] base,Casella[][] fine) {
+			System.out.println("ENTRA IN REPAINT");
+			
+			for (int i=0;i<40;i++) {
+				this.boardButton[i].setState(false);
+				if(board[i].getColore()>-1) {
+					this.boardButton[i].setState(true,board[i].getColore(),board[i].getDoppio());
+				}
+			}
+			
+			for(int i=0;i<4;i++) {
+				for (int j=0;j<4;j++) {
+					this.baseButton[i][j].setState(false);
+					
+					if(base[i][j].getColore()>-1) {
+						this.boardButton[i].setState(true,board[i].getColore(),board[i].getDoppio());
+					}
+					
+					this.fineButton[i][j].setState(false);
+					
+					if(fine[i][j].getColore()>-1) {
+						this.boardButton[i].setState(true,board[i].getColore(),board[i].getDoppio());
+					}
+				}
+			}
+			
+			
+		}
 	
-	
-	
-	private boolean getBorder(int n) {
+	/**
+	 * dato un intero restituisce un true se il bottone fa parte del tabellone
+	 * @param n
+	 * @return
+	 */
+	private boolean isVisible(int n) {
 		//creo buco in centro
 		if(n==11*5+5)
 			return false;
@@ -185,20 +265,24 @@ public class Board extends JPanel {
 		//mostro 3 colonne centrali
 		if(n%11==4||n%11==5 || n%11==6)
 			return true;
+		
 		//mostro i 4 angoli
+		//alto a sinistra
 		if(n<2|| (n<13&n>10))
 			return true;
-		
+		//alto a destra
 		if((n<11&n>8)|| (n<22&n>19))
 			return true;
-		
+		//basso a sinistra
 		if(n>=11*9 && n<11*9+2|| (n>=11*10 && n<11*10+2))
 			return true;
-		
+		//basso a destra
 		if(n>=11*9+9 && n<11*10|| (n>=11*10+9))
 			return true;
 		
 		return false;
 	}
 
+	
+	
 }
