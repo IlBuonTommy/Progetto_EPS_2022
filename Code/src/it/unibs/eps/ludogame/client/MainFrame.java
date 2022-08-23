@@ -63,7 +63,7 @@ public class MainFrame extends JFrame {
 		getContentPane().add(board);
 		getContentPane().add(panel, BorderLayout.EAST);
 		
-		board.resetta(new Casella[] {},new Casella[][] {},new Casella[][] {});
+	//	board.resetta(new Casella[] {},new Casella[][] {},new Casella[][] {});
 		
 	}
 	

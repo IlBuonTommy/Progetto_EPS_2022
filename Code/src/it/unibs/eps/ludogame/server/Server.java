@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 
 public class Server {
 	private ServerSocket serverSocket;
-	private static Integer port = 1234;
+	private static Integer port = 50358;
 	
 	public static void main(String[] args) throws Exception {
 		Server server = new Server();
@@ -21,15 +21,17 @@ public class Server {
 		//	LogController.log(Log.INFO, "Running: " + serverSocket);
 		//	ServerController controller = new ServerController();
 			Controllore controller = new Controllore();
-			ExecutorService  pool = Executors.newFixedThreadPool(8);
+			ExecutorService  pool = Executors.newCachedThreadPool();
 			int num=0;
 			while (true) {
 				pool.execute(new ClientThread(serverSocket.accept(), controller));
+				
 				num++;
 				System.out.println("Nuovo Client collegato: #" + num);
 				controller.mandaBenvenuto();
 				
 			}
+			
 			
 		}
 		catch (Exception e) { /*LogController.log(Log.ERROR, e.toString());*/ }

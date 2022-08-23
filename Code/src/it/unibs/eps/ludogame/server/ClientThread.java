@@ -23,14 +23,13 @@ public class ClientThread implements Runnable {
 
 	
 	@Override
-	public void run() {
+	public synchronized void run() {
 		//Qua vanno inseriti i metodi che il client deve fare
 		try {
 			in = new ObjectInputStream(socket.getInputStream());
 			out = new ObjectOutputStream(socket.getOutputStream());
-			controller = (Controllore)in.readObject();
-	        controller.mandaBenvenuto();
-			System.out.println(controller.toString());
+			Casella[] base = (Casella[])in.readObject();
+			System.out.println(base.toString());
 		
 			
 		}

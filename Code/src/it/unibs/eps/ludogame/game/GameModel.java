@@ -10,7 +10,7 @@ public class GameModel{
     private Casella finale[][];
     private Giocatore player[];
     int numGiocatori;
-
+    
     public GameModel (int numGiocatori, Giocatore player[]){
         //DEBUG ONLY
         System.out.println("GameModel: inizializzazione tabellone con "+numGiocatori+" giocatori");
@@ -288,7 +288,7 @@ public class GameModel{
     
     public void updateServer(Controllore c) {
         //DEBUG ONLY
-        System.out.println("GameModel: Ã¨ stato effettuato l'update sul server, classe Controllore");
+        System.out.println("GameModel: è stato effettuato l'update sul server, classe Controllore");
 
     	c.setBase(base);
     	c.setFinale(finale);

@@ -11,13 +11,16 @@ public class TestClient {
 
 	 public static void main(String[] arg) {
 		 Casella cas = new Casella();
-		 Casella c [] = {cas};
+		 Casella c [][]= new Casella[5][5];
+		 c[0][0] = cas;
+		 Controllore control = new Controllore();
+		 control.setBase(c);
 	      try {
-	    	  Controllore control = new Controllore();
-	    	  Socket socketConnection = new Socket("127.0.0.1", 1234);
-	    	  
+	    	  Socket socketConnection = new Socket("127.0.0.1", 50358);
+	    	 
 	    	  ObjectOutputStream clientOutputStream = new ObjectOutputStream(socketConnection.getOutputStream());
-	    	  clientOutputStream.writeObject(control);
+	    	  clientOutputStream.writeObject(control.getBase());
+	    	
 	    	 
 	      } catch (Exception e) {System.out.println(e); }
 	 }
