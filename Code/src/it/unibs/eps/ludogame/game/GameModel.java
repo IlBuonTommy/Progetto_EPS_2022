@@ -284,11 +284,78 @@ public class GameModel{
         finale[colore][posizione+valoreDado].setColore(colore);
         return true;
     }
+
+
+    /** Questo metodo esegue un movimento di una pedina da parte di un BOT deterministico
+     * Il bot da la priorità a: uscire con una nuova pedina, creare una doppia più distante, mangiare la pedina più vicina alla vittoria, liberare l'uscita delle pedine, spostare la pedina più distante, annullare il turno
+     * @param colore indica il colore della pedina da muovere
+     * @param valoreDado indica il valore del dado da considerare
+     * @return boolean se true, il movimento è stato fatto senza errori
+     */
+    public boolean movimentoBOT(int colore, int valoreDado){
+        //DEBUG ONLY
+        System.out.println("GameModel: richiesto moviemnto BOT del colore "+PlayerColor.valueOf(colore));
+        int[] posizione = {-1,-1,-1,-1};
+        int indPos = 0, posInizioP=colore*10, posFineP=colore*10-1;
+        if(posFineP<0)
+            posFineP=39;
+        for(int i=posFineP; i>=0; i--){
+            if(plancia[i].getColore()==colore){
+                posizione[indPos]=i;
+                indPos++;
+            }
+            if(i==posInizioP)
+                i=-2;
+            else if(i==0){
+                i=40;
+            }  
+        }
+        for(int i=0; i<4; i++){
+            if(finale[colore][i].getColore()==colore){
+                posizione[indPos]=i+40;
+                indPos++;
+            }  
+        }
+        
+        //Uscita con una nuova pedina
+        if(valoreDado==6 && someoneInBase(colore) && plancia[10*colore].getColore()!=colore && !plancia[10*colore].getDoppio()){
+            movimentoDaBase(colore, valoreDado, true);
+            return true;
+        }
+
+        //creare doppia più distante
+        for(int i=0; i<4; i++){
+            if(posizione[i]!=-1 && posizione[i]<40){
+                int nuovPos= posizione[i]+valoreDado;
+                if(nuovPos>39)
+                    nuovPos=nuovPos-40;
+                if(nuovPos>=posInizioP && posizione[i]<posInizioP){}
+                else{
+                    if(plancia[nuovPos].getColore()==colore){
+                        if(movimentoDaPlancia(posizione[i], valoreDado, false)){
+                            movimentoDaPlancia(posizione[i], valoreDado, true);
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        //mangiare la più distante
+
+        //Liberare uscita pedine
+
+        //Spostare la più distante
+
+        //non puoi fare nulla annulla il turno
+
+        return true;
+    }
     
     
     public void updateServer(Controllore c) {
         //DEBUG ONLY
-        System.out.println("GameModel: � stato effettuato l'update sul server, classe Controllore");
+        System.out.println("GameModel: è stato effettuato l'update sul server, classe Controllore");
 
     	c.setBase(base);
     	c.setFinale(finale);
