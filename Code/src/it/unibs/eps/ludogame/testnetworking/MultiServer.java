@@ -14,6 +14,8 @@ import java.util.concurrent.Executors;
 public class MultiServer{
 	ServerSocket server;
 	ArrayList<Socket> listaSocket = new ArrayList<>();
+	
+	
   public void start(int porta){ 
     try{
     	server = new ServerSocket(porta);
