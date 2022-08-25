@@ -15,20 +15,19 @@ public class MultiClient {
   BufferedReader inDalServer;                      // stream di input 
   int[] provaLista = {1,2,3,4};
   public void comunica() {
-    for (;;)                                     // ciclo infinito: termina con FINE
+   for (;;)                                     // ciclo infinito: termina con FINE
     try{
       System.out.println("4 ... utente, inserisci la stringa da trasmettere al server:");
-      stringaUtente = Arrays.toString(provaLista);
-    //  stringaUtente = tastiera.readLine();
+      //stringaUtente = Arrays.toString(provaLista);
+      stringaUtente = tastiera.readLine();
       //la spedisco al server 
       System.out.println("5 ... invio la stringa al server e attendo ...");
-     // outVersoServer.writeBytes( stringaUtente+'\n');
       outVersoServer.writeBytes( stringaUtente+'\n');
       //leggo la risposta dal server 
       stringaRicevutaDalServer=inDalServer.readLine();
       System.out.println("7 ... risposta dal server "+'\n'+stringaRicevutaDalServer );
-      if  (stringaUtente.equals("FINE")) { 
-        System.out.println("8 CLIENT: termina elaborazione e chiude connessione" );
+      if  (stringaRicevutaDalServer.equals("termina")) { 
+        System.out.println("-->Termine sessione di gioco..." );
         miosocket.close();                             // chiudo la connessione
         break; 
       }
