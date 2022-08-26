@@ -166,21 +166,23 @@ public class GameModel{
         }
         if(finaleT){
             int nuovaPosizioneT=nuovaPosizione;
-            if(nuovaPosizione>3)
-                nuovaPosizioneT=3;
-            
-            if(finale[plancia[posizione].getColore()][nuovaPosizioneT].getColore()!=-1)
-                return false;
-            
-            if(daEseguire){
-                finale[plancia[posizione].getColore()][nuovaPosizioneT].setColore(plancia[posizione].getColore());
-                if(plancia[posizione].getDoppio()){
-                    plancia[posizione].setDoppio(false);
-                }else{
-                    plancia[posizione].setColore(-1);
-                }
+            if(plancia[posizione].getColore() != 0){
+                nuovaPosizioneT=nuovaPosizioneT-(10*plancia[posizione].getColore());
             }
-            return true;
+            if(nuovaPosizioneT<=3){
+                if(finale[plancia[posizione].getColore()][nuovaPosizioneT].getColore()!=-1)
+                    return false;
+                
+                if(daEseguire){
+                    finale[plancia[posizione].getColore()][nuovaPosizioneT].setColore(plancia[posizione].getColore());
+                    if(plancia[posizione].getDoppio()){
+                        plancia[posizione].setDoppio(false);
+                    }else{
+                        plancia[posizione].setColore(-1);
+                    }
+                }
+                return true;
+            }
         }
         
         //controlla se deve mangiare
@@ -287,7 +289,7 @@ public class GameModel{
 
 
     /** Questo metodo esegue un movimento di una pedina da parte di un BOT deterministico
-     * Il bot da la priorità a: uscire con una nuova pedina, creare una doppia più distante, mangiare la pedina più vicina alla vittoria, liberare l'uscita delle pedine, spostare la pedina più distante, annullare il turno
+     * Il bot da la priorità a: mettere in base la pedina, uscire con una nuova pedina, creare una doppia più distante, mangiare la pedina più vicina alla vittoria, liberare l'uscita delle pedine, spostare la pedina più distante, annullare il turno
      * @param colore indica il colore della pedina da muovere
      * @param valoreDado indica il valore del dado da considerare
      * @return boolean se true, il movimento è stato fatto senza errori
@@ -316,6 +318,19 @@ public class GameModel{
                 indPos++;
             }  
         }
+
+        //Entrare in base finale
+        for(int i=0; i<4; i++){
+            if(posizione[i]!=-1 && posizione[i]<40){
+                int nuovPos= posizione[i]+valoreDado;
+                if(nuovPos>39)
+                    nuovPos=nuovPos-40;
+                if(nuovPos>=posInizioP && posizione[i]<posInizioP){
+                    if(movimentoDaPlancia(posizione[i], valoreDado, false))
+                        movimentoDaPlancia(posizione[i], valoreDado, true);
+                }
+            }
+        }
         
         //Uscita con una nuova pedina
         if(valoreDado==6 && someoneInBase(colore) && plancia[10*colore].getColore()!=colore && !plancia[10*colore].getDoppio()){
@@ -342,14 +357,53 @@ public class GameModel{
         }
 
         //mangiare la più distante
+        for(int i=0; i<4; i++){
+            if(posizione[i]!=-1 && posizione[i]<40){
+                int nuovPos= posizione[i]+valoreDado;
+                if(nuovPos>39)
+                    nuovPos=nuovPos-40;
+                if(plancia[nuovPos].getColore()!=-1 && plancia[nuovPos].getColore()!=colore){
+                    if(movimentoDaPlancia(posizione[i], valoreDado, false)){
+                        movimentoDaPlancia(posizione[i], valoreDado, true);
+                        return true;
+                    }
+                }
+            }
+        }
 
         //Liberare uscita pedine
+        for(int i=0; i<4; i++){
+            if(posizione[i]==posInizioP){
+                if(movimentoDaPlancia(posizione[i], valoreDado, false)){
+                    movimentoDaPlancia(posizione[i], valoreDado, true);
+                    return true;
+                }
+            }
+        }
 
         //Spostare la più distante
+        for(int i=0; i<4; i++){
+            if(posizione[i]!=-1 && posizione[i]<40){
+                if(movimentoDaPlancia(posizione[i], valoreDado, false)){
+                    movimentoDaPlancia(posizione[i], valoreDado, true);
+                    return true;
+                }
+            }
+        }
+
+        //spostare quelle in base
+        for(int i=0; i<4; i++){
+            if(posizione[i]!=-1 && posizione[i]>=40){
+                if(movimentoDaFinale(posizione[i]-40, colore, valoreDado, false)){
+                    movimentoDaFinale(posizione[i]-40, colore, valoreDado, true);
+                    return true;
+                }
+            }
+        }
 
         //non puoi fare nulla annulla il turno
 
-        return true;
+        return false;
     }
     
     
