@@ -1,59 +1,33 @@
 package it.unibs.eps.ludogame.testnetworking;
 
-import java.net.*; 
-import java.io.*;                                                               
-class ServerThread extends Thread { 
-  ServerSocket server      = null;
-  Socket client            = null;
-  String stringaRicevuta   = null;
-  String stringaModificata = null;
-  BufferedReader   inDalClient; 
-  DataOutputStream outVersoClient;
-   
-  public ServerThread (Socket socket){ 
-    this.client = socket; 
-  } 
-   
-  public void run(){ 
-  try{
-    comunica();  
-  }catch (Exception e){ 
-    e.printStackTrace(System.out);  } 
-  } 
-  
-  public void comunica ()throws Exception{ 
-    inDalClient      = new BufferedReader(new InputStreamReader (client.getInputStream()));
-    outVersoClient   = new DataOutputStream(client.getOutputStream());
-    for (;;){ 
-      stringaRicevuta = inDalClient.readLine();
-      if (stringaRicevuta == null || stringaRicevuta.equals("FINE")){ 
-        outVersoClient.writeBytes(stringaRicevuta+" (=>server in chiusura...)" + '\n'); 
-        System.out.println("Echo sul server in chiusura  :" + stringaRicevuta); 
-        break;
-      }
-      else{
-        outVersoClient.writeBytes(stringaRicevuta+" (ricevuta e ritrasmessa)" + '\n'); 
-        System.out.println("6 Echo sul server :" + stringaRicevuta); 
-      }
-    } 
-    outVersoClient.close(); 
-    inDalClient.close(); 
-    System.out.println("9 Chiusura socket" + client); 
-    client.close(); 
-  } 
-} 
-  
-public class MultiServer{ 
-  public void start(){ 
+import java.net.*;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+//TODO:
+/*
+* Update broadcast array 
+* Gestione turno
+* Generazione random dado
+* Verifica vincita a fine turno e termina connessione --> FATTO
+* */
+public class MultiServer{
+	ServerSocket server;
+	ArrayList<Socket> listaSocket = new ArrayList<>();
+	
+	
+  public void start(int porta){ 
     try{
-      ServerSocket serverSocket = new ServerSocket(6789); 
+    	server = new ServerSocket(porta);
+    	ExecutorService  pool = Executors.newFixedThreadPool(4);
       for (;;) 
       { 
         System.out.println("1 Server in attesa ... "); 
-        Socket socket = serverSocket.accept(); 
-        System.out.println("3 Server socket  " + socket); 
-        ServerThread serverThread = new ServerThread(socket); 
-        serverThread.start(); 
+        Socket socket = server.accept();
+        listaSocket.add(socket);
+        System.out.println("3 Server socket  " + socket);
+        pool.execute(new ServerThread(socket));
+  
       } 
     }
     catch (Exception e){
@@ -65,6 +39,6 @@ public class MultiServer{
 
   public static void main (String[] args){ 
      MultiServer tcpServer = new MultiServer(); 
-     tcpServer.start(); 
+     tcpServer.start(6789); 
    } 
 }

@@ -9,6 +9,7 @@ public class GameModel{
     private Casella base[][];
     private Casella finale[][];
     private Giocatore player[];
+    private int currentPlayerIndex;
     int numGiocatori;
     
     public GameModel (int numGiocatori, Giocatore player[]){
@@ -83,6 +84,10 @@ public class GameModel{
         System.out.println("GameModel: Richiesta controllo vincita con esito negativo");
 
         return -1;
+    }
+    //DEBUG ONLY: ALESSIO
+    public int ControlloVincitaTempDebug() {
+    	return 1;
     }
 
     /** Questo metodo esegue una mangiata sulla plancia
@@ -404,6 +409,11 @@ public class GameModel{
         //non puoi fare nulla annulla il turno
 
         return false;
+    }
+    
+    public Giocatore getCurrentPlayer() {
+    	return currentPlayerIndex < 0 || currentPlayerIndex > player.length  ? null :
+			player[currentPlayerIndex];
     }
     
     
