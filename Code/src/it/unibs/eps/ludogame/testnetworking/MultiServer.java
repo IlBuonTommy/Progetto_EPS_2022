@@ -15,6 +15,10 @@ public class MultiServer{
 	ServerSocket server;
 	ArrayList<Socket> listaSocket = new ArrayList<>();
 	
+	public int generaNumeroDado() {
+		  int dado = (int)(Math.random()*6);
+		  return dado;
+	  }
 	
   public void start(int porta){ 
     try{
