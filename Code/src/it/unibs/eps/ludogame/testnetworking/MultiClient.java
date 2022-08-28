@@ -33,12 +33,12 @@ public class MultiClient {
   public void comunica() {
    for (;;)                                     // ciclo infinito: termina con FINE
     try{
-      System.out.println("4 ... utente, inserisci la stringa da trasmettere al server:");
+    /*  System.out.println("4 ... utente, inserisci la stringa da trasmettere al server:");
       //stringaUtente = Arrays.toString(provaLista);
       stringaUtente = tastiera.readLine();
       //la spedisco al server 
       System.out.println("5 ... invio la stringa al server e attendo ...");
-      outVersoServer.write( stringaUtente+'\n');
+      outVersoServer.write( stringaUtente+'\n');*/
       //leggo la risposta dal server 
       stringaRicevutaDalServer=inDalServer.readLine();
       System.out.println("7 ... risposta dal server "+'\n'+stringaRicevutaDalServer );

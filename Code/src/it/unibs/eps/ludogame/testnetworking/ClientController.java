@@ -20,6 +20,7 @@ public class ClientController extends MultiClient{
 			new Thread().start();
 			outVersoServer = new PrintWriter(client.getOutputStream(), true);
 			sendMsg(this, "Connesso");
+			comunica();
 		} catch(Exception ex) {
 			ex.printStackTrace();
 			return false;

@@ -14,8 +14,7 @@ public class LudoGameApp {
 		GameModel gm = new GameModel(1, listaGiocatori);
 		ClientController c = new ClientController(gm);
 		c.connect("localhost", 6789);
-		
-		c.checkVincita();
+		//c.checkVincita();
 		
 		
 	}
