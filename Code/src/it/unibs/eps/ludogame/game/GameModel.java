@@ -10,7 +10,7 @@ public class GameModel{
     private Casella finale[][];
     private Giocatore player[];
     private int currentPlayerIndex;
-    int numGiocatori;
+    public int numGiocatori;
     
     public GameModel (int numGiocatori, Giocatore player[]){
         //DEBUG ONLY
@@ -18,16 +18,21 @@ public class GameModel{
 
         this.numGiocatori=numGiocatori;
         this.plancia = new Casella[40];
-        this.base = new Casella[numGiocatori][4];
-        this.finale = new Casella[numGiocatori][4];
+        this.base = new Casella[4][4];
+        this.finale = new Casella[4][4];
         this.player = new Giocatore[numGiocatori];
         this.player = player;
+        this.currentPlayerIndex = 0;
         
         for(int i=0; i<numGiocatori; i++){
             for(int j=0; j<4; j++){
                 this.base[i][j].setColore(i);
             }
         }
+    }
+
+    public int getCurrentPlayerIndex() {
+        return this.currentPlayerIndex;
     }
 
     /**
