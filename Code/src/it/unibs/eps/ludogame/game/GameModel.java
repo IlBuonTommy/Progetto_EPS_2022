@@ -25,7 +25,7 @@ public class GameModel{
         
         for(int i=0; i<numGiocatori; i++){
             for(int j=0; j<4; j++){
-         //       this.base[i][j].setColore(i);
+                this.base[i][j].setColore(i);
             }
         }
     }
