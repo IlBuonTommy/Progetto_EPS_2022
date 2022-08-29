@@ -1,5 +1,8 @@
 package it.unibs.eps.ludogame.game;
 
+import java.util.ArrayList;
+
+import it.unibs.eps.ludogame.client.Posizione;
 import it.unibs.eps.ludogame.server.Controllore;
 
 public class GameModel{
@@ -416,11 +419,16 @@ public class GameModel{
         return false;
     }
     
-    public Giocatore getCurrentPlayer() {
-    	return currentPlayerIndex < 0 || currentPlayerIndex > player.length  ? null :
-			player[currentPlayerIndex];
+
+    //DA SVILUPPARE
+    public boolean tastoPremuto(Posizione.NomePosizione pos, int x, int y){
+        if(pos == Posizione.NomePosizione.Base){
+
+        }
+        return true;
     }
-    
+
+    //funzione che ti returna i tasti che si possono premere da parte del client
     
     public void updateServer(Controllore c) {
         //DEBUG ONLY
