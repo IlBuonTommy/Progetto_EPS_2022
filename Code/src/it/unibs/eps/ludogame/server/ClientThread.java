@@ -11,7 +11,7 @@ import it.unibs.eps.ludogame.game.*;
 //singolo giocatore...
 public class ClientThread implements Runnable {
 	private Socket socket;
-	private Controllore controller;
+	public Controllore controller;
 	private ObjectInputStream in;
 	private  ObjectOutputStream out;
 
@@ -29,6 +29,7 @@ public class ClientThread implements Runnable {
 			in = new ObjectInputStream(socket.getInputStream());
 			out = new ObjectOutputStream(socket.getOutputStream());
 			Casella[] base = (Casella[])in.readObject();
+			
 			System.out.println(base.toString());
 		
 			
