@@ -1,11 +1,13 @@
 package it.unibs.eps.ludogame.game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import it.unibs.eps.ludogame.client.Posizione;
 import it.unibs.eps.ludogame.server.Controllore;
 
-public class GameModel{
+public class GameModel implements Serializable{
     //RED(0),BLUE(1),GREEN(2),YELLOW(3),EMPTY(-1)
     //3 array di caselle: plancia[40] base[colore][4] finale[colore][4]
     private Casella plancia[];
@@ -29,7 +31,7 @@ public class GameModel{
         
         for(int i=0; i<numGiocatori; i++){
             for(int j=0; j<4; j++){
-                this.base[i][j].setColore(i);
+             //   this.base[i][j].setColore(i);
             }
         }
     }
@@ -428,9 +430,21 @@ public class GameModel{
         return true;
     }
 
+	@Override
+	public String toString() {
+		return "GameModel [plancia=" + Arrays.toString(plancia) + ", base=" + Arrays.toString(base) + ", finale="
+				+ Arrays.toString(finale) + ", player=" + Arrays.toString(player) + ", currentPlayerIndex="
+				+ currentPlayerIndex + ", numGiocatori=" + numGiocatori + "]";
+	}
+
     //funzione che ti returna i tasti che si possono premere da parte del client
     
-    public void updateServer(Controllore c) {
+    
+    
+    
+    
+    
+  /*  public void updateServer(Controllore c) {
         //DEBUG ONLY
         System.out.println("GameModel: è stato effettuato l'update sul server, classe Controllore");
 
@@ -439,6 +453,6 @@ public class GameModel{
     	c.setNumGiocatori(numGiocatori);
     	c.setPlancia(plancia);
     	c.setPlayer(player);
-    }
+    }*/
 
 }
