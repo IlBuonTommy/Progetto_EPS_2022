@@ -16,9 +16,10 @@ public class Controllore implements Serializable{
 	
 	public void mandaBenvenuto() {
 		// TODO Auto-generated method stub
-		for(int i=0;i<player.length;i++) {
+		System.out.println("CIAO");
+	/*	for(int i=0;i<player.length;i++) {
 			System.out.println("CIAO " + player[i].getUsername());
-		}
+		}*/
 	}
 
 	public Casella[] getPlancia() {
