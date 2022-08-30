@@ -31,11 +31,14 @@ public class GameModel implements Serializable{
         
         for(int i=0; i<numGiocatori; i++){
             for(int j=0; j<4; j++){
-             //   this.base[i][j].setColore(i);
+                this.base[i][j].setColore(i);
             }
         }
     }
 
+    /** 
+     * @return int ritorna il numero del giocatore che sta effettuando il turno
+     */
     public int getCurrentPlayerIndex() {
         return this.currentPlayerIndex;
     }
@@ -95,6 +98,7 @@ public class GameModel implements Serializable{
 
         return -1;
     }
+    
     //DEBUG ONLY: ALESSIO
     public int ControlloVincitaTempDebug() {
     	return 1;
@@ -422,13 +426,50 @@ public class GameModel implements Serializable{
     }
     
 
-    //DA SVILUPPARE
-    public boolean tastoPremuto(Posizione.NomePosizione pos, int x, int y){
+    /** Questa funzione è di collegamento tra il model e il controller, quando l'utente preme un tasto sulla plancia
+     * viene passato la posizione del tasto premuto a questa funzione che controlla se il movimento desiderato dall'utente è 
+     * realizzabile o meno, in caso si possa effettuare lo esegue.
+     * @param pos indica in che punto si trova la pedina sulla plancia
+     * @param x il primo parametro della matrice o l'unico parametro del vettore plancia
+     * @param y il secondo parametro della matrice
+     * @param valoreDado indica il valore del dado del giocatore corrente
+     * @return boolean se true, il movimento è stato fatto senza errori, false il moviemnto non è stato fatto.
+     */
+    public boolean tastoPremuto(Posizione.NomePosizione pos, int x, int y, int valoreDado){
         if(pos == Posizione.NomePosizione.Base){
-
+            if(movimentoDaBase(x, valoreDado, false)){
+                //DEBUG ONLY
+                System.out.println("GameModel: MOSSA ESEGUITA: Tasto premuto in Base dal colore "+PlayerColor.valueOf(x));
+                
+                movimentoDaBase(x, valoreDado, true);
+                return true;
+            }
         }
-        return true;
+        if(pos == Posizione.NomePosizione.Fine){
+            if(movimentoDaFinale(y, x, valoreDado, false)){
+                //DEBUG ONLY
+                System.out.println("GameModel: MOSSA ESEGUITA: Tasto premuto in Finale dal colore "+PlayerColor.valueOf(x)+ " nella posizione "+y);
+
+                movimentoDaFinale(y, x, valoreDado, true);
+                return true;
+            }
+        }
+        if(pos == Posizione.NomePosizione.Board){
+            if(movimentoDaPlancia(x, valoreDado, false)){
+                //DEBUG ONLY
+                System.out.println("GameModel: MOSSA ESEGUITA: Tasto premuto in plancia in posizione "+x);
+
+                movimentoDaPlancia(x, valoreDado, true);
+                return true;
+            }
+        }
+        //DEBUG ONLY
+        System.out.println("GameModel: TASTO PREMUTO CON RETURN FALSE");
+        return false;
     }
+
+    //DA FARE    funzione che ti returna i tasti che si possono premere da parte del client
+
 
 	@Override
 	public String toString() {
@@ -436,13 +477,6 @@ public class GameModel implements Serializable{
 				+ Arrays.toString(finale) + ", player=" + Arrays.toString(player) + ", currentPlayerIndex="
 				+ currentPlayerIndex + ", numGiocatori=" + numGiocatori + "]";
 	}
-
-    //funzione che ti returna i tasti che si possono premere da parte del client
-    
-    
-    
-    
-    
     
   /*  public void updateServer(Controllore c) {
         //DEBUG ONLY
