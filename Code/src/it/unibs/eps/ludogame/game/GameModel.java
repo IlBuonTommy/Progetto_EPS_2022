@@ -10,10 +10,10 @@ import it.unibs.eps.ludogame.server.Controllore;
 public class GameModel implements Serializable{
     //RED(0),BLUE(1),GREEN(2),YELLOW(3),EMPTY(-1)
     //3 array di caselle: plancia[40] base[colore][4] finale[colore][4]
-    private Casella plancia[];
-    private Casella base[][];
-    private Casella finale[][];
-    private Giocatore player[];
+    private Casella[] plancia;
+    private Casella[][] base;
+    private Casella[][] finale;
+    private Giocatore[] player;
     private int currentPlayerIndex;
     public int numGiocatori;
     
@@ -98,7 +98,7 @@ public class GameModel implements Serializable{
 
         return -1;
     }
-    
+
     //DEBUG ONLY: ALESSIO
     public int ControlloVincitaTempDebug() {
     	return 1;
