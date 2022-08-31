@@ -20,77 +20,67 @@ public class ClientGameLudo {
 	private GameModel model = null;
 	private boolean isMyTurn = true;
 	private String posizioneUtente = "ciao";
+
 	public void premutoTasto() {
-		//chiuedere finestra
-		//aprire finestra client
+		// chiuedere finestra
+		// aprire finestra client
 	}
-	
+
 	public void sendUserInput(String posizione) {
 		try {
 			out.writeObject(posizione);
-			//String rispostaOK = (String)in.readObject();
+			// String rispostaOK = (String)in.readObject();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} //catch (ClassNotFoundException e) {
+		} // catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-		//	e.printStackTrace();
-		//}
+			// e.printStackTrace();
+			// }
 	}
-	
+
 	public void sendUpdatedModel(GameModel modelAggiornato) {
-		if(isMyTurn) {
+		if (isMyTurn) {
 			try {
 				System.out.println("Inserisci modifica giocatori:");
 				Scanner console = new Scanner(System.in);
 				int numAggiornato = console.nextInt();
-				if(numAggiornato>10) {
+				if (numAggiornato > 10) {
 					modelAggiornato.numGiocatori = numAggiornato;
 					out.writeObject(modelAggiornato);
 				}
-				
-				//System.out.println(model.toString());
+
+				// System.out.println(model.toString());
 				isMyTurn = false;
 			} catch (IOException e) {
-				System.out.println("eccezione dal client--> spedizione model, dettaglio: "+ e.getMessage());
+				System.out.println("eccezione dal client--> spedizione model, dettaglio: " + e.getMessage());
 
-		}
+			}
 		}
 	}
-	
-	public void connetti(){
+
+	public void connetti() {
 		System.out.println("Client in esecuzione...");
 		try {
-			clientSocket = new Socket("localhost",port);
+			clientSocket = new Socket("localhost", port);
 			out = new ObjectOutputStream(clientSocket.getOutputStream());
 			in = new ObjectInputStream(clientSocket.getInputStream());
-			//out.writeUTF("Alessio");
-			//out.writeObject(nomeGiocatore);
-			model = (GameModel)in.readObject();
-			System.out.println("Model ricevuto:"+ model.toString());
-			//out.writeObject(nomeGiocatore);
-			//System.out.println("Controllo:" + model.ControlloVincitaTempDebug());
-			//out.writeObject(posizioneUtente);
-			while(model.ControlloVincitaTempDebug() == -1) {
-				//System.out.println("imin");
+
+			model = (GameModel) in.readObject();
+			System.out.println("Model ricevuto:" + model.toString());
+
+			while (model.ControlloVincitaTempDebug() == -1) {
+				// System.out.println("imin");
 				sendUserInput(posizioneUtente);
-				
-				
-				
-				/*sendUpdatedModel(model);
-				System.out.println("sono dentro");
-				out.writeObject(model);
-				model = (GameModel)in.readObject();
-				System.out.println(model.toString());*/
-						
+
 			}
-			
-		}catch(IOException ex) {
+
+		} catch (IOException ex) {
 			System.out.println("exc dal client");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 }

@@ -9,14 +9,7 @@ public class LudoGameApp {
 
 	public static void main(String[] args) {
 		//DEBUG ONLY
-	/*	Giocatore gioc = new Giocatore(1,"alessio");
-		Giocatore[] listaGiocatori = {gioc};
 
-		GameModel gm = new GameModel(1, listaGiocatori);
-		ClientController c = new ClientController(gm);
-		c.connect("localhost", 50358);//6789
-		//c.checkVincita();*/
-		
 		ServerGameLudo s = new ServerGameLudo();
 		ClientGameLudo c = new ClientGameLudo();
 		
