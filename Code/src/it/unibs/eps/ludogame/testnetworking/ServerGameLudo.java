@@ -68,8 +68,22 @@ public class ServerGameLudo {
 					
 				}
 			}
-			System.out.println(listaClient.get(0).getNomeGiocatore());	
-			System.out.println(model.toString());
+			//Aggiornamento dei model di tutti in broadcast
+			while(true) {
+				for(ServerThread s : listaClient) {
+					if(!(s.serverModel.equals(model))) {
+						model = s.serverModel;
+						
+					}
+					
+				}
+				for(ServerThread s : listaClient) {
+					s.serverModel = model;
+				}
+				//System.out.println(listaClient.get(0).getNomeGiocatore());	
+				
+			}
+			
 
 		}catch(IOException ex) {
 			System.out.println("eccezione del server--> "+ ex.getMessage());
