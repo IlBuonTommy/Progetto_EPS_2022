@@ -119,7 +119,7 @@ public class GameModel implements Serializable{
 
     //DEBUG ONLY: ALESSIO
     public int ControlloVincitaTempDebug() {
-    	return 1;
+    	return -1;
     }
 
     /** Questo metodo esegue una mangiata sulla plancia

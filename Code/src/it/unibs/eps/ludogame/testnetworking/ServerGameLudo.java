@@ -12,7 +12,7 @@ import it.unibs.eps.ludogame.game.Giocatore;
 public class ServerGameLudo {
 	private ServerSocket serverSocket;
 	private static Integer port = 50358;
-	private int numMaxGiocatori = 3;
+	private int numMaxGiocatori = 2;
 	private String nomeGiocatore = "alessio";
 	private boolean partitaAvviata;
 	private GameModel model = null;
@@ -36,7 +36,7 @@ public class ServerGameLudo {
 		
 		listaGiocatori[0] = new Giocatore(0,"Alessio",false);
 		listaGiocatori[1] = new Giocatore(1,"Paolo",false);
-		listaGiocatori[2] = new Giocatore(2,"Tommy",false);
+	//	listaGiocatori[2] = new Giocatore(2,"Tommy",false);
 		
 	/*	for(int i=0;i<numMaxGiocatori-1;i++) {
 			listaGiocatori[i] = new Giocatore(i,listaClient.get(i).getNomeGiocatore(),false);
@@ -59,7 +59,7 @@ public class ServerGameLudo {
 					ServerThread s = new ServerThread(serverSocket.accept());
 					listaClient.add(s);
 					generateModel();
-					esecutore.execute(s);
+					
 					s.serverModel = model;
 					num++;
 				}else {
@@ -68,20 +68,21 @@ public class ServerGameLudo {
 					
 				}
 			}
+			for(ServerThread s : listaClient) {
+				esecutore.execute(s);
+			}
+			
 			//Aggiornamento dei model di tutti in broadcast
 			while(true) {
 				for(ServerThread s : listaClient) {
-					if(!(s.serverModel.equals(model))) {
+					if(s.isNeedUpdate()) {
 						model = s.serverModel;
 						
 					}
-					
 				}
 				for(ServerThread s : listaClient) {
 					s.serverModel = model;
-				}
-				//System.out.println(listaClient.get(0).getNomeGiocatore());	
-				
+				}		
 			}
 			
 

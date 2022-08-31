@@ -17,11 +17,25 @@ public class ClientGameLudo {
 	private String ipServer;
 	private ObjectOutputStream out = null;
 	private ObjectInputStream in = null;
-	public GameModel model = null;
+	private GameModel model = null;
 	private boolean isMyTurn = true;
+	private String posizioneUtente = "ciao";
 	public void premutoTasto() {
 		//chiuedere finestra
 		//aprire finestra client
+	}
+	
+	public void sendUserInput(String posizione) {
+		try {
+			out.writeObject(posizione);
+			//String rispostaOK = (String)in.readObject();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} //catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+		//	e.printStackTrace();
+		//}
 	}
 	
 	public void sendUpdatedModel(GameModel modelAggiornato) {
@@ -55,12 +69,19 @@ public class ClientGameLudo {
 			model = (GameModel)in.readObject();
 			System.out.println("Model ricevuto:"+ model.toString());
 			//out.writeObject(nomeGiocatore);
-			while(true) {
-				sendUpdatedModel(model);
-				//System.out.println("sono dentro");
+			//System.out.println("Controllo:" + model.ControlloVincitaTempDebug());
+			//out.writeObject(posizioneUtente);
+			while(model.ControlloVincitaTempDebug() == -1) {
+				//System.out.println("imin");
+				sendUserInput(posizioneUtente);
+				
+				
+				
+				/*sendUpdatedModel(model);
+				System.out.println("sono dentro");
 				out.writeObject(model);
 				model = (GameModel)in.readObject();
-				System.out.println(model.toString());
+				System.out.println(model.toString());*/
 						
 			}
 			
