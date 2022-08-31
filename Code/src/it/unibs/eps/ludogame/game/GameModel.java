@@ -43,6 +43,24 @@ public class GameModel implements Serializable{
         return this.currentPlayerIndex;
     }
 
+    /** 
+     * @return bool se il giocatore attuale è un bot ritorna true, false viceversa.
+     */
+    public boolean currentIsBot(){
+        if(player[currentPlayerIndex].getBot())
+            return true;
+        return false;
+    }
+
+    /** 
+     * Incrementa l'index del turno e fa passare il turno al prossimo giocatore.
+     */
+    public void nextTurn(){
+        currentPlayerIndex++;
+        if(currentPlayerIndex>=numGiocatori)
+            currentPlayerIndex=0;
+    }
+
     /**
      * Questo metodo serve per resettare il tabellone alle condizioni iniziali
      * NON I GIOCATORI O IL LORO NUMERO
