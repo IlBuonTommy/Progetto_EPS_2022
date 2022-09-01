@@ -1,11 +1,9 @@
 package it.unibs.eps.ludogame.game;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import it.unibs.eps.ludogame.client.Posizione;
-import it.unibs.eps.ludogame.server.Controllore;
 
 public class GameModel implements Serializable{
     //RED(0),BLUE(1),GREEN(2),YELLOW(3),EMPTY(-1)
@@ -496,7 +494,38 @@ public class GameModel implements Serializable{
         return false;
     }
 
-    //DA FARE    funzione che ti returna i tasti che si possono premere da parte del client
+    /** Questa funzione effettua un return dei tasti che può premere il giocatore del turno corrente
+     * @param valoreDado indica il valore del dado del giocatore corrente
+     * @return Posizione[] un array dei tasti da abilitare sulla plancia
+     */
+    public Posizione[] getTastiAbilitati(int valoreDado){
+        Posizione[] abilitati;
+        abilitati = new Posizione[4];
+        int lungArr=0;
+        for(int i=0; i<4; i++){
+            if(base[currentPlayerIndex][i].getColore()==currentPlayerIndex){
+                if(movimentoDaBase(currentPlayerIndex, valoreDado, false)){
+                    abilitati[lungArr] = new Posizione(Posizione.NomePosizione.Base, currentPlayerIndex, i);
+                    lungArr++;
+                }
+            }
+            if(finale[currentPlayerIndex][i].getColore()==currentPlayerIndex){
+                if(movimentoDaFinale(i, currentPlayerIndex, valoreDado, false)){
+                    abilitati[lungArr] = new Posizione(Posizione.NomePosizione.Fine, currentPlayerIndex, i);
+                    lungArr++;
+                }
+            }
+        }
+        for(int i=0; i<40; i++){
+            if(plancia[i].getColore()==currentPlayerIndex){
+                if(movimentoDaPlancia(i, valoreDado, false)){
+                    abilitati[lungArr] = new Posizione(Posizione.NomePosizione.Board, -1, i);
+                    lungArr++;
+                }
+            }
+        }
+        return abilitati;
+    }
 
 
 	@Override
