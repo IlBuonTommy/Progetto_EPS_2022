@@ -1,4 +1,4 @@
-package it.unibs.eps.ludogame.testnetworking;
+package it.unibs.eps.ludogame.networking;
 
 public class TestClient {
 

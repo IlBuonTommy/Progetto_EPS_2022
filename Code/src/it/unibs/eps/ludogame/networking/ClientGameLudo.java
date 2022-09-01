@@ -1,4 +1,4 @@
-package it.unibs.eps.ludogame.testnetworking;
+package it.unibs.eps.ludogame.networking;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,15 +28,12 @@ public class ClientGameLudo {
 
 	public void sendUserInput(String posizione) {
 		try {
+			
 			out.writeObject(posizione);
-			// String rispostaOK = (String)in.readObject();
+			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} // catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
-			// }
+		}
 	}
 
 	public void sendUpdatedModel(GameModel modelAggiornato) {

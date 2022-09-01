@@ -1,4 +1,4 @@
-package it.unibs.eps.ludogame.testnetworking;
+package it.unibs.eps.ludogame.networking;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -79,12 +79,10 @@ class ServerThread implements Runnable {
 			while (true) {
 				// System.out.println("SONO ENTRATO QUA YEP");
 				Object clientInput = inDalClient.readObject();
-				System.out.println("sono sopra");
+				
 				if (clientInput instanceof String) {
 					userInput = (String) clientInput;
 					updateModel(userInput);
-					// server.wait(500);
-					System.out.println("SONO dentro");
 					outVersoClient.writeObject(serverModel);
 				}
 

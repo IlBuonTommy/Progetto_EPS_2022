@@ -2,8 +2,8 @@ package it.unibs.eps.ludogame.client;
 
 import it.unibs.eps.ludogame.game.GameModel;
 import it.unibs.eps.ludogame.game.Giocatore;
-import it.unibs.eps.ludogame.testnetworking.ClientGameLudo;
-import it.unibs.eps.ludogame.testnetworking.ServerGameLudo;
+import it.unibs.eps.ludogame.networking.ClientGameLudo;
+import it.unibs.eps.ludogame.networking.ServerGameLudo;
 
 public class LudoGameApp {
 
