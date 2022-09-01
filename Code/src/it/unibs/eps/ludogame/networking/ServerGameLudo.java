@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import it.unibs.eps.ludogame.client.Posizione;
 import it.unibs.eps.ludogame.game.GameModel;
 import it.unibs.eps.ludogame.game.Giocatore;
 
@@ -15,6 +16,7 @@ public class ServerGameLudo {
 	private int numMaxGiocatori = 2;
 	private String nomeGiocatore = "alessio";
 	private boolean partitaAvviata;
+	private int valoreDadoS;
 	private GameModel model;
 
 	private ArrayList<ServerThread> listaClient = new ArrayList<>();
@@ -28,6 +30,57 @@ public class ServerGameLudo {
 		start(port);
 
 	}
+
+
+	
+	public void gestioneTurnoIniziale(){
+		//creo il model con i dati dei player che mi hanno passato le view
+		//il model viene inviato a tutti i client
+
+		gestioneTurnoUno();
+	}
+	public void gestioneTurnoUno(){
+		if(model.currentIsBot()){
+			//genero numero random da 1 a 6 e lo salvo su valoreDadoS
+			//faccio fare il movimento al bot
+			//aggiorno il model dei vari client e visualizzo quello nuovo
+			gestioneTurnoQuattro();
+		}else{
+			//abilito il bottone di lancio dado del giocatore corrente
+		}
+	}
+	//questa funzione è richiamata dal tasto lancia dado 
+	public void gestioneTurnoDue(int valoreDado){
+		valoreDadoS = valoreDado;
+		//mando a tutti i client il valore del dado
+		//mando alla view i bottoni che può abilitare QUESTO PASSAGGIO PUò ESSERE FATTO IN AUTONOMIA DAL PROGRAMMA DEL GIOCATORE
+	}
+	//questa funzione viene richiamata dalla pressione del bottone da parte di un giocatore
+	public void gestioneTurnoTre(Posizione tastoPremuto){
+		//modifico il model in base al tasto premuto del giocatore
+		if(!model.tastoPremuto(tastoPremuto.getNomeposizione(),tastoPremuto.getArrayposizione(), tastoPremuto.getColor(), valoreDadoS)){
+			gestioneTurnoDue(valoreDadoS);
+			return;
+		}
+		//disabilito tutti i tasti al giocatore corrente
+		//invio a tutti i giocatori il nuovo model e lo visualizzo
+		gestioneTurnoQuattro();
+	}
+	public void gestioneTurnoQuattro(){
+		if(model.checkWin()!=-1){
+			//il gioco finisce chiudiamo le connessioni e tutti a baita
+			return;
+		}
+		if(valoreDadoS==6){
+			gestioneTurnoUno();
+			return;
+		}
+		model.nextTurn();
+		gestioneTurnoUno();
+	}
+
+
+
 
 	public void generateModel() {
 		Giocatore[] listaGiocatori = new Giocatore[numMaxGiocatori];
