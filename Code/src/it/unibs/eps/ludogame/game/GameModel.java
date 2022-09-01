@@ -28,6 +28,16 @@ public class GameModel implements Serializable{
         this.player = new Giocatore[numGiocatori];
         this.player = player;
         this.currentPlayerIndex = 0;
+
+        for(int i=0; i<4; i++){
+            for(int j=0; j<4; j++){
+                this.base[i][j] = new Casella();
+                this.finale[i][j] = new Casella();
+            }
+        }
+        for(int i=0; i<40; i++){
+            this.plancia[i]=new Casella();
+        }
         
         for(int i=0; i<numGiocatori; i++){
             for(int j=0; j<4; j++){
