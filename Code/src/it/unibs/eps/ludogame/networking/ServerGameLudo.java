@@ -15,7 +15,7 @@ public class ServerGameLudo {
 	private int numMaxGiocatori = 2;
 	private String nomeGiocatore = "alessio";
 	private boolean partitaAvviata;
-	private GameModel model = null;
+	private GameModel model;
 
 	private ArrayList<ServerThread> listaClient = new ArrayList<>();
 
@@ -55,9 +55,8 @@ public class ServerGameLudo {
 				if (num < numMaxGiocatori - 1 && partitaAvviata == false) {
 					ServerThread s = new ServerThread(serverSocket.accept());
 					listaClient.add(s);
-					generateModel();
-
-					s.serverModel = model;
+					//generateModel();
+					//s.serverModel = model;
 					num++;
 				} else {
 					System.out.println("max giocatori raggiunto");
@@ -65,10 +64,12 @@ public class ServerGameLudo {
 
 				}
 			}
+			generateModel();
 			for (ServerThread s : listaClient) {
+				s.serverModel = model;
 				esecutore.execute(s);
 			}
-
+			
 			// Aggiornamento dei model di tutti in broadcast
 			while (true) {
 				for (ServerThread s : listaClient) {

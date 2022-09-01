@@ -31,12 +31,12 @@ public class GameModel implements Serializable{
         
         for(int i=0; i<numGiocatori; i++){
             for(int j=0; j<4; j++){
-        //        this.base[i][j].setColore(i);
+                this.base[i][j].setColore(i);
             }
         }
     }
 
-    /** 
+	/** 
      * @return int ritorna il numero del giocatore che sta effettuando il turno
      */
     public int getCurrentPlayerIndex() {

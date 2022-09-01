@@ -36,25 +36,6 @@ public class ClientGameLudo {
 		}
 	}
 
-	public void sendUpdatedModel(GameModel modelAggiornato) {
-		if (isMyTurn) {
-			try {
-				System.out.println("Inserisci modifica giocatori:");
-				Scanner console = new Scanner(System.in);
-				int numAggiornato = console.nextInt();
-				if (numAggiornato > 10) {
-					modelAggiornato.numGiocatori = numAggiornato;
-					out.writeObject(modelAggiornato);
-				}
-
-				// System.out.println(model.toString());
-				isMyTurn = false;
-			} catch (IOException e) {
-				System.out.println("eccezione dal client--> spedizione model, dettaglio: " + e.getMessage());
-
-			}
-		}
-	}
 
 	public void connetti() {
 		System.out.println("Client in esecuzione...");
@@ -68,7 +49,10 @@ public class ClientGameLudo {
 
 			while (model.ControlloVincitaTempDebug() == -1) {
 				// System.out.println("imin");
-				sendUserInput(posizioneUtente);
+				if(isMyTurn) {
+					sendUserInput(posizioneUtente);
+				}
+				
 
 			}
 
