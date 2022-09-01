@@ -1,4 +1,4 @@
-package src.it.unibs.eps.ludogame.client;
+package it.unibs.eps.ludogame.client;
 import java.util.HashMap;
 
 //import Posizione.NomePosizione;

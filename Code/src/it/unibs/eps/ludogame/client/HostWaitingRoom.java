@@ -1,4 +1,4 @@
-package src.it.unibs.eps.ludogame.client;
+package it.unibs.eps.ludogame.client;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
