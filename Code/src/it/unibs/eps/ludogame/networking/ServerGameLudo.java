@@ -32,7 +32,7 @@ public class ServerGameLudo {
 	}
 
 
-	
+
 	public void gestioneTurnoIniziale(){
 		//creo il model con i dati dei player che mi hanno passato le view
 		//il model viene inviato a tutti i client
@@ -43,6 +43,7 @@ public class ServerGameLudo {
 		if(model.currentIsBot()){
 			//genero numero random da 1 a 6 e lo salvo su valoreDadoS
 			//faccio fare il movimento al bot
+			model.movimentoBOT(model.getCurrentPlayerIndex(), valoreDadoS);
 			//aggiorno il model dei vari client e visualizzo quello nuovo
 			gestioneTurnoQuattro();
 		}else{
