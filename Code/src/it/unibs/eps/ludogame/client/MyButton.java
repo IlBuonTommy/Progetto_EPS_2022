@@ -1,4 +1,4 @@
-package it.unibs.eps.ludogame.client;
+package src.it.unibs.eps.ludogame.client;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -15,11 +15,13 @@ public class MyButton extends JButton {
 	private Posizione posizione;
 	
 	
+	
 	public MyButton (int p) {
 		this.color=-1;
 		this.draw=false;
 		doppio=false;
 		this.posizione=new Posizione(p);
+		
 	}
 	
 	 public void paintComponent(Graphics g) {
@@ -104,5 +106,8 @@ public class MyButton extends JButton {
 		 System.out.println(this.posizione.getNomeposizione()+"   riga   "+this.posizione.getColor()+" colonna "+this.posizione.getArrayposizione());
 		 return this.posizione ;
 	 }
+	 
+	 
+	 
 	 
 }

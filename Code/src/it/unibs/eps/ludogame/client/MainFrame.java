@@ -1,4 +1,4 @@
-package it.unibs.eps.ludogame.client;
+package src.it.unibs.eps.ludogame.client;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,9 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-
-import it.unibs.eps.ludogame.game.Casella;
-
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
@@ -29,6 +26,8 @@ import javax.swing.JLabel;
 public class MainFrame extends JFrame {
 	
 	private JPanel contentPane;
+	private Board board;
+	private SidePanel panel;
 	
 
 	/**
@@ -52,18 +51,21 @@ public class MainFrame extends JFrame {
 	 */
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 450);
-		Board board=new Board();
+		setBounds(300, 100, 800, 700);
+		this.board=new Board();
 		
-		SidePanel panel=new SidePanel();
-		setMinimumSize(new Dimension(600,600));
-		setMaximumSize(new Dimension(700,700));
+		this.panel=new SidePanel();
+		this.setMinimumSize(new Dimension(600,600));
+		this.setMaximumSize(new Dimension(900,800));
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		getContentPane().add(board);
+		board.disableall();
+		
+		
 		getContentPane().add(panel, BorderLayout.EAST);
 		
-	//	board.resetta(new Casella[] {},new Casella[][] {},new Casella[][] {});
+		//board.resetta(new Casella[] {},new Casella[][] {},new Casella[][] {});
 		
 	}
 	
@@ -72,6 +74,30 @@ public class MainFrame extends JFrame {
 		System.out.println(getWidth());
 	}
 	
+	/**
+	 * disabilita tutti i bottoni
+	 */
+	public void disableAllButtons() {
+		this.board.disableall();
+		this.panel.setRollButton(false);
+	}
+	
+	/**
+	 * abilita il lancio del dado
+	 */
+	public void enableRoll() {
+		this.panel.setRollButton(true);
+	}
+	
+	/**
+	 * disabilita lancio del dado e abilita movimenti nella board
+	 * @param posizioni
+	 */
+	public void enableBoardButtons(Posizione[] posizioni) {
+		this.panel.setRollButton(false);
+		
+		this.board.enableButton(posizioni);
+	}
 	
 
 }

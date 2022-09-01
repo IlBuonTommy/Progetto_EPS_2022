@@ -1,5 +1,7 @@
-package it.unibs.eps.ludogame.client;
+package src.it.unibs.eps.ludogame.client;
 import java.util.HashMap;
+
+//import Posizione.NomePosizione;
 
 public class Posizione {
 	
@@ -34,6 +36,12 @@ public class Posizione {
 	public Posizione(int n) {
 		setNomePosizione(n);
 		this.arrayposizione=this.mappaPosizione(n);
+	}
+	
+	public Posizione(Posizione.NomePosizione nomepos,int col, int arraypos) {
+		this.arrayposizione=arraypos;
+		this.nomeposizione=nomepos;
+		this.colore=col;
 	}
 	
 	/**

@@ -1,4 +1,5 @@
-package it.unibs.eps.ludogame.client;
+package src.it.unibs.eps.ludogame.client;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -14,8 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
-import it.unibs.eps.ludogame.game.Casella;
-
 public class Board extends JPanel {
 	
 	private static String blupedina="#0E5DF1";
@@ -30,6 +29,7 @@ public class Board extends JPanel {
 	private MyButton boardButton[]=new MyButton[40];
 	private MyButton baseButton[][]=new MyButton[4][4];
 	private MyButton fineButton[][]=new MyButton[4][4];
+	
 	
 	//RED(0),BLUE(1),GREEN(2),YELLOW(3),EMPTY(-1)
     //3 array di caselle: plancia[40] base[colore][4] finale[colore][4]
@@ -173,8 +173,45 @@ public class Board extends JPanel {
 		 
 	}
 	
-	public void prova() {
-		this.baseButton[0][0].setState(false);
+	/**
+	 * disattivo tutti i bottoni
+	 */
+	public void disableall() {
+		
+		for (int i=0;i<40;i++) {
+			this.boardButton[i].setEnabled(false);
+			
+		}
+		
+		for(int i=0;i<4;i++) {
+			for (int j=0;j<4;j++) {
+				this.baseButton[i][j].setEnabled(false);
+				
+				this.fineButton[i][j].setEnabled(false);
+				
+			}
+		}
+	}
+	
+	/**
+	 * dato un insieme di Posizioni attivo quei bottoni
+	 * @param arrpos
+	 */
+	public void enableButton(Posizione[] arrpos) {
+		for (int i=0;i<arrpos.length;i++) {
+			Posizione.NomePosizione nompos=arrpos[i].getNomeposizione();
+			int color=arrpos[i].getColor();
+			int posizione=arrpos[i].getArrayposizione();
+			if(nompos==Posizione.NomePosizione.Base) {
+				this.baseButton[color][posizione].setEnabled(true);
+			}else {
+				if(nompos==Posizione.NomePosizione.Fine) {
+					this.fineButton[color][posizione].setEnabled(true);
+				}else {
+					this.boardButton[posizione].setEnabled(true);
+				}
+			}
+		}
 	}
 	
 /**
