@@ -9,9 +9,12 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import it.unibs.eps.ludogame.client.Posizione;
+import it.unibs.eps.ludogame.client.Posizione.NomePosizione;
 import it.unibs.eps.ludogame.game.Casella;
 import it.unibs.eps.ludogame.game.GameModel;
 import it.unibs.eps.ludogame.game.Giocatore;
+import it.unibs.eps.ludogame.testnetworking.backup.v2.Pacchetto;
 
 class ServerThread implements Runnable {
 	ServerSocket server = null;
@@ -24,12 +27,13 @@ class ServerThread implements Runnable {
 	private int numGiocatori;
 	private Giocatore player[];
 	private String nomeGiocatore = "";
-	private String userInput;
+	private int valoreDado;
+	private Posizione userInput;
 	private boolean needUpdate;
+	private boolean daEseguire;
 
 	public ServerThread(Socket socket) {
 		this.client = socket;
-		// nomeGiocatore = "alessio";
 
 	}
 
@@ -48,28 +52,58 @@ class ServerThread implements Runnable {
 	public void setNeedUpdate(boolean needUpdate) {
 		this.needUpdate = needUpdate;
 	}
+	
+	
+	
 
-	public void updateModel(String userInput) {
+	public int getValoreDado() {
+		return valoreDado;
+	}
+
+	public void setValoreDado(int valoreDado) {
+		this.valoreDado = valoreDado;
+	}
+	public Posizione getUserInput() {
+		return userInput;
+	}
+
+	public void setUserInput(Posizione userInput) {
+		this.userInput = userInput;
+	}
+
+	public void updateModel(Posizione userInput) {
 		// aggiorno il server model usando il metodo movimento da...
+		serverModel.tastoPremuto(userInput.getNomeposizione(),userInput.getColor() ,userInput.getArrayposizione(),valoreDado);
 		needUpdate = true;
 	}
 
 
-	public void run() {
+	public synchronized void run() {
 		try {
 			System.out.println("Client connesso");
 
 			inDalClient = new ObjectInputStream(client.getInputStream());
 			outVersoClient = new ObjectOutputStream(client.getOutputStream());
+		//	setNomeGiocatore((String)inDalClient.readObject());
 			outVersoClient.writeObject(serverModel);
 			while (true) {
-				Object clientInput = inDalClient.readObject();
 				
-				if (clientInput instanceof String) {
-					userInput = (String) clientInput;
+				Pacchetto pacchettoRicevuto = (Pacchetto)inDalClient.readObject();
+				//Pacchetto pacchettoRicevuto = inDal;
+				switch(pacchettoRicevuto.getType()) {
+					case "posizione":	userInput = (Posizione)pacchettoRicevuto.getMessage();
+										needUpdate=true;
+										//updateModel(userInput);
+										outVersoClient.writeObject(serverModel);break;
+					case "dado":  		outVersoClient.writeObject(valoreDado);break;
+					case "model":		outVersoClient.writeObject(serverModel);
+					default: System.out.println("errore"); 
+				}
+			/*	if (pacchettoRicevuto.getType().equals("posizione")) {
+					userInput = (Posizione)pacchettoRicevuto.getMessage();
 					updateModel(userInput);
 					outVersoClient.writeObject(serverModel);
-				}
+				}*/
 
 			}
 

@@ -530,6 +530,10 @@ public class GameModel implements Serializable{
     }
 
 
+	public Giocatore[] getPlayer() {
+		return player;
+	}
+
 	@Override
 	public String toString() {
 		return "GameModel [plancia=" + Arrays.toString(plancia) + ", base=" + Arrays.toString(base) + ", finale="
