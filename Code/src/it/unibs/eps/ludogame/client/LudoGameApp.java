@@ -13,7 +13,7 @@ public class LudoGameApp {
 		ServerGameLudo s = new ServerGameLudo();
 		ClientGameLudo c = new ClientGameLudo();
 		
-		s.inizializzazione();
+		//s.();
 	//	c.connetti();
 		
 		

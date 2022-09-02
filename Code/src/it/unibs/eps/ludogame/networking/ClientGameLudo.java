@@ -43,7 +43,7 @@ public class ClientGameLudo {
 			clientSocket = new Socket("localhost", port);
 			out = new ObjectOutputStream(clientSocket.getOutputStream());
 			in = new ObjectInputStream(clientSocket.getInputStream());
-
+			
 			model = (GameModel) in.readObject();
 			System.out.println("Model ricevuto:" + model.toString());
 
