@@ -1,67 +1,66 @@
 package it.unibs.eps.ludogame.networking;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.Scanner;
 
+import it.unibs.eps.ludogame.client.Posizione;
 import it.unibs.eps.ludogame.game.GameModel;
 
 public class ClientGameLudo {
-	private Socket clientSocket;
-	private static Integer port = 50358;
-	private String nomeGiocatore = "paolo";
-	private String ipServer;
-	private ObjectOutputStream out = null;
-	private ObjectInputStream in = null;
-	private GameModel model = null;
+	private static final String SERVER_IP = "127.0.0.1";
+	private static final int SERVER_PORT = 50358;
+	private static Socket clientSocket;
+	private static String playerName = "alessio";
+	private static ObjectOutputStream out = null;
+	private static ObjectInputStream in = null;
+	private static GameModel model = null;
 	private boolean isMyTurn = true;
-	private String posizioneUtente = "ciao";
-
-	public void premutoTasto() {
-		// chiuedere finestra
-		// aprire finestra client
-	}
-
-	public void sendUserInput(String posizione) {
+	private Posizione posizioneUtente;
+	
+	public static void inizializza() {
+		Pacchetto p = new Pacchetto("nome",playerName);
 		try {
-			
-			out.writeObject(posizione);
-			
+			out.writeObject(p);
+			playerName = (String)in.readObject();
+			//out.writeObject(p);
+			//model = (GameModel)in.readObject();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-	}
-
-
-	public void connetti() {
-		System.out.println("Client in esecuzione...");
-		try {
-			clientSocket = new Socket("localhost", port);
-			out = new ObjectOutputStream(clientSocket.getOutputStream());
-			in = new ObjectInputStream(clientSocket.getInputStream());
-			
-			model = (GameModel) in.readObject();
-			System.out.println("Model ricevuto:" + model.toString());
-
-			while (model.ControlloVincitaTempDebug() == -1) {
-				// System.out.println("imin");
-				if(isMyTurn) {
-					sendUserInput(posizioneUtente);
-				}
-				
-
-			}
-
-		} catch (IOException ex) {
-			System.out.println("exc dal client");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 	}
+	
+	public static void connect() {
+		System.out.println("[CLIENT]: in esecuzione.");
+		try {
+			clientSocket = new Socket(SERVER_IP,SERVER_PORT);
+			out = new ObjectOutputStream(clientSocket.getOutputStream());
+			in = new ObjectInputStream(clientSocket.getInputStream());
+			model = (GameModel)in.readObject();
+			inizializza();
+			System.out.println(model.toString());
+			System.out.println("Sono il giocatore:" + playerName);
+			while(true) {
+				
+			}
+			
+		}catch (IOException e){
+			System.err.println("Eccezione dal client");
+			System.err.println(e.getMessage());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	public static void main(String[] args) {
+		connect();
+	}
+
 }

@@ -25,10 +25,11 @@ public class ClientHandler implements Runnable{
 	private ObjectInputStream in = null;
 	private ArrayList<ClientHandler> clients;
 	
-	public ClientHandler(Socket clientSocket, ArrayList<ClientHandler> clients,int numMaxGiocatori) throws IOException {
+	public ClientHandler(Socket clientSocket, ArrayList<ClientHandler> clients,GameModel model,String nomeGiocatore) throws IOException {
 		this.client = clientSocket;
 		this.clients = clients;
-		this.numMaxGiocatori = numMaxGiocatori;
+		this.model = model;
+		this.nomeGiocatore = nomeGiocatore;
 		in = new ObjectInputStream(client.getInputStream());
 		out = new ObjectOutputStream(client.getOutputStream());
 		
@@ -73,12 +74,12 @@ public class ClientHandler implements Runnable{
 	public void gestioneTurnoIniziale(){
 		//creo il model con i dati dei player che mi hanno passato le view
 		//il model viene inviato a tutti i client
-		listaGiocatori = new Giocatore[numMaxGiocatori];
+	/*	listaGiocatori = new Giocatore[numMaxGiocatori];
 		for (int i = 0; i < numMaxGiocatori-1; i++) {
 			//System.out.println(clients.get(i).getNomeGiocatore());
 			listaGiocatori[i] = new Giocatore(i, clients.get(i).getNomeGiocatore(), false);
 		}
-		model = new GameModel(numMaxGiocatori,listaGiocatori);
+		model = new GameModel(numMaxGiocatori,listaGiocatori);*/
 		allClientUpdate();
 		//System.out.println(model.toString());
 		//gestioneTurnoUno();
@@ -140,10 +141,11 @@ public class ClientHandler implements Runnable{
 	public void run() {
 		// TODO Auto-generated method stub
 		try {
+			out.writeObject(model);
 			while (true) {
 				Pacchetto pacchettoRicevuto = (Pacchetto)in.readObject();
 				switch(pacchettoRicevuto.getType()) {
-				case "nome": nomeGiocatore = (String)pacchettoRicevuto.getMessage();
+				case "nome": out.writeObject(nomeGiocatore);
 								//System.out.println("[client handler]: nomeGiocatore "+ nomeGiocatore);
 							   gestioneTurnoIniziale();break;
 				default: System.out.println("errore"); 
