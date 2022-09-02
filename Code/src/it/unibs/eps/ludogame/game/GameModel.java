@@ -371,8 +371,10 @@ public class GameModel implements Serializable{
                 if(nuovPos>39)
                     nuovPos=nuovPos-40;
                 if(nuovPos>=posInizioP && posizione[i]<posInizioP){
-                    if(movimentoDaPlancia(posizione[i], valoreDado, false))
+                    if(movimentoDaPlancia(posizione[i], valoreDado, false)){
                         movimentoDaPlancia(posizione[i], valoreDado, true);
+                        return true;
+                    }
                 }
             }
         }
