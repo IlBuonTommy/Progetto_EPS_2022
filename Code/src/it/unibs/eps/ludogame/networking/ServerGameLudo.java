@@ -175,11 +175,7 @@ public class ServerGameLudo {
 					s.serverModel = model;
 				}
 				
-				if(model.checkWin() != -1) {
-					System.out.println("Partita terminata, Complimenti ha vinto il giocatore: "+ model.getPlayer()[model.checkWin()].getUsername());
-					esecutore.shutdownNow();
-					serverSocket.close();
-				}
+
 			}
 
 		} catch (IOException ex) {
