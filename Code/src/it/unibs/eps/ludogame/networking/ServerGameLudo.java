@@ -53,6 +53,7 @@ public class ServerGameLudo {
 	//questa funzione è richiamata dal tasto lancia dado 
 	public void gestioneTurnoDue(int valoreDado){
 		valoreDadoS = valoreDado;
+		System.out.println();
 		//mando a tutti i client il valore del dado
 		//mando alla view i bottoni che può abilitare QUESTO PASSAGGIO PUò ESSERE FATTO IN AUTONOMIA DAL PROGRAMMA DEL GIOCATORE
 	}
