@@ -1,120 +1,131 @@
 package it.unibs.eps.ludogame.client;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
+
+import javax.swing.JTextField;
+import javax.swing.JSlider;
+import java.awt.Label;
+import javax.swing.JButton;
+import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
+import javax.swing.Action;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
-public class HostWaitingRoom extends JFrame {
+public class HostInserimento extends JFrame {
 
 	private JPanel contentPane;
-	private int contaGiocatori=1;
-	private JLabel[] arrJlabel;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					HostWaitingRoom frame = new HostWaitingRoom("Paolo");
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JFrame frame;
+	
+	
+
+	
 
 	/**
 	 * Create the frame.
 	 */
-	public HostWaitingRoom( String nomehost) {
-		setResizable(false);
+	public HostInserimento() {
 		setTitle("Ludo");
+		frame=this;
 		setAlwaysOnTop(true);
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 373);
+		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel labelnomeIP = new JLabel("IP Partita");
-		labelnomeIP.setFont(new Font("MV Boli", Font.PLAIN, 20));
-		labelnomeIP.setBounds(53, 53, 108, 33);
-		contentPane.add(labelnomeIP);
+		JLabel labelnome = new JLabel("Nome Giocatore:");
+		labelnome.setFont(new Font("MV Boli", Font.PLAIN, 20));
+		labelnome.setBounds(26, 53, 178, 33);
+		contentPane.add(labelnome);
+		
+		JTextField textFieldNome = new JTextField();
+		textFieldNome.setFont(new Font("MS Reference Sans Serif", Font.PLAIN, 15));
+		textFieldNome.setBounds(242, 58, 172, 29);
+		contentPane.add(textFieldNome);
+		textFieldNome.setColumns(10);
 		
 		
 		
-		JLabel lblListaGiocatori = new JLabel("Lista Giocatori");
-		lblListaGiocatori.setFont(new Font("MV Boli", Font.PLAIN, 20));
-		lblListaGiocatori.setBounds(53, 113, 154, 33);
-		contentPane.add(lblListaGiocatori);
+		JLabel lblNumeroGiocatori = new JLabel("Numero Giocatori:");
+		lblNumeroGiocatori.setFont(new Font("MV Boli", Font.PLAIN, 20));
+		lblNumeroGiocatori.setBounds(26, 134, 178, 33);
+		contentPane.add(lblNumeroGiocatori);
 		
-		JButton btnNext = new JButton("Avvia");
-		btnNext.setEnabled(false);
+		JSlider sliderngiocatori = new JSlider();
+		sliderngiocatori.setSnapToTicks(true);
+		sliderngiocatori.setFont(new Font("MV Boli", Font.PLAIN, 10));
+		sliderngiocatori.setToolTipText("Numero Giocatori");
+		sliderngiocatori.setMinimum(2);
+		sliderngiocatori.setMaximum(4);
+		sliderngiocatori.setValue(3);
+		sliderngiocatori.setBounds(242, 145, 172, 22);
+		contentPane.add(sliderngiocatori);
+		
+		Label n2 = new Label("2");
+		n2.setFont(new Font("MV Boli", Font.PLAIN, 15));
+		n2.setBounds(242, 161, 19, 29);
+		contentPane.add(n2);
+		
+		Label n3 = new Label("3");
+		n3.setFont(new Font("MV Boli", Font.PLAIN, 15));
+		n3.setBounds(320, 161, 19, 29);
+		contentPane.add(n3);
+		
+		Label n4 = new Label("4");
+		n4.setFont(new Font("MV Boli", Font.PLAIN, 15));
+		n4.setBounds(395, 161, 19, 29);
+		contentPane.add(n4);
+		
+		JButton btnNext = new JButton("Avvia Server");
 		
 		btnNext.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 14));
-		btnNext.setBounds(140, 295, 134, 31);
+		btnNext.setBounds(154, 222, 134, 31);
 		contentPane.add(btnNext);
 		
-		JLabel lblIp = new JLabel("192.168.xyz.xyz");
-		lblIp.setFont(new Font("MV Boli", Font.PLAIN, 20));
-		lblIp.setBounds(206, 53, 177, 33);
-		contentPane.add(lblIp);
+		Icon imageIcon = new ImageIcon("back.png");
 		
-		
-		
-		JLabel lbl0 = new JLabel(nomehost);
-		lbl0.setFont(new Font("MV Boli", Font.PLAIN, 20));
-		lbl0.setBounds(229, 112, 154, 33);
-		contentPane.add(lbl0);
-		
-		JLabel lbl1 = new JLabel("");
-		lbl1.setFont(new Font("MV Boli", Font.PLAIN, 20));
-		lbl1.setBounds(229, 152, 154, 33);
-		contentPane.add(lbl1);
-		
-		JLabel lbl2 = new JLabel("");
-		lbl2.setFont(new Font("MV Boli", Font.PLAIN, 20));
-		lbl2.setBounds(229, 195, 154, 33);
-		contentPane.add(lbl2);
-		
-		JLabel lbl3 = new JLabel("");
-		lbl3.setFont(new Font("MV Boli", Font.PLAIN, 20));
-		lbl3.setBounds(229, 240, 154, 33);
-		contentPane.add(lbl3);
-		
+		JButton btnBack = new JButton(imageIcon);
+		btnBack.setBounds(0, 10, 43, 33);
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					Login login = new Login();
+					login.setLocationRelativeTo(null);
+					login.setVisible(true);
+					frame.dispose();
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		contentPane.add(btnBack);
 		
 		btnNext.addActionListener(new ActionListener() {
     		
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//Controlli su numero eventualmente
-				
-					System.out.println("Avvia");
-				
+				//faccio controlli se inserito e avvio
+				if(!textFieldNome.getText().isEmpty() && !textFieldNome.getText().isBlank())
+				{
+					System.out.println("apposto");
+				}
 				
 			}
 		}
 		);
 	}
-	
-	public void addPlayer(String nome) {
-		if(this.contaGiocatori<4) {
-			this.arrJlabel[this.contaGiocatori].setText(nome);
-			this.contaGiocatori++;
-		}
-		
-	}
-
 }

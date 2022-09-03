@@ -17,7 +17,8 @@ import javax.swing.JButton;
 public class Login extends JFrame {
 
 	private JPanel contentPane;
-	private static Login logframe;
+	
+	private JFrame frame;
 
 	/**
 	 * Launch the application.
@@ -26,8 +27,9 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					logframe = new Login();
-					logframe.setVisible(true);
+					Login frame = new Login();
+					frame.setLocationRelativeTo(null);
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -39,6 +41,9 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		setTitle("Ludo");
+		frame=this;
+		
 		setResizable(false);
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,9 +93,10 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
-					HostInserimento frame = new HostInserimento();
-					frame.setVisible(true);
-					logframe.dispose();
+					HostInserimento framehost = new HostInserimento();
+					framehost.setLocationRelativeTo(null);
+					framehost.setVisible(true);
+					frame.dispose();
 					
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -106,7 +112,10 @@ public class Login extends JFrame {
 		
 		btnClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Client");
+				ClientInserimento frameclient = new ClientInserimento();
+				frameclient.setLocationRelativeTo(null);
+				frameclient.setVisible(true);
+				frame.dispose();
 			}
 		});
 		
@@ -130,4 +139,7 @@ public class Login extends JFrame {
 		lblO.setBounds(244, 20, 31, 39);
 		panel.add(lblO);
 	}
+	
+	
+	
 }
