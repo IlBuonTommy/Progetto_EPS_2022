@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JTextField;
 import javax.swing.JSlider;
 import java.awt.Label;
@@ -16,10 +18,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Action;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 public class HostInserimento extends JFrame {
 
 	private JPanel contentPane;
+	private JFrame frame;
 	
 	
 
@@ -44,6 +49,7 @@ public class HostInserimento extends JFrame {
 	 */
 	public HostInserimento() {
 		setTitle("Ludo");
+		frame=this;
 		setAlwaysOnTop(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,6 +108,26 @@ public class HostInserimento extends JFrame {
 		btnNext.setBounds(154, 222, 134, 31);
 		contentPane.add(btnNext);
 		
+		Icon imageIcon = new ImageIcon("back.png");
+		
+		JButton btnBack = new JButton(imageIcon);
+		btnBack.setBounds(0, 10, 43, 33);
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					Login login = new Login();
+					login.setLocationRelativeTo(null);
+					login.setVisible(true);
+					frame.dispose();
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		contentPane.add(btnBack);
+		
 		btnNext.addActionListener(new ActionListener() {
     		
 			@Override
@@ -116,5 +142,4 @@ public class HostInserimento extends JFrame {
 		}
 		);
 	}
-	
 }

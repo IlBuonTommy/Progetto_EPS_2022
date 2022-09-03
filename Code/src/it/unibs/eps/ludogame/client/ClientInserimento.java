@@ -6,6 +6,8 @@ import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,6 +20,7 @@ public class ClientInserimento extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldIP;
+	private JFrame frame;
 
 	/**
 	 * Launch the application.
@@ -40,6 +43,7 @@ public class ClientInserimento extends JFrame {
 	 */
 	public ClientInserimento() {
 		setTitle("Ludo");
+		frame=this;
 		setAlwaysOnTop(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,6 +76,25 @@ public class ClientInserimento extends JFrame {
 		btnNext.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 14));
 		btnNext.setBounds(154, 222, 134, 31);
 		contentPane.add(btnNext);
+		
+		Icon imageIcon = new ImageIcon("340.png");
+		JButton btnBack = new JButton(imageIcon);
+		btnBack.setBounds(0, 10, 43, 33);
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					Login login = new Login();
+					login.setLocationRelativeTo(null);
+					login.setVisible(true);
+					frame.dispose();
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		contentPane.add(btnBack);
 		
 		textFieldIP = new JTextField();
 		textFieldIP.setFont(new Font("MS Reference Sans Serif", Font.PLAIN, 15));
