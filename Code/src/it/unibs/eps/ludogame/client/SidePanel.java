@@ -1,6 +1,6 @@
 package it.unibs.eps.ludogame.client;
 import java.awt.BorderLayout;
-
+import java.util.Random;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.awt.FlowLayout;
@@ -24,7 +24,7 @@ public class SidePanel extends JPanel {
 	 */
 	public SidePanel() {
 		setLayout(new BorderLayout(0, 0));
-		
+		Random rand=new Random();
 		JPanel toppanel = new JPanel();
 		add(toppanel, BorderLayout.CENTER);
 		toppanel.setLayout(new GridLayout(4,0, 0, 0));
@@ -63,6 +63,9 @@ public class SidePanel extends JPanel {
 		rollButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("LANCIO");
+				int n = rand.nextInt(6)+1;
+				//richiamo metodo a cui serve lancio
+				dadoAnimation(n);
 			}
 		});
 		panel_1.add(rollButton);
@@ -74,6 +77,14 @@ public class SidePanel extends JPanel {
 	
 	public void setRollButton(boolean state) {
 		this.rollButton.setEnabled(state);
+	}
+	
+	/**
+	 * funzione che richiamo sia su client attivo che gli altri per fare vedere numero che esce
+	 * @param n
+	 */
+	public void dadoAnimation(int n) {
+		
 	}
 
 }
