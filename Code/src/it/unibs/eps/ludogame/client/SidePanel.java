@@ -52,7 +52,7 @@ public class SidePanel extends JPanel {
 		add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		Icon diceImage = new ImageIcon("dice2.png");
+		Icon diceImage = new ImageIcon("dice0.png");
 		
 		JLabel lblNewLabel_2 = new JLabel(diceImage);
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
