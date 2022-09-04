@@ -37,7 +37,8 @@ public class MainFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainFrame frame = new MainFrame();
+					//devo inserire lista giocatori per creare 
+					MainFrame frame = new MainFrame(new String[]{"Paoli","Tommasio","SIUM"});
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,12 +50,12 @@ public class MainFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainFrame() {
+	public MainFrame(String[] giocatori) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(300, 100, 800, 700);
 		this.board=new Board();
 		
-		this.panel=new SidePanel();
+		this.panel=new SidePanel(giocatori) ;
 		this.setMinimumSize(new Dimension(600,600));
 		this.setMaximumSize(new Dimension(900,800));
 		getContentPane().setLayout(new BorderLayout(0, 0));
@@ -99,5 +100,13 @@ public class MainFrame extends JFrame {
 		this.board.enableButton(posizioni);
 	}
 	
+	
+	/**
+	 * richiama il metodo di sidePanel
+	 * @param giocatore
+	 */
+	public void setTurno(int giocatore) {
+		this.panel.setTurno(giocatore);
+	}
 
 }

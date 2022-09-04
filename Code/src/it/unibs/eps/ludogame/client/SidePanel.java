@@ -1,6 +1,4 @@
 package it.unibs.eps.ludogame.client;
-import java.awt.BorderLayout;
-import java.util.Random;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.awt.FlowLayout;
@@ -11,6 +9,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.Random;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.Color;
@@ -19,34 +18,27 @@ import javax.swing.JRadioButton;
 public class SidePanel extends JPanel {
 
 	private JButton rollButton;
+	PlayerPanel[] listaPlayerPanel=new PlayerPanel[4];
+	private int nGiocatori;
 	/**
 	 * Create the panel.
 	 */
-	public SidePanel() {
+	public SidePanel(String[] nome) {
+		Random rand = new Random();
 		setLayout(new BorderLayout(0, 0));
-		Random rand=new Random();
+		
 		JPanel toppanel = new JPanel();
 		add(toppanel, BorderLayout.CENTER);
 		toppanel.setLayout(new GridLayout(4,0, 0, 0));
 		
-		PlayerPanel ppanel0=new PlayerPanel(0,"Paolo");
-		toppanel.add(ppanel0);
+		for(int i=0;i<nome.length;i++) {
+			listaPlayerPanel[i]=new PlayerPanel(i,nome[i]);
+			toppanel.add(listaPlayerPanel[i]);
+		}
+		this.nGiocatori=nome.length;
 		
 		
-		
-		PlayerPanel ppanel1=new PlayerPanel(1,"Pippo");
-		toppanel.add(ppanel1);
-		
-		ppanel1.setTurno(true);
-		
-		PlayerPanel ppanel2=new PlayerPanel(2,"Leo");
-		toppanel.add(ppanel2);
-		
-		PlayerPanel ppanel3=new PlayerPanel(3,"Sium");
-		toppanel.add(ppanel3);
-		
-		
-		
+		this.setTurno(-1);
 		
 		
 		
@@ -62,10 +54,12 @@ public class SidePanel extends JPanel {
 		rollButton = new JButton("LANCIA");
 		rollButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("LANCIO");
+				
+				
+
+				
 				int n = rand.nextInt(6)+1;
-				//richiamo metodo a cui serve lancio
-				dadoAnimation(n);
+				//chiamo funzione che prende dado
 			}
 		});
 		panel_1.add(rollButton);
@@ -85,6 +79,14 @@ public class SidePanel extends JPanel {
 	 */
 	public void dadoAnimation(int n) {
 		
+	}
+	
+	
+	public void setTurno(int player) {
+		
+		for(int i=0;i<this.nGiocatori;i++) 
+			listaPlayerPanel[i].setTurno(i==player);
+
 	}
 
 }
