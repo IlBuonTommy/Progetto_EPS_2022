@@ -7,6 +7,9 @@ import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -14,6 +17,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.JRadioButton;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 public class SidePanel extends JPanel {
 
@@ -47,7 +52,9 @@ public class SidePanel extends JPanel {
 		add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel_2 = new JLabel("IMMAGINE DADO");
+		Icon diceImage = new ImageIcon("dice2.png");
+		
+		JLabel lblNewLabel_2 = new JLabel(diceImage);
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_1.add(lblNewLabel_2, BorderLayout.NORTH);
 		
