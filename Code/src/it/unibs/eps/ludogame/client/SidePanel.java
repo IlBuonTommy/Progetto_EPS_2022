@@ -38,7 +38,7 @@ public class SidePanel extends JPanel {
 		this.nGiocatori=nome.length;
 		
 		
-		this.setTurno(-1);
+		
 		
 		
 		
