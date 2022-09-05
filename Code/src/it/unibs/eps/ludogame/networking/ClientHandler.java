@@ -20,7 +20,7 @@ public class ClientHandler implements Runnable{
 	private int numeroDado;
 	private int numMaxGiocatori;
 	private Giocatore[] listaGiocatori;
-	private String nomeGiocatore;
+	private String nomeGiocatore = "alessio";
 	private ObjectOutputStream out = null;
 	private ObjectInputStream in = null;
 	private ArrayList<ClientHandler> clients;
@@ -28,8 +28,8 @@ public class ClientHandler implements Runnable{
 	public ClientHandler(Socket clientSocket, ArrayList<ClientHandler> clients) throws IOException {
 		this.client = clientSocket;
 		this.clients = clients;
-		in = new ObjectInputStream(client.getInputStream());
-		out = new ObjectOutputStream(client.getOutputStream());
+		//in = new ObjectInputStream(client.getInputStream());
+		//out = new ObjectOutputStream(client.getOutputStream());
 		
 	}
 	
@@ -132,8 +132,10 @@ public class ClientHandler implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		try {
-			nomeGiocatore = (String)in.readObject();
+	
+			nomeGiocatore = "alessio";
+			System.out.println("run partito");
+			//nomeGiocatore = (String)in.readObject();
 			
 			//out.writeObject(model);
 			/*while (true) {
@@ -151,33 +153,6 @@ public class ClientHandler implements Runnable{
 			}*/
 			
 			
-			
-			
-			
-			
-			
-		} catch (IOException e) {
-			System.err.println("IO exception in client handler");
-			System.err.println(e.getMessage());
-
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				out.close();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-
-			try {
-				in.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 
 		
 	}

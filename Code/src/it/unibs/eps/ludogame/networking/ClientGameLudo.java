@@ -23,14 +23,6 @@ public class ClientGameLudo {
 	public ClientGameLudo(String serverIp,String playerName) {
 		this.SERVER_IP = serverIp;
 		this.playerName = playerName;
-		try {
-			clientSocket = new Socket(SERVER_IP,SERVER_PORT);
-			this.in  = new ObjectInputStream(clientSocket.getInputStream());
-			this.out = new ObjectOutputStream(clientSocket.getOutputStream());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 	}
 	
@@ -39,9 +31,15 @@ public class ClientGameLudo {
 	
 		//	clientSocket = new Socket(SERVER_IP,SERVER_PORT);
 			System.out.println("primacom");
-			comunica();
-			System.out.println("dopocom");
-			return true;
+			try {
+				clientSocket = new Socket(SERVER_IP,SERVER_PORT);
+				return true;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+
 		
 	}
 	
@@ -80,7 +78,7 @@ public class ClientGameLudo {
 	public void comunica() {
 		try {
 			System.out.println("sono in comunica");
-			
+		
 			/*model = (GameModel)in.readObject();
 			inizializza();
 			System.out.println(model.toString());

@@ -25,51 +25,15 @@ public class ServerGameLudo {
 	private  GameModel modelBase;
 	private  ServerSocket listener;
 	private HostWaitingRoom frameHost;
-
-	public ServerGameLudo(int numGiocatori,HostWaitingRoom frameHost) {
+	private Socket client;
+	public ServerGameLudo(int numGiocatori/*HostWaitingRoom frameHost*/) {
 		this.numMaxGiocatori = numGiocatori;
 		this.listaGiocatori = new Giocatore[numMaxGiocatori];
-		this.frameHost = frameHost;
+		pool = Executors.newFixedThreadPool(numMaxGiocatori);
+		//this.frameHost = frameHost;
 		System.out.println("sono nel server");
 	}
-	
-	private  void createModel() {
-		for(int i=0;i<numMaxGiocatori;i++) {
-			listaGiocatori[i] = new Giocatore(i,PlayerColor.valueOf(i).name(),false);
-		}
-		modelBase = new GameModel(numMaxGiocatori,listaGiocatori);
-		
-	}
-	public boolean acceptConnection() {
-		int playerNumber=0;
-		pool = Executors.newFixedThreadPool(numMaxGiocatori);
-		return false;
-	/*	if (playerNumber < numMaxGiocatori && partitaAvviata == false) {
-			System.out.println("[SERVER]: waiting for client connection");
-			Socket client;
-			try {
-				client = listener.accept();
-				clientThread = new ClientHandler(client,clients);
-				clients.add(clientThread);
-				pool.execute(clientThread);
-				//connectedClients.add(client);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		//	clientThread = new ClientHandler(client,clients,modelBase,modelBase.getPlayer()[playerNumber].getUsername());
-		//	clients.add(clientThread);
-			
-			playerNumber++;
-			return false;
-		}else {
-			System.out.println("Numero massimo di giocatori raggiunto.Inizia la partita");
-			return true;
-			
-		}*/
-	}
-	
+
 	public void start() {
 		int playerNumber = 0;
 		try {
@@ -78,6 +42,7 @@ public class ServerGameLudo {
 			//createModel();
 			int n=0;
 			while(true) {
+				System.out.println("ci sono");
 				if(acceptConnection()) {
 					System.out.println("[SERVER]: new client connected");
 					listaGiocatori[n] = new Giocatore(n,clients.get(clients.size()-1).getNomeGiocatore(),false);
@@ -105,6 +70,38 @@ public class ServerGameLudo {
 		} catch(IOException e) {
 			System.err.println("Exception from the server");
 			System.err.println(e.getMessage());
+		}
+	}
+	
+	public boolean acceptConnection() {
+		int playerNumber=0;
+		
+		if (playerNumber < numMaxGiocatori && partitaAvviata == false) {
+			System.out.println("[SERVER]: waiting for client connection");
+			try {
+				client = listener.accept();
+				System.out.println("accettato");
+				clientThread = new ClientHandler(client,clients);
+				System.out.println("handler");
+				clients.add(clientThread);
+				System.out.println("add");
+				pool.execute(clientThread);
+				System.out.println("arrivato qui");
+				//connectedClients.add(client);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		//	clientThread = new ClientHandler(client,clients,modelBase,modelBase.getPlayer()[playerNumber].getUsername());
+		//	clients.add(clientThread);
+			
+			playerNumber++;
+			return true;
+		}else {
+			System.out.println("Numero massimo di giocatori raggiunto.Inizia la partita");
+			return false;
+			
 		}
 	}
 

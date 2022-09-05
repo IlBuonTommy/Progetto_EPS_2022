@@ -142,12 +142,12 @@ public class HostInserimento extends JFrame {
 				if(!textFieldNome.getText().isEmpty() && !textFieldNome.getText().isBlank())
 				{
 					
-					System.out.println("apposto");
+					System.out.println("actionPerformed inserimento");
 					System.out.println(textFieldNome.getText());
 					System.out.println(sliderngiocatori.getValue());
 					ExecutorService executor = Executors.newFixedThreadPool(2);
 					HostWaitingRoom frameWaiting = new HostWaitingRoom(textFieldNome.getText(),sliderngiocatori.getValue());
-					ServerGameLudo s = new ServerGameLudo(sliderngiocatori.getValue(),frameWaiting);
+					ServerGameLudo s = new ServerGameLudo(sliderngiocatori.getValue());
 					executor.execute(new Runnable() {
 						public void run() {
 							s.start();
