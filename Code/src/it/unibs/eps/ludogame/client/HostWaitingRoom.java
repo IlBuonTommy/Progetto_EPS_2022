@@ -1,4 +1,5 @@
 package it.unibs.eps.ludogame.client;
+//package it.unibs.eps.ludogame.client;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -16,12 +17,18 @@ import javax.swing.border.EmptyBorder;
 
 import it.unibs.eps.ludogame.networking.ServerGameLudo;
 
+import java.awt.Color;
+import javax.swing.ImageIcon;
+
+//import it.unibs.eps.ludogame.networking.ServerGameLudo;
+
 public class HostWaitingRoom extends JFrame {
 
 	private JPanel contentPane;
 	private int contaGiocatori=1;
 	private JLabel[] arrJlabel;
 	private int numGiocatori;
+	private boolean lobbystate=false;
 	/**
 	 * Launch the application.
 	 */
@@ -57,14 +64,14 @@ public class HostWaitingRoom extends JFrame {
 		
 		JLabel labelnomeIP = new JLabel("IP Partita");
 		labelnomeIP.setFont(new Font("MV Boli", Font.PLAIN, 20));
-		labelnomeIP.setBounds(53, 53, 108, 33);
+		labelnomeIP.setBounds(53, 65, 108, 33);
 		contentPane.add(labelnomeIP);
 		
 		
 		
 		JLabel lblListaGiocatori = new JLabel("Lista Giocatori");
 		lblListaGiocatori.setFont(new Font("MV Boli", Font.PLAIN, 20));
-		lblListaGiocatori.setBounds(53, 113, 154, 33);
+		lblListaGiocatori.setBounds(53, 125, 154, 33);
 		contentPane.add(lblListaGiocatori);
 		
 		JButton btnNext = new JButton("Avvia");
@@ -82,14 +89,14 @@ public class HostWaitingRoom extends JFrame {
 		}
 		JLabel lblIp = new JLabel(ip);
 		lblIp.setFont(new Font("MV Boli", Font.PLAIN, 20));
-		lblIp.setBounds(206, 53, 177, 33);
+		lblIp.setBounds(206, 65, 177, 33);
 		contentPane.add(lblIp);
 		
 		
 		
 		JLabel lbl0 = new JLabel(nomehost);
 		lbl0.setFont(new Font("MV Boli", Font.PLAIN, 20));
-		lbl0.setBounds(229, 112, 154, 33);
+		lbl0.setBounds(229, 124, 154, 33);
 		contentPane.add(lbl0);
 		
 		JLabel lbl1 = new JLabel("");
@@ -107,6 +114,48 @@ public class HostWaitingRoom extends JFrame {
 		lbl3.setBounds(229, 240, 154, 33);
 		contentPane.add(lbl3);
 		
+		JLabel lblLobby = new JLabel("Lobby:");
+		lblLobby.setFont(new Font("MV Boli", Font.PLAIN, 20));
+		lblLobby.setBounds(72, 22, 77, 33);
+		contentPane.add(lblLobby);
+		
+		JLabel lblChiusa = new JLabel("Chiusa");
+		lblChiusa.setForeground(Color.RED);
+		lblChiusa.setFont(new Font("MV Boli", Font.PLAIN, 20));
+		lblChiusa.setBounds(159, 22, 77, 33);
+		contentPane.add(lblChiusa);
+		
+		ImageIcon luc=new ImageIcon("lucchetto.png");
+		JButton btnLobby = new JButton(luc);
+		btnLobby.setBounds(248, 25, 39, 33);
+		
+		btnLobby.addActionListener(new ActionListener() {
+		    		
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						//Controlli su numero eventualmente
+							if(!lobbystate) {
+								lblChiusa.setText("Aperta");
+								lblChiusa.setForeground(Color.GREEN);
+								Thread t = new Thread(new Runnable() {
+								public void run() {
+									server.start();
+								}
+							});
+							t.run();
+							}else {
+								lblChiusa.setText("Chiusa");
+								lblChiusa.setForeground(Color.RED);
+							}
+							
+							lobbystate=!lobbystate;
+						
+					}
+				}
+				);
+		
+		contentPane.add(btnLobby);
+		
 		
 		btnNext.addActionListener(new ActionListener() {
     		
@@ -120,12 +169,7 @@ public class HostWaitingRoom extends JFrame {
 			}
 		}
 		);
-		Thread t = new Thread(new Runnable() {
-			public void run() {
-				server.start();
-			}
-		});
-		t.run();
+		
 	}
 	
 	public void addPlayer(String nome) {
@@ -135,5 +179,4 @@ public class HostWaitingRoom extends JFrame {
 		}
 		
 	}
-
 }
