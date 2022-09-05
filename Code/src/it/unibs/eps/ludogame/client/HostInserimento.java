@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import it.unibs.eps.ludogame.networking.ProvaServer;
 import it.unibs.eps.ludogame.networking.ServerGameLudo;
 
 import javax.swing.JLabel;
@@ -147,10 +148,12 @@ public class HostInserimento extends JFrame {
 					System.out.println(sliderngiocatori.getValue());
 					ExecutorService executor = Executors.newFixedThreadPool(2);
 					HostWaitingRoom frameWaiting = new HostWaitingRoom(textFieldNome.getText(),sliderngiocatori.getValue());
-					ServerGameLudo s = new ServerGameLudo(sliderngiocatori.getValue());
+					//ServerGameLudo s = new ServerGameLudo(sliderngiocatori.getValue(),frameWaiting);
+					ProvaServer prova = new ProvaServer(sliderngiocatori.getValue());
 					executor.execute(new Runnable() {
 						public void run() {
-							s.start();
+							//s.avvia();
+							prova.accettaConnessioni();
 						}});
 					
 					executor.execute(new Runnable() {

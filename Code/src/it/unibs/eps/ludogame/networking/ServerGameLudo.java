@@ -26,15 +26,15 @@ public class ServerGameLudo {
 	private  ServerSocket listener;
 	private HostWaitingRoom frameHost;
 	private Socket client;
-	public ServerGameLudo(int numGiocatori/*HostWaitingRoom frameHost*/) {
+	public ServerGameLudo(int numGiocatori,HostWaitingRoom frameHost) {
 		this.numMaxGiocatori = numGiocatori;
 		this.listaGiocatori = new Giocatore[numMaxGiocatori];
 		pool = Executors.newFixedThreadPool(numMaxGiocatori);
-		//this.frameHost = frameHost;
+		this.frameHost = frameHost;
 		System.out.println("sono nel server");
 	}
 
-	public void start() {
+	public void avvia() {
 		int playerNumber = 0;
 		try {
 			listener = new ServerSocket(PORT);
