@@ -113,7 +113,9 @@ public class ClientInserimento extends JFrame {
 				if(!textFieldNome.getText().isEmpty() && !textFieldNome.getText().isBlank()) {
 					System.out.println("apposto");
 					ClientGameLudo client = new ClientGameLudo(textFieldIP.getText(),textFieldNome.getText());
+					System.out.println("fuori");
 					if(client.checkConnection()) {
+						System.out.println("dentro");
 						ClientWaitingRoom clientframe=new ClientWaitingRoom();
 	                    frame.dispose();
 	                    clientframe.setVisible(true);

@@ -136,7 +136,7 @@ public class ClientHandler implements Runnable{
 			nomeGiocatore = (String)in.readObject();
 			
 			//out.writeObject(model);
-			while (true) {
+			/*while (true) {
 				Pacchetto pacchettoRicevuto = (Pacchetto)in.readObject();
 				switch(pacchettoRicevuto.getType()) {
 				case "nome": out.writeObject(nomeGiocatore);
@@ -148,7 +148,7 @@ public class ClientHandler implements Runnable{
 			}
 				
 				//out.writeObject(model);
-			}
+			}*/
 			
 			
 			

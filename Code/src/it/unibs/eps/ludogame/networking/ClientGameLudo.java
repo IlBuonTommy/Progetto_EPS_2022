@@ -9,12 +9,12 @@ import it.unibs.eps.ludogame.client.Posizione;
 import it.unibs.eps.ludogame.game.GameModel;
 
 public class ClientGameLudo {
-	private  String SERVER_IP = "127.0.0.1";
+	private  String SERVER_IP;
 	private static final int SERVER_PORT = 50358;
 	private  Socket clientSocket;
 	private  String playerName;
-	private  ObjectOutputStream out = null;
-	private  ObjectInputStream in = null;
+	private  ObjectOutputStream out;
+	private  ObjectInputStream in;
 	private  GameModel model = null;
 	private boolean isMyTurn = true;
 	private Posizione posizioneUtente;
@@ -23,19 +23,26 @@ public class ClientGameLudo {
 	public ClientGameLudo(String serverIp,String playerName) {
 		this.SERVER_IP = serverIp;
 		this.playerName = playerName;
+		try {
+			clientSocket = new Socket(SERVER_IP,SERVER_PORT);
+			this.in  = new ObjectInputStream(clientSocket.getInputStream());
+			this.out = new ObjectOutputStream(clientSocket.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public boolean checkConnection() {
 		System.out.println("[CLIENT]: in esecuzione.");
-		try {
-			clientSocket = new Socket(SERVER_IP,SERVER_PORT);
+	
+		//	clientSocket = new Socket(SERVER_IP,SERVER_PORT);
+			System.out.println("primacom");
 			comunica();
+			System.out.println("dopocom");
 			return true;
-		}catch(IOException ex) {
-			System.err.println("Eccezione dal client");
-			System.err.println(ex.getMessage());
-			return false;
-		}
+		
 	}
 	
 	public  void inizializza() {
@@ -72,20 +79,15 @@ public class ClientGameLudo {
 	}
 	public void comunica() {
 		try {
-			clientSocket = new Socket(SERVER_IP,SERVER_PORT);
-			out = new ObjectOutputStream(clientSocket.getOutputStream());
-			in = new ObjectInputStream(clientSocket.getInputStream());
+			System.out.println("sono in comunica");
+			
 			/*model = (GameModel)in.readObject();
 			inizializza();
 			System.out.println(model.toString());
 			System.out.println("Sono il giocatore:" + playerName);*/
+			System.out.println("prima di invio");
 			out.writeObject(playerName);
-			while(true) {
-				//svolgimento del gioco
-				
-				
-			}
-			
+			System.out.println("dopo di invio");
 		}catch (IOException e){
 			System.err.println("Eccezione dal client");
 			System.err.println(e.getMessage());

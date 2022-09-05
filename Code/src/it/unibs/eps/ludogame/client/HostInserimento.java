@@ -19,6 +19,8 @@ import javax.swing.JButton;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.swing.Action;
 import javax.swing.Icon;
@@ -143,13 +145,23 @@ public class HostInserimento extends JFrame {
 					System.out.println("apposto");
 					System.out.println(textFieldNome.getText());
 					System.out.println(sliderngiocatori.getValue());
-					ServerGameLudo s = new ServerGameLudo(sliderngiocatori.getValue());
-					HostWaitingRoom frameWaiting = new HostWaitingRoom(textFieldNome.getText(),sliderngiocatori.getValue(),s);
+					ExecutorService executor = Executors.newFixedThreadPool(2);
+					HostWaitingRoom frameWaiting = new HostWaitingRoom(textFieldNome.getText(),sliderngiocatori.getValue());
+					ServerGameLudo s = new ServerGameLudo(sliderngiocatori.getValue(),frameWaiting);
+					executor.execute(new Runnable() {
+						public void run() {
+							s.start();
+						}});
 					
-					frame.dispose();
-					frameWaiting.setVisible(true);
-					frameWaiting.setLocationRelativeTo(null);
-					System.out.println("finito questo");
+					executor.execute(new Runnable() {
+						public void run() {
+							
+							frame.dispose();
+							frameWaiting.setVisible(true);
+							frameWaiting.setLocationRelativeTo(null);
+							System.out.println("finito questo");
+						}});
+					
 
 				}
 				

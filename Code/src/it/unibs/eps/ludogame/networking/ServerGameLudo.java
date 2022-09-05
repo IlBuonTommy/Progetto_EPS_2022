@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import it.unibs.eps.ludogame.client.HostWaitingRoom;
 import it.unibs.eps.ludogame.game.GameModel;
 import it.unibs.eps.ludogame.game.Giocatore;
 import it.unibs.eps.ludogame.game.PlayerColor;
@@ -23,10 +24,12 @@ public class ServerGameLudo {
 	private  Giocatore[] listaGiocatori;
 	private  GameModel modelBase;
 	private  ServerSocket listener;
+	private HostWaitingRoom frameHost;
 
-	public ServerGameLudo(int numGiocatori) {
+	public ServerGameLudo(int numGiocatori,HostWaitingRoom frameHost) {
 		this.numMaxGiocatori = numGiocatori;
 		this.listaGiocatori = new Giocatore[numMaxGiocatori];
+		this.frameHost = frameHost;
 		System.out.println("sono nel server");
 	}
 	
@@ -75,18 +78,18 @@ public class ServerGameLudo {
 			//createModel();
 			int n=0;
 			while(true) {
-				System.out.println("hinj");
 				if(acceptConnection()) {
 					System.out.println("[SERVER]: new client connected");
 					listaGiocatori[n] = new Giocatore(n,clients.get(clients.size()-1).getNomeGiocatore(),false);
 					System.out.println(listaGiocatori[n].getUsername());
+					frameHost.addPlayer(listaGiocatori[n].getUsername());
 					n++;
 				}else {
 					if(n == numMaxGiocatori) {
 						break;
 					}else {
 						for(int i=n;i<(numMaxGiocatori);i++) {
-							listaGiocatori[i] = new Giocatore(i,listaBot[numMaxGiocatori-i],true);
+						//	listaGiocatori[i] = new Giocatore(i,listaBot[numMaxGiocatori-i],true);
 							
 						}
 					}

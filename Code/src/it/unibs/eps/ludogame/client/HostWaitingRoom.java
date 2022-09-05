@@ -29,6 +29,7 @@ public class HostWaitingRoom extends JFrame {
 	private JLabel[] arrJlabel;
 	private int numGiocatori;
 	private boolean lobbystate=false;
+	private JFrame frame;
 	/**
 	 * Launch the application.
 	 */
@@ -49,8 +50,9 @@ public class HostWaitingRoom extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public HostWaitingRoom( String nomehost,int numGiocatori,ServerGameLudo server) {
+	public HostWaitingRoom( String nomehost,int numGiocatori) {
 		this.numGiocatori = numGiocatori;
+		this.frame = this;
 		System.out.println("cipolla");
 		setResizable(false);
 		setTitle("Ludo");
@@ -114,47 +116,8 @@ public class HostWaitingRoom extends JFrame {
 		lbl3.setBounds(229, 240, 154, 33);
 		contentPane.add(lbl3);
 		
-		JLabel lblLobby = new JLabel("Lobby:");
-		lblLobby.setFont(new Font("MV Boli", Font.PLAIN, 20));
-		lblLobby.setBounds(72, 22, 77, 33);
-		contentPane.add(lblLobby);
+
 		
-		JLabel lblChiusa = new JLabel("Chiusa");
-		lblChiusa.setForeground(Color.RED);
-		lblChiusa.setFont(new Font("MV Boli", Font.PLAIN, 20));
-		lblChiusa.setBounds(159, 22, 77, 33);
-		contentPane.add(lblChiusa);
-		
-		ImageIcon luc=new ImageIcon("lucchetto.png");
-		JButton btnLobby = new JButton(luc);
-		btnLobby.setBounds(248, 25, 39, 33);
-		
-		btnLobby.addActionListener(new ActionListener() {
-		    		
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						//Controlli su numero eventualmente
-							if(!lobbystate) {
-								lblChiusa.setText("Aperta");
-								lblChiusa.setForeground(Color.GREEN);
-								Thread t = new Thread(new Runnable() {
-								public void run() {
-									server.start();
-								}
-							});
-							t.run();
-							}else {
-								lblChiusa.setText("Chiusa");
-								lblChiusa.setForeground(Color.RED);
-							}
-							
-							lobbystate=!lobbystate;
-						
-					}
-				}
-				);
-		
-		contentPane.add(btnLobby);
 		
 		
 		btnNext.addActionListener(new ActionListener() {
@@ -177,6 +140,6 @@ public class HostWaitingRoom extends JFrame {
 			this.arrJlabel[this.contaGiocatori].setText(nome);
 			this.contaGiocatori++;
 		}
-		
+		contentPane.repaint();
 	}
 }
