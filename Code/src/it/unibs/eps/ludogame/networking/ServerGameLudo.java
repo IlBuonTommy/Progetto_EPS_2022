@@ -37,19 +37,22 @@ public class ServerGameLudo {
 			createModel();
 			while(true) {
 				
-				if (playerNumber < numMaxGiocatori - 1 && partitaAvviata == false) {
+				if (playerNumber < numMaxGiocatori && partitaAvviata == false) {
 					System.out.println("[SERVER]: waiting for client connection");
 					Socket client = listener.accept();
 					System.out.println("[SERVER]: new client connected");
 					clientThread = new ClientHandler(client,clients,modelBase,modelBase.getPlayer()[playerNumber].getUsername());
 					clients.add(clientThread);
-					pool.execute(clientThread);
+					
 					playerNumber++;
 				}else {
 					System.out.println("Numero massimo di giocatori raggiunto.Inizia la partita");
 					break;
 					
 				}
+			}
+			for(ClientHandler c : clients) {
+				pool.execute(c);
 			}
 
 		} catch(IOException e) {

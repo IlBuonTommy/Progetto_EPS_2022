@@ -15,6 +15,8 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JRadioButton;
 import javax.swing.Icon;

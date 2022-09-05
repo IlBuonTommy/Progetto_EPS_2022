@@ -12,12 +12,13 @@ public class ClientGameLudo {
 	private static final String SERVER_IP = "127.0.0.1";
 	private static final int SERVER_PORT = 50358;
 	private static Socket clientSocket;
-	private static String playerName = "alessio";
+	private static String playerName;
 	private static ObjectOutputStream out = null;
 	private static ObjectInputStream in = null;
 	private static GameModel model = null;
 	private boolean isMyTurn = true;
 	private Posizione posizioneUtente;
+	private static int valoreDado;
 	
 	public static void inizializza() {
 		Pacchetto p = new Pacchetto("nome",playerName);
@@ -35,7 +36,22 @@ public class ClientGameLudo {
 		}
 		
 	}
-	
+	public static void richiediDado()
+	{
+		try {
+			out.writeObject(new Pacchetto("dado",null));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			valoreDado = (int)in.readObject();
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(valoreDado);
+	}
 	public static void connect() {
 		System.out.println("[CLIENT]: in esecuzione.");
 		try {
@@ -47,6 +63,8 @@ public class ClientGameLudo {
 			System.out.println(model.toString());
 			System.out.println("Sono il giocatore:" + playerName);
 			while(true) {
+				//svolgimento del gioco
+				
 				
 			}
 			

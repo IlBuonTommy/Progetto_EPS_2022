@@ -74,12 +74,6 @@ public class ClientHandler implements Runnable{
 	public void gestioneTurnoIniziale(){
 		//creo il model con i dati dei player che mi hanno passato le view
 		//il model viene inviato a tutti i client
-	/*	listaGiocatori = new Giocatore[numMaxGiocatori];
-		for (int i = 0; i < numMaxGiocatori-1; i++) {
-			//System.out.println(clients.get(i).getNomeGiocatore());
-			listaGiocatori[i] = new Giocatore(i, clients.get(i).getNomeGiocatore(), false);
-		}
-		model = new GameModel(numMaxGiocatori,listaGiocatori);*/
 		allClientUpdate();
 		//System.out.println(model.toString());
 		//gestioneTurnoUno();
@@ -148,10 +142,12 @@ public class ClientHandler implements Runnable{
 				case "nome": out.writeObject(nomeGiocatore);
 								//System.out.println("[client handler]: nomeGiocatore "+ nomeGiocatore);
 							   gestioneTurnoIniziale();break;
+				case "dado":    out.writeObject(5);
+								diceToAll(5);break;			   
 				default: System.out.println("errore"); 
 			}
 				
-				out.writeObject(model);
+				//out.writeObject(model);
 			}
 			
 			
