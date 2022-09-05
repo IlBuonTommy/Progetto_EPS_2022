@@ -11,10 +11,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import it.unibs.eps.ludogame.networking.ClientGameLudo;
 
 public class ClientInserimento extends JFrame {
 
@@ -77,7 +80,7 @@ public class ClientInserimento extends JFrame {
 		btnNext.setBounds(154, 222, 134, 31);
 		contentPane.add(btnNext);
 		
-		Icon imageIcon = new ImageIcon("340.png");
+		Icon imageIcon = new ImageIcon("back.png");
 		JButton btnBack = new JButton(imageIcon);
 		btnBack.setBounds(0, 10, 43, 33);
 		btnBack.addActionListener(new ActionListener() {
@@ -107,8 +110,28 @@ public class ClientInserimento extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//Controlli su ip e se connette
-				if(!textFieldNome.getText().isEmpty() && !textFieldNome.getText().isBlank())
+				if(!textFieldNome.getText().isEmpty() && !textFieldNome.getText().isBlank()) {
 					System.out.println("apposto");
+					ClientGameLudo client = new ClientGameLudo(textFieldIP.getText(),textFieldNome.getText());
+					if(client.checkConnection()) {
+						ClientWaitingRoom clientframe=new ClientWaitingRoom();
+	                    frame.dispose();
+	                    clientframe.setVisible(true);
+	                    clientframe.setLocationRelativeTo(null);
+					}else {
+						
+						JOptionPane.showMessageDialog(frame,
+							    "Errore inserimento IP",
+							    "Connection Error",
+							    JOptionPane.ERROR_MESSAGE);
+					}
+				} else {
+					JOptionPane.showMessageDialog(frame,
+						    "I campi non possono essere vuoti",
+						    "Error",
+						    JOptionPane.ERROR_MESSAGE);
+				}
+					
 				
 				
 			}

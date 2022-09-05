@@ -9,18 +9,36 @@ import it.unibs.eps.ludogame.client.Posizione;
 import it.unibs.eps.ludogame.game.GameModel;
 
 public class ClientGameLudo {
-	private static final String SERVER_IP = "127.0.0.1";
+	private  String SERVER_IP = "127.0.0.1";
 	private static final int SERVER_PORT = 50358;
-	private static Socket clientSocket;
-	private static String playerName;
-	private static ObjectOutputStream out = null;
-	private static ObjectInputStream in = null;
-	private static GameModel model = null;
+	private  Socket clientSocket;
+	private  String playerName;
+	private  ObjectOutputStream out = null;
+	private  ObjectInputStream in = null;
+	private  GameModel model = null;
 	private boolean isMyTurn = true;
 	private Posizione posizioneUtente;
-	private static int valoreDado;
+	private  int valoreDado;
 	
-	public static void inizializza() {
+	public ClientGameLudo(String serverIp,String playerName) {
+		this.SERVER_IP = serverIp;
+		this.playerName = playerName;
+	}
+	
+	public boolean checkConnection() {
+		System.out.println("[CLIENT]: in esecuzione.");
+		try {
+			clientSocket = new Socket(SERVER_IP,SERVER_PORT);
+			comunica();
+			return true;
+		}catch(IOException ex) {
+			System.err.println("Eccezione dal client");
+			System.err.println(ex.getMessage());
+			return false;
+		}
+	}
+	
+	public  void inizializza() {
 		Pacchetto p = new Pacchetto("nome",playerName);
 		try {
 			out.writeObject(p);
@@ -36,7 +54,7 @@ public class ClientGameLudo {
 		}
 		
 	}
-	public static void richiediDado()
+	public  void richiediDado()
 	{
 		try {
 			out.writeObject(new Pacchetto("dado",null));
@@ -52,16 +70,16 @@ public class ClientGameLudo {
 		}
 		System.out.println(valoreDado);
 	}
-	public static void connect() {
-		System.out.println("[CLIENT]: in esecuzione.");
+	public void comunica() {
 		try {
 			clientSocket = new Socket(SERVER_IP,SERVER_PORT);
 			out = new ObjectOutputStream(clientSocket.getOutputStream());
 			in = new ObjectInputStream(clientSocket.getInputStream());
-			model = (GameModel)in.readObject();
+			/*model = (GameModel)in.readObject();
 			inizializza();
 			System.out.println(model.toString());
-			System.out.println("Sono il giocatore:" + playerName);
+			System.out.println("Sono il giocatore:" + playerName);*/
+			out.writeObject(playerName);
 			while(true) {
 				//svolgimento del gioco
 				
@@ -71,14 +89,14 @@ public class ClientGameLudo {
 		}catch (IOException e){
 			System.err.println("Eccezione dal client");
 			System.err.println(e.getMessage());
-		} catch (ClassNotFoundException e) {
+		} /*catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		connect();
-	}
+	}*/
 
 }

@@ -25,11 +25,9 @@ public class ClientHandler implements Runnable{
 	private ObjectInputStream in = null;
 	private ArrayList<ClientHandler> clients;
 	
-	public ClientHandler(Socket clientSocket, ArrayList<ClientHandler> clients,GameModel model,String nomeGiocatore) throws IOException {
+	public ClientHandler(Socket clientSocket, ArrayList<ClientHandler> clients) throws IOException {
 		this.client = clientSocket;
 		this.clients = clients;
-		this.model = model;
-		this.nomeGiocatore = nomeGiocatore;
 		in = new ObjectInputStream(client.getInputStream());
 		out = new ObjectOutputStream(client.getOutputStream());
 		
@@ -135,7 +133,9 @@ public class ClientHandler implements Runnable{
 	public void run() {
 		// TODO Auto-generated method stub
 		try {
-			out.writeObject(model);
+			nomeGiocatore = (String)in.readObject();
+			
+			//out.writeObject(model);
 			while (true) {
 				Pacchetto pacchettoRicevuto = (Pacchetto)in.readObject();
 				switch(pacchettoRicevuto.getType()) {

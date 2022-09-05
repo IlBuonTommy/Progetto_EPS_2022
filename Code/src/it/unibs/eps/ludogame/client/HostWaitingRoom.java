@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,32 +14,37 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import it.unibs.eps.ludogame.networking.ServerGameLudo;
+
 public class HostWaitingRoom extends JFrame {
 
 	private JPanel contentPane;
 	private int contaGiocatori=1;
 	private JLabel[] arrJlabel;
+	private int numGiocatori;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HostWaitingRoom frame = new HostWaitingRoom("Paolo");
+					HostWaitingRoom frame = new HostWaitingRoom("Paolo",numGiocatori);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
-	public HostWaitingRoom( String nomehost) {
+	public HostWaitingRoom( String nomehost,int numGiocatori,ServerGameLudo server) {
+		this.numGiocatori = numGiocatori;
+		System.out.println("cipolla");
 		setResizable(false);
 		setTitle("Ludo");
 		setAlwaysOnTop(true);
@@ -66,8 +73,14 @@ public class HostWaitingRoom extends JFrame {
 		btnNext.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 14));
 		btnNext.setBounds(140, 295, 134, 31);
 		contentPane.add(btnNext);
-		
-		JLabel lblIp = new JLabel("192.168.xyz.xyz");
+		String ip = "";
+		try {
+			 ip = InetAddress.getLocalHost().getHostAddress().toString();
+		} catch (UnknownHostException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		JLabel lblIp = new JLabel(ip);
 		lblIp.setFont(new Font("MV Boli", Font.PLAIN, 20));
 		lblIp.setBounds(206, 53, 177, 33);
 		contentPane.add(lblIp);
@@ -107,10 +120,16 @@ public class HostWaitingRoom extends JFrame {
 			}
 		}
 		);
+		Thread t = new Thread(new Runnable() {
+			public void run() {
+				server.start();
+			}
+		});
+		t.run();
 	}
 	
 	public void addPlayer(String nome) {
-		if(this.contaGiocatori<4) {
+		if(this.contaGiocatori<numGiocatori) {
 			this.arrJlabel[this.contaGiocatori].setText(nome);
 			this.contaGiocatori++;
 		}

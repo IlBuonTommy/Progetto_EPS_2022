@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import it.unibs.eps.ludogame.networking.ServerGameLudo;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
@@ -43,11 +46,12 @@ public class HostInserimento extends JFrame {
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the frame.
 	 */
 	public HostInserimento() {
+		
 		setTitle("Ludo");
 		frame=this;
 		setAlwaysOnTop(true);
@@ -135,7 +139,18 @@ public class HostInserimento extends JFrame {
 				//faccio controlli se inserito e avvio
 				if(!textFieldNome.getText().isEmpty() && !textFieldNome.getText().isBlank())
 				{
+					
 					System.out.println("apposto");
+					System.out.println(textFieldNome.getText());
+					System.out.println(sliderngiocatori.getValue());
+					ServerGameLudo s = new ServerGameLudo(sliderngiocatori.getValue());
+					HostWaitingRoom frameWaiting = new HostWaitingRoom(textFieldNome.getText(),sliderngiocatori.getValue(),s);
+					
+					frame.dispose();
+					frameWaiting.setVisible(true);
+					frameWaiting.setLocationRelativeTo(null);
+					System.out.println("finito questo");
+
 				}
 				
 			}
