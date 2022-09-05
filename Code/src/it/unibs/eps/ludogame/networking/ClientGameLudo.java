@@ -23,6 +23,8 @@ public class ClientGameLudo {
 	public ClientGameLudo(String serverIp,String playerName) {
 		this.SERVER_IP = serverIp;
 		this.playerName = playerName;
+
+		
 		
 	}
 	
@@ -33,6 +35,7 @@ public class ClientGameLudo {
 			System.out.println("primacom");
 			try {
 				clientSocket = new Socket(SERVER_IP,SERVER_PORT);
+				
 				return true;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

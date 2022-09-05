@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import it.unibs.eps.ludogame.networking.ClientGameLudo;
+import it.unibs.eps.ludogame.networking.Prova;
 
 public class ClientInserimento extends JFrame {
 
@@ -112,7 +113,9 @@ public class ClientInserimento extends JFrame {
 				//Controlli su ip e se connette
 				if(!textFieldNome.getText().isEmpty() && !textFieldNome.getText().isBlank()) {
 					System.out.println("apposto");
-					ClientGameLudo client = new ClientGameLudo(textFieldIP.getText(),textFieldNome.getText());
+					//ClientGameLudo client = new ClientGameLudo(textFieldIP.getText(),textFieldNome.getText());
+					Prova client = new Prova(textFieldIP.getText(),textFieldNome.getText());
+					
 					System.out.println("fuori");
 					if(client.checkConnection()) {
 						System.out.println("dentro");
