@@ -14,8 +14,8 @@ import it.unibs.eps.ludogame.game.PlayerColor;
 public class ServerGameLudo {
 	private static final int PORT = 50358;
 	private static ArrayList<ClientHandler> clients = new ArrayList<>();
-	private static ExecutorService pool = Executors.newFixedThreadPool(3);
 	private static int numMaxGiocatori = 3;
+	private static ExecutorService pool = Executors.newFixedThreadPool(numMaxGiocatori);
 	private static boolean partitaAvviata;
 	private static ClientHandler clientThread;
 	private static Giocatore[] listaGiocatori = new Giocatore[numMaxGiocatori];
