@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import it.unibs.eps.ludogame.networking.ProvaClient;
+import it.unibs.eps.ludogame.networking.ProvaServer;
 import it.unibs.eps.ludogame.networking.ServerGameLudo;
 
 import java.awt.Color;
@@ -33,6 +34,9 @@ public class HostWaitingRoom extends JFrame {
 	private JFrame frame;
 	private String ip;
 	private String nomeGiocatore;
+	private ProvaServer s;
+	
+	
 	
 	/**
 	 * Launch the application.
@@ -50,6 +54,14 @@ public class HostWaitingRoom extends JFrame {
 			}
 		});
 	}*/
+
+	public ProvaServer getS() {
+		return s;
+	}
+
+	public void setS(ProvaServer s) {
+		this.s = s;
+	}
 
 	/**
 	 * Create the frame.
@@ -132,6 +144,10 @@ public class HostWaitingRoom extends JFrame {
 				//Controlli su numero eventualmente
 				
 					System.out.println("Avvia");
+					s.creaBot();
+					s.gestioneTurnoIniziale();
+					s.creaMainFrame();
+					frame.dispose();
 
 				
 				

@@ -1,4 +1,5 @@
 package it.unibs.eps.ludogame.client;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -47,7 +48,7 @@ public class ClientInserimento extends JFrame {
 	 */
 	public ClientInserimento() {
 		setTitle("Ludo");
-		frame=this;
+		frame = this;
 		setAlwaysOnTop(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,92 +57,98 @@ public class ClientInserimento extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel labelnome = new JLabel("Nome Giocatore:");
 		labelnome.setFont(new Font("MV Boli", Font.PLAIN, 20));
 		labelnome.setBounds(26, 53, 178, 33);
 		contentPane.add(labelnome);
-		
+
 		JTextField textFieldNome = new JTextField();
 		textFieldNome.setFont(new Font("MS Reference Sans Serif", Font.PLAIN, 15));
 		textFieldNome.setBounds(242, 58, 172, 29);
 		contentPane.add(textFieldNome);
 		textFieldNome.setColumns(10);
-		
-		
-		
+
 		JLabel lblNumeroGiocatori = new JLabel("IP partita");
 		lblNumeroGiocatori.setFont(new Font("MV Boli", Font.PLAIN, 20));
 		lblNumeroGiocatori.setBounds(53, 140, 108, 33);
 		contentPane.add(lblNumeroGiocatori);
-		
+
 		JButton btnNext = new JButton("Unisciti");
-		
+
 		btnNext.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 14));
 		btnNext.setBounds(154, 222, 134, 31);
 		contentPane.add(btnNext);
-		
+
 		Icon imageIcon = new ImageIcon("back.png");
 		JButton btnBack = new JButton(imageIcon);
 		btnBack.setBounds(0, 10, 43, 33);
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				try {
 					Login login = new Login();
 					login.setLocationRelativeTo(null);
 					login.setVisible(true);
 					frame.dispose();
-					
+
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 			}
 		});
 		contentPane.add(btnBack);
-		
+
 		textFieldIP = new JTextField();
 		textFieldIP.setFont(new Font("MS Reference Sans Serif", Font.PLAIN, 15));
 		textFieldIP.setColumns(15);
 		textFieldIP.setBounds(242, 143, 172, 29);
 		contentPane.add(textFieldIP);
-		
+
 		btnNext.addActionListener(new ActionListener() {
-    		
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				//Controlli su ip e se connette
-				if(!textFieldNome.getText().isEmpty() && !textFieldNome.getText().isBlank()) {
+			public synchronized void actionPerformed(ActionEvent e) {
+				// Controlli su ip e se connette
+				if (!textFieldNome.getText().isEmpty() && !textFieldNome.getText().isBlank()) {
 					System.out.println("apposto");
-					//ClientGameLudo client = new ClientGameLudo(textFieldIP.getText(),textFieldNome.getText());
-					ProvaClient client = new ProvaClient(textFieldIP.getText(),textFieldNome.getText());
+					ClientWaitingRoom clientframe = new ClientWaitingRoom();
+					// ClientGameLudo client = new
+					// ClientGameLudo(textFieldIP.getText(),textFieldNome.getText());
+					ProvaClient client = new ProvaClient(textFieldIP.getText(), textFieldNome.getText(), clientframe);
+					
 					System.out.println("fuori");
-					if(client.checkConnection()) {
+					if (client.checkConnection()) {
 						System.out.println("dentro");
-						client.comunica();
-						ClientWaitingRoom clientframe=new ClientWaitingRoom();
-	                    frame.dispose();
-	                    clientframe.setVisible(true);
-	                    clientframe.setLocationRelativeTo(null);
-					}else {
+						System.out.println("comunicato");
 						
-						JOptionPane.showMessageDialog(frame,
-							    "Errore inserimento IP",
-							    "Connection Error",
-							    JOptionPane.ERROR_MESSAGE);
+						client.comunica();
+						System.out.println("dopo comunica");
+						frame.dispose();
+						clientframe.setVisible(true);
+						clientframe.setLocationRelativeTo(null);
+						Thread t = new Thread(new Runnable() {
+
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								clientframe.richiediModel(client);
+							}
+							
+						});
+						t.start();
+
+					} else {
+
+						JOptionPane.showMessageDialog(frame, "Errore inserimento IP", "Connection Error",
+								JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
-					JOptionPane.showMessageDialog(frame,
-						    "I campi non possono essere vuoti",
-						    "Error",
-						    JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "I campi non possono essere vuoti", "Error",
+							JOptionPane.ERROR_MESSAGE);
 				}
-					
-				
-				
+
 			}
-		}
-		);
+		});
 	}
 
 }

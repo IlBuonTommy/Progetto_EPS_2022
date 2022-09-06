@@ -9,12 +9,18 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.Arrays;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
+
+import it.unibs.eps.ludogame.networking.ProvaClient;
 
 public class ClientWaitingRoom extends JFrame {
 
 	private JPanel contentPane;
+	private JFrame frame;
+	private ProvaClient client;
 
 	/**
 	 * Launch the application.
@@ -35,7 +41,10 @@ public class ClientWaitingRoom extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	
 	public ClientWaitingRoom() {
+		this.frame = this;
 		setTitle("Ludo");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -221,5 +230,27 @@ public class ClientWaitingRoom extends JFrame {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		lblNewLabel_1.setBounds(194, 6, 35, 29);
 		contentPane.add(lblNewLabel_1);
+		
+	
+	}
+	
+	public ProvaClient getClient() {
+		return client;
+	}
+
+	public void setClient(ProvaClient client) {
+		this.client = client;
+	}
+
+	public synchronized void richiediModel(ProvaClient client) {
+		client.richiestaModelIniziale();
+	}
+
+	public void creaMainFrame(String[] listaGiocatori) {
+		// TODO Auto-generated method stub
+		MainFrame framePrincipale = new MainFrame(listaGiocatori);
+		framePrincipale.setVisible(true);
+		framePrincipale.setLocationRelativeTo(null);
+		frame.dispose();
 	}
 }

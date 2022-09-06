@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import it.unibs.eps.ludogame.client.HostWaitingRoom;
+import it.unibs.eps.ludogame.client.MainFrame;
 import it.unibs.eps.ludogame.game.GameModel;
 import it.unibs.eps.ludogame.game.Giocatore;
 
@@ -25,9 +26,10 @@ public class ProvaServer {
 		private  ArrayList<ProvaHandler> clients = new ArrayList<>();
 		private String[] listaBot = {"giovanninoBot","antoniettaBot","rinaldoBot"};
 		private ProvaHandler clientHandler;
-		private boolean partitaAvviata;
+		private boolean partitaAvviata = false;
 		private String nomeServer;
 		private GameModel serverModel;
+		private int nGiocatoriConnessi=0;
 		public ProvaServer(int numMaxGiocatori, HostWaitingRoom frameWaiting, String nomeServer) {
 			this.numMaxGiocatori = numMaxGiocatori;
 			this.frameWaiting = frameWaiting;
@@ -41,11 +43,21 @@ public class ProvaServer {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			frameWaiting.setS(this);
 		}
 		
-		public synchronized boolean accettaConnessioni() {
-			int nGiocatoriConnessi=0;
+		
+		public boolean isPartitaAvviata() {
+			return partitaAvviata;
+		}
 
+
+		public void setPartitaAvviata(boolean partitaAvviata) {
+			this.partitaAvviata = partitaAvviata;
+		}
+
+
+		public synchronized boolean accettaConnessioni() {
 			if (nGiocatoriConnessi < numMaxGiocatori && partitaAvviata == false) {
 				System.out.println("[SERVER]: waiting for client connection");
 				try {
@@ -57,8 +69,6 @@ public class ProvaServer {
 					System.out.println("add");
 					pool.execute(clientHandler);
 					System.out.println("arrivato qui");
-					//DEBUG ONLY
-					partitaAvviata = true;
 					//connectedClients.add(client);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -116,8 +126,6 @@ public class ProvaServer {
 		
 		
 		public synchronized void avvia() {
-			int playerNumber = 0;
-
 				System.out.println("[SERVER]: avviato correttamente.");
 				//createModel();
 				int n=1;
@@ -138,20 +146,36 @@ public class ProvaServer {
 						n++;
 					}else {
 						if(n == numMaxGiocatori) {
-							break;
-						}else {
-							for(int i=n;i<(numMaxGiocatori);i++) {
-								listaGiocatori[i] = new Giocatore(i,listaBot[numMaxGiocatori-i],true);
-								
-							}
-							
-							System.out.println(Arrays.toString(listaGiocatori));
+							//gestioneTurnoIniziale();
 							break;
 						}
-						
 					}
 				}	//fine ciclo
-				gestioneTurnoIniziale();
+				System.out.println("finito ciclo");
+				
+		}
+		
+		public void creaMainFrame() {
+			// TODO Auto-generated method stub
+			String[] listaGiocatori = new String[serverModel.getPlayer().length];
+
+			for(int i = 0;i<listaGiocatori.length;i++) {
+				listaGiocatori[i] = serverModel.getPlayer()[i].getUsername();
+			}
+			MainFrame framePrincipale = new MainFrame(listaGiocatori);
+			framePrincipale.setVisible(true);
+			framePrincipale.setLocationRelativeTo(null);
+			
+		}
+
+		public void creaBot() {
+			// TODO Auto-generated method stub
+			if(nGiocatoriConnessi < numMaxGiocatori) {
+				for(int i=nGiocatoriConnessi+1;i<(numMaxGiocatori);i++) {
+					listaGiocatori[i] = new Giocatore(i,listaBot[numMaxGiocatori-i],true);
+					
+				}
+			}
 		}
 
 

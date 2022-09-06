@@ -8,6 +8,8 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import it.unibs.eps.ludogame.client.ClientWaitingRoom;
+import it.unibs.eps.ludogame.client.MainFrame;
 import it.unibs.eps.ludogame.client.Posizione;
 import it.unibs.eps.ludogame.game.GameModel;
 
@@ -24,11 +26,11 @@ public class ProvaClient {
 	private boolean isMyTurn = true;
 	private Posizione posizioneUtente;
 	private  int valoreDado;
-	
-	public ProvaClient(String serverIp,String playerName) {
+	private ClientWaitingRoom clientFrame;
+	public ProvaClient(String serverIp,String playerName, ClientWaitingRoom clientframe) {
 		this.SERVER_IP = serverIp;
 		this.playerName = playerName;
-
+		this.clientFrame = clientframe;
 		
 		
 	}
@@ -59,6 +61,8 @@ public class ProvaClient {
 			out.flush();
 			modelClient = (GameModel)in.readObject();
 			System.out.println("Model client ricevuto: " + modelClient.toString());
+			//Avvia view
+			this.avviaMainFrame();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,7 +81,10 @@ public class ProvaClient {
 					out.writeObject(playerName);
 					out.flush();
 					System.out.println("mandato");
-					richiestaModelIniziale();
+					//richiestaModelIniziale();
+					//Avviare View
+					
+					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -85,6 +92,15 @@ public class ProvaClient {
 			
 
 		
+	}
+	
+	public void avviaMainFrame() {
+		String[] listaGiocatori = new String[modelClient.getPlayer().length];
+
+		for(int i = 0;i<listaGiocatori.length;i++) {
+			listaGiocatori[i] = modelClient.getPlayer()[i].getUsername();
+		}
+		clientFrame.creaMainFrame(listaGiocatori);
 	}
 	
 }

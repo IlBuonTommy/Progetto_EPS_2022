@@ -32,6 +32,7 @@ public class ServerGameLudo {
 		pool = Executors.newFixedThreadPool(numMaxGiocatori);
 		this.frameHost = frameHost;
 		System.out.println("sono nel server");
+		frameHost.setS(this);
 	}
 
 	public void avvia() {

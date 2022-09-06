@@ -51,6 +51,7 @@ public class MainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainFrame(String[] giocatori) {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(300, 100, 800, 700);
 		this.board=new Board();

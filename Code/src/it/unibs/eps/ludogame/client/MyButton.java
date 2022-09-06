@@ -103,7 +103,7 @@ public class MyButton extends JButton {
 	  * @return
 	  */
 	 public Posizione getButtonPosition() {
-		 System.out.println(this.posizione.getNomeposizione()+"   riga   "+this.posizione.getColor()+" colonna "+this.posizione.getArrayposizione());
+		// System.out.println(this.posizione.getNomeposizione()+"   riga   "+this.posizione.getColor()+" colonna "+this.posizione.getArrayposizione());
 		 return this.posizione ;
 	 }
 	 
