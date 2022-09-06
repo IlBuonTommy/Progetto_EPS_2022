@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import it.unibs.eps.ludogame.networking.ProvaClient;
 import it.unibs.eps.ludogame.networking.ServerGameLudo;
 
 import java.awt.Color;
@@ -30,6 +31,9 @@ public class HostWaitingRoom extends JFrame {
 	private int numGiocatori;
 	private boolean lobbystate=false;
 	private JFrame frame;
+	private String ip;
+	private String nomeGiocatore;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -51,8 +55,16 @@ public class HostWaitingRoom extends JFrame {
 	 * Create the frame.
 	 */
 	public HostWaitingRoom( String nomehost,int numGiocatori) {
+		try {
+			 ip = InetAddress.getLocalHost().getHostAddress().toString();
+		} catch (UnknownHostException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		this.numGiocatori = numGiocatori;
 		this.frame = this;
+		this.arrJlabel = new JLabel[4];
+		this.nomeGiocatore = nomehost;
 		System.out.println("cipolla");
 		setResizable(false);
 		setTitle("Ludo");
@@ -77,18 +89,12 @@ public class HostWaitingRoom extends JFrame {
 		contentPane.add(lblListaGiocatori);
 		
 		JButton btnNext = new JButton("Avvia");
-		btnNext.setEnabled(false);
+		btnNext.setEnabled(true);
 		
 		btnNext.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 14));
 		btnNext.setBounds(140, 295, 134, 31);
 		contentPane.add(btnNext);
-		String ip = "";
-		try {
-			 ip = InetAddress.getLocalHost().getHostAddress().toString();
-		} catch (UnknownHostException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
 		JLabel lblIp = new JLabel(ip);
 		lblIp.setFont(new Font("MV Boli", Font.PLAIN, 20));
 		lblIp.setBounds(206, 65, 177, 33);
@@ -96,27 +102,26 @@ public class HostWaitingRoom extends JFrame {
 		
 		
 		
-		JLabel lbl0 = new JLabel(nomehost);
-		lbl0.setFont(new Font("MV Boli", Font.PLAIN, 20));
-		lbl0.setBounds(229, 124, 154, 33);
-		contentPane.add(lbl0);
+		 arrJlabel[0] = new JLabel(nomehost);
+		 arrJlabel[0].setFont(new Font("MV Boli", Font.PLAIN, 20));
+		 arrJlabel[0].setBounds(229, 124, 154, 33);
+		contentPane.add(arrJlabel[0]);
 		
-		JLabel lbl1 = new JLabel("");
-		lbl1.setFont(new Font("MV Boli", Font.PLAIN, 20));
-		lbl1.setBounds(229, 152, 154, 33);
-		contentPane.add(lbl1);
+		 arrJlabel[1] = new JLabel("");
+		 arrJlabel[1].setFont(new Font("MV Boli", Font.PLAIN, 20));
+		 arrJlabel[1].setBounds(229, 152, 154, 33);
+		contentPane.add(arrJlabel[1]);
 		
-		JLabel lbl2 = new JLabel("");
-		lbl2.setFont(new Font("MV Boli", Font.PLAIN, 20));
-		lbl2.setBounds(229, 195, 154, 33);
-		contentPane.add(lbl2);
+		 arrJlabel[2] = new JLabel("");
+		 arrJlabel[2].setFont(new Font("MV Boli", Font.PLAIN, 20));
+		 arrJlabel[2].setBounds(229, 195, 154, 33);
+		contentPane.add(arrJlabel[2]);
 		
-		JLabel lbl3 = new JLabel("");
-		lbl3.setFont(new Font("MV Boli", Font.PLAIN, 20));
-		lbl3.setBounds(229, 240, 154, 33);
-		contentPane.add(lbl3);
-		
-
+		 arrJlabel[3] = new JLabel("");
+		 arrJlabel[3].setFont(new Font("MV Boli", Font.PLAIN, 20));
+		 arrJlabel[3].setBounds(229, 240, 154, 33);
+		contentPane.add(arrJlabel[3]);
+	
 		
 		
 		
@@ -127,6 +132,7 @@ public class HostWaitingRoom extends JFrame {
 				//Controlli su numero eventualmente
 				
 					System.out.println("Avvia");
+
 				
 				
 			}
