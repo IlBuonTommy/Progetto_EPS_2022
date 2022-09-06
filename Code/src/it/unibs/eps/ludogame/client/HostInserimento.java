@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import it.unibs.eps.ludogame.networking.ProvaServer;
 import it.unibs.eps.ludogame.networking.ServerGameLudo;
+import it.unibs.eps.ludogame.networking.TestProvaServer;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -150,10 +151,13 @@ public class HostInserimento extends JFrame {
 					HostWaitingRoom frameWaiting = new HostWaitingRoom(textFieldNome.getText(),sliderngiocatori.getValue());
 					//ServerGameLudo s = new ServerGameLudo(sliderngiocatori.getValue(),frameWaiting);
 					ProvaServer prova = new ProvaServer(sliderngiocatori.getValue());
+					//
+					
 					executor.execute(new Runnable() {
 						public void run() {
-							//s.avvia();
 							prova.accettaConnessioni();
+							//s.avvia();
+							
 						}});
 					
 					executor.execute(new Runnable() {

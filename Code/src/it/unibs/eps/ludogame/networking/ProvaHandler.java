@@ -17,6 +17,9 @@ public class ProvaHandler implements Runnable{
 	private BufferedReader leggi;
 	public ProvaHandler(Socket client)  {
 		this.client = client;
+
+		
+		
 	}
 
 	public String getNome() {
@@ -32,18 +35,24 @@ public class ProvaHandler implements Runnable{
 
 
 	@Override
-	public void run() {
+	public synchronized void run() {
 		// TODO Auto-generated method stub
-
-			//stampa = new PrintWriter(client.getOutputStream(),true);
-				//leggi = new BufferedReader(new InputStreamReader(client.getInputStream()));
-			setNome("alessio");
+	
+		try {
+			out = new ObjectOutputStream(client.getOutputStream());
+			in = new ObjectInputStream(client.getInputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			try {
+				out.flush();
+				setNome((String)in.readObject());
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println("runnato");
-			System.out.println(nome);
-		
-		
-		
-		
 	}
 	
 	
