@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Label;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -48,6 +49,7 @@ public class ClientInserimento extends JFrame {
 	 */
 	public ClientInserimento() {
 		setTitle("Ludo");
+		setIconImage(Toolkit.getDefaultToolkit().getImage("icon.png"));
 		frame = this;
 		setAlwaysOnTop(true);
 		setResizable(false);

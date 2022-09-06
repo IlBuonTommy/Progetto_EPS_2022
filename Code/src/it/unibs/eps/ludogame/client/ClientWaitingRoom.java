@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.util.Arrays;
 
 import javax.swing.border.BevelBorder;
@@ -44,6 +45,7 @@ public class ClientWaitingRoom extends JFrame {
 	
 	
 	public ClientWaitingRoom() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("icon.png"));
 		this.frame = this;
 		setTitle("Ludo");
 		setResizable(false);

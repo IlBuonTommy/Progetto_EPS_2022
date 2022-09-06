@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.Color;
 import javax.swing.JButton;
 
@@ -44,7 +45,7 @@ public class Login extends JFrame {
 	public Login() {
 		setTitle("Ludo");
 		frame = this;
-
+		setIconImage(Toolkit.getDefaultToolkit().getImage("icon.png"));
 		setResizable(false);
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

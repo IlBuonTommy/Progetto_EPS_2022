@@ -18,6 +18,8 @@ import java.awt.Image;
 import javax.swing.JTextField;
 import javax.swing.JSlider;
 import java.awt.Label;
+import java.awt.Toolkit;
+
 import javax.swing.JButton;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
@@ -56,7 +58,7 @@ public class HostInserimento extends JFrame {
 	 * Create the frame.
 	 */
 	public HostInserimento() {
-		
+		setIconImage(Toolkit.getDefaultToolkit().getImage("icon.png"));
 		setTitle("Ludo");
 		frame=this;
 		setAlwaysOnTop(true);

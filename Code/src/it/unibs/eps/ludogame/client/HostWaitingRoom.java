@@ -3,6 +3,7 @@ package it.unibs.eps.ludogame.client;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.InetAddress;
@@ -67,6 +68,7 @@ public class HostWaitingRoom extends JFrame {
 	 * Create the frame.
 	 */
 	public HostWaitingRoom( String nomehost,int numGiocatori) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("icon.png"));
 		try {
 			 ip = InetAddress.getLocalHost().getHostAddress().toString();
 		} catch (UnknownHostException e1) {
