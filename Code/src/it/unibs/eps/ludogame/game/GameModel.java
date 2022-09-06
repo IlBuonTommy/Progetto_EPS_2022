@@ -26,22 +26,7 @@ public class GameModel implements Serializable{
         this.player = new Giocatore[numGiocatori];
         this.player = player;
         this.currentPlayerIndex = 0;
-
-        for(int i=0; i<4; i++){
-            for(int j=0; j<4; j++){
-                this.base[i][j] = new Casella();
-                this.finale[i][j] = new Casella();
-            }
-        }
-        for(int i=0; i<40; i++){
-            this.plancia[i]=new Casella();
-        }
-        
-        for(int i=0; i<numGiocatori; i++){
-            for(int j=0; j<4; j++){
-                this.base[i][j].setColore(i);
-            }
-        }
+        reset();
     }
 
 	/** 
@@ -77,9 +62,16 @@ public class GameModel implements Serializable{
         //DEBUG ONLY
         System.out.println("GameModel: reset tabellone");
 
-        this.plancia = new Casella[40];
-        this.base = new Casella[numGiocatori][4];
-        this.finale = new Casella[numGiocatori][4];
+        for(int i=0; i<4; i++){
+            for(int j=0; j<4; j++){
+                this.base[i][j] = new Casella();
+                this.finale[i][j] = new Casella();
+            }
+        }
+        for(int i=0; i<40; i++){
+            this.plancia[i]=new Casella();
+        }
+        
         for(int i=0; i<numGiocatori; i++){
             for(int j=0; j<4; j++){
                 this.base[i][j].setColore(i);
