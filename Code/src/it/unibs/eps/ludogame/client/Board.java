@@ -68,19 +68,20 @@ public class Board extends JPanel {
 				
 		    	b.setBorder(new RoundedBorder(10));
 		    	
-		    	// STATO INIZIALE DA CAMBIARE!!!!
-		    	if(i==0||i==5||i==11||i==6)
+		    	// STATO INIZIALE 
+		    	if(i==0||i==1||i==11||i==12)
 		    		b.setState(true,0);
-		    	if(i==110||i==111||i==92||i==70)
-		    		b.setState(true,3);
-		    	if(i==10||i==73)
+		    	if(i==9||i==10||i==20||i==21)
 		    		b.setState(true,1);
+		    	if(i==120||i==119||i==109||i==108)
+		    		b.setState(true,2);
+		    	/*
 		    	if(i==74)
 		    		b.setState(true,1,true);
-		    	if(i==45||i==54)
-		    		b.setState(true,2);
-		    	if(i==66)
-		    		b.setState(true,2,true);
+		    		uso questo per il doppio 
+		    		*/
+		    	if(i==110||i==111||i==100||i==99)
+		    		b.setState(true,3);
 		    	
 		    	
 		    	//aggiungo un action listener ai bottoni
