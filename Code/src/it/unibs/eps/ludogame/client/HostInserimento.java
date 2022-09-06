@@ -151,11 +151,11 @@ public class HostInserimento extends JFrame {
 					ExecutorService executor = Executors.newFixedThreadPool(2);
 					HostWaitingRoom frameWaiting = new HostWaitingRoom(textFieldNome.getText(),sliderngiocatori.getValue());
 					//ServerGameLudo s = new ServerGameLudo(sliderngiocatori.getValue(),frameWaiting);
-					ProvaServer prova = new ProvaServer(sliderngiocatori.getValue(),frameWaiting);
+					ProvaServer prova = new ProvaServer(sliderngiocatori.getValue(),frameWaiting,textFieldNome.getText());
 					
 					executor.execute(new Runnable() {
 						public void run() {
-							prova.accettaConnessioni();
+							prova.avvia();
 							//s.avvia();
 							
 						}});
