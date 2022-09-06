@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import it.unibs.eps.ludogame.client.HostWaitingRoom;
+import it.unibs.eps.ludogame.game.GameModel;
 import it.unibs.eps.ludogame.game.Giocatore;
 
 public class ProvaServer {
@@ -26,6 +27,7 @@ public class ProvaServer {
 		private ProvaHandler clientHandler;
 		private boolean partitaAvviata;
 		private String nomeServer;
+		private GameModel serverModel;
 		public ProvaServer(int numMaxGiocatori, HostWaitingRoom frameWaiting, String nomeServer) {
 			this.numMaxGiocatori = numMaxGiocatori;
 			this.frameWaiting = frameWaiting;
@@ -62,10 +64,6 @@ public class ProvaServer {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-			//	clientThread = new ClientHandler(client,clients,modelBase,modelBase.getPlayer()[playerNumber].getUsername());
-			//	clients.add(clientThread);
-				
 				nGiocatoriConnessi++;
 				return true;
 			}else {
@@ -101,7 +99,21 @@ public class ProvaServer {
 					
 				}
 			*/
+		public void allClientSendModel() {
+			for (ProvaHandler c : clients) {
+				c.setThreadModel(serverModel);
+				c.comunicazione();
 
+			}
+		}
+		public void gestioneTurnoIniziale(){
+			//creo il model con i dati dei player che mi hanno passato le view
+			//il model viene inviato a tutti i client
+			serverModel = new GameModel(numMaxGiocatori,listaGiocatori);	
+			allClientSendModel();
+
+		}
+		
 		
 		public synchronized void avvia() {
 			int playerNumber = 0;
@@ -132,19 +144,14 @@ public class ProvaServer {
 								listaGiocatori[i] = new Giocatore(i,listaBot[numMaxGiocatori-i],true);
 								
 							}
+							
 							System.out.println(Arrays.toString(listaGiocatori));
 							break;
 						}
 						
 					}
-				}
-			//	System.out.println(listaGiocatori);
-				/*for(ClientHandler c : clients) {
-					pool.execute(c);
-				}*/
-				//funzioni che prendono il nome
-
-			
+				}	//fine ciclo
+				gestioneTurnoIniziale();
 		}
 
 

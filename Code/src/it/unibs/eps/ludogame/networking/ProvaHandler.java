@@ -8,6 +8,8 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import it.unibs.eps.ludogame.game.GameModel;
+
 public class ProvaHandler implements Runnable{
 	private String nome;
 	private Socket client;
@@ -15,6 +17,8 @@ public class ProvaHandler implements Runnable{
 	private ObjectInputStream in;
 	private PrintWriter stampa;
 	private BufferedReader leggi;
+	private GameModel threadModel;
+	private boolean primoRunSuperato=false;
 	public ProvaHandler(Socket client)  {
 		this.client = client;
 
@@ -31,9 +35,51 @@ public class ProvaHandler implements Runnable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	
 
 
 
+	public GameModel getThreadModel() {
+		return threadModel;
+	}
+
+	public void setThreadModel(GameModel threadModel) {
+		this.threadModel = threadModel;
+	}
+	
+
+	public boolean isPrimoRunSuperato() {
+		return primoRunSuperato;
+	}
+
+	public void setPrimoRunSuperato(boolean primoRunSuperato) {
+		this.primoRunSuperato = primoRunSuperato;
+	}
+	
+	public void comunicazione() {
+			try {
+				System.out.println(threadModel.toString());
+				Pacchetto p = (Pacchetto)in.readObject();
+				String tipoOggetto = p.getType();
+				if(tipoOggetto.equals("model")) {
+					System.out.println("sono arrivato nellla rich modl");
+					
+					out.writeObject(threadModel);
+					out.flush();
+				}
+				
+				
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	}
+	
 	@Override
 	public synchronized void run() {
 		// TODO Auto-generated method stub
@@ -53,8 +99,8 @@ public class ProvaHandler implements Runnable{
 				e.printStackTrace();
 			}
 			System.out.println("runnato");
+			
+	
 	}
-	
-	
 
 }

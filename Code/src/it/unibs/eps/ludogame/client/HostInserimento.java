@@ -150,7 +150,6 @@ public class HostInserimento extends JFrame {
 					System.out.println(sliderngiocatori.getValue());
 					ExecutorService executor = Executors.newFixedThreadPool(2);
 					HostWaitingRoom frameWaiting = new HostWaitingRoom(textFieldNome.getText(),sliderngiocatori.getValue());
-					//ServerGameLudo s = new ServerGameLudo(sliderngiocatori.getValue(),frameWaiting);
 					ProvaServer prova = new ProvaServer(sliderngiocatori.getValue(),frameWaiting,textFieldNome.getText());
 					
 					executor.execute(new Runnable() {

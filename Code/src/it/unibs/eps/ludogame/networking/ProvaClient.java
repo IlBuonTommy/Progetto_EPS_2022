@@ -20,7 +20,7 @@ public class ProvaClient {
 	private  ObjectInputStream in;
 	private PrintWriter stampa;
 	private BufferedReader leggi;
-	private  GameModel model = null;
+	private  GameModel modelClient = null;
 	private boolean isMyTurn = true;
 	private Posizione posizioneUtente;
 	private  int valoreDado;
@@ -52,8 +52,23 @@ public class ProvaClient {
 		
 	}
 	
+	public void richiestaModelIniziale() {
+		Pacchetto p = new Pacchetto("model",null);
+		try {
+			out.writeObject(p);
+			out.flush();
+			modelClient = (GameModel)in.readObject();
+			System.out.println("Model client ricevuto: " + modelClient.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-	public void comunica() {
+	public synchronized void comunica() {
 
 				try {
 					out = new ObjectOutputStream(clientSocket.getOutputStream());
@@ -62,6 +77,7 @@ public class ProvaClient {
 					out.writeObject(playerName);
 					out.flush();
 					System.out.println("mandato");
+					richiestaModelIniziale();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
