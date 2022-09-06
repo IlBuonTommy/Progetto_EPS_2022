@@ -57,6 +57,7 @@ public class MainFrame extends JFrame {
 		this.board=new Board();
 		
 		this.panel=new SidePanel(giocatori) ;
+		panel.setTurno(0);
 		this.setMinimumSize(new Dimension(600,600));
 		this.setMaximumSize(new Dimension(900,800));
 		getContentPane().setLayout(new BorderLayout(0, 0));
