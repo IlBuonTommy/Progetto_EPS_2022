@@ -61,6 +61,12 @@ public class ProvaClient {
 			out.flush();
 			modelClient = (GameModel)in.readObject();
 			System.out.println("Model client ricevuto: " + modelClient.toString());
+			for(int i=0;i<modelClient.getPlayer().length;i++) {
+				if(this.playerName.equals(modelClient.getPlayer()[i])) {
+					this.playerIndex=i+1;
+					System.out.println("Player Index di "+this.playerName +" : "+this.playerIndex);
+				}
+			}
 			//Avvia view
 			this.avviaMainFrame();
 		} catch (IOException e) {
