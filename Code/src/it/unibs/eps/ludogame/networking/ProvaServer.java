@@ -67,7 +67,7 @@ public class ProvaServer {
 				try {
 					client = listener.accept();
 					System.out.println("accettato");
-					clientHandler = new ProvaHandler(client);
+					clientHandler = new ProvaHandler(client,this);
 					System.out.println("handler");
 					clients.add(clientHandler);
 					System.out.println("add");
@@ -125,6 +125,7 @@ public class ProvaServer {
 				c.setUpdateModel(serverModel);
 				c.resettaFrame();
 			}
+			framePrincipale.resetta(serverModel.getBase(), serverModel.getFinale(), serverModel.getPlancia(), serverModel.getCurrentPlayerIndex());
 		}
 		
 		public void sendDado(int dado) {
@@ -136,17 +137,24 @@ public class ProvaServer {
 		
 		
 		public void starTurnoDue(int dado) {
+			System.out.println("ricevuto dado sever");
 			gestione.gestioneTurnoDue(dado);
 		}
 		
 		public void sendMovePosition(int dado) {
 			Posizione[] listapos=serverModel.getTastiAbilitati(dado);
-			int currentPlayer=serverModel.getCurrentPlayerIndex();
-			if(currentPlayer==0) {
-				framePrincipale.enableBoardButtons(listapos);
+			
+			if(listapos[0] != null) {
+				int currentPlayer=serverModel.getCurrentPlayerIndex();
+				if(currentPlayer==0) {
+					framePrincipale.enableBoardButtons(listapos);
+				}else {
+					clients.get(currentPlayer-1).sendListaPos(listapos);
+				}
 			}else {
-				clients.get(currentPlayer-1).sendListaPos(listapos);
+				gestione.gestioneTurnoQuattro();
 			}
+			
 		}
 		
 		public void startTurnoTre(Posizione p) {
@@ -177,16 +185,21 @@ public class ProvaServer {
 		}
 		
 		//abbozziamo
-		public void AttesaDado() {
-			boolean waiting=true;
-			while(waiting) {
-				//
+		public void receiveDado(int dado) {
+			gestione.gestioneTurnoDue(dado);
+		}
+		
+		public void startWaitingDado() {
+			int currentPlayer=serverModel.getCurrentPlayerIndex();
+			if(currentPlayer!=0) {
+				clients.get(currentPlayer-1).receiveDadoFromClient();
 			}
 		}
 		
 		public void inizioGame() {
 			framePrincipale.disableAllButtons();
 			framePrincipale.resetta(serverModel.getBase(), serverModel.getFinale(), serverModel.getPlancia(),0);
+			framePrincipale.enableRoll();
 		}
 		
 		
@@ -245,6 +258,19 @@ public class ProvaServer {
 					listaGiocatori[i] = new Giocatore(i,listaBot[numMaxGiocatori-i],true);
 					
 				}
+			}
+		}
+
+
+		public void receivePosition(Posizione pos) {
+			// TODO Auto-generated method stub
+			gestione.gestioneTurnoTre(pos);
+		}
+		
+		public void startWaitingPosition() {
+			int currentPlayer=serverModel.getCurrentPlayerIndex();
+			if(currentPlayer!=0) {
+				clients.get(currentPlayer-1).receivePosizioneFromClient();
 			}
 		}
 		

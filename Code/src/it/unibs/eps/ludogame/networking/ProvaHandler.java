@@ -19,10 +19,11 @@ public class ProvaHandler implements Runnable{
 	private PrintWriter stampa;
 	private BufferedReader leggi;
 	private GameModel threadModel;
-	private boolean primoRunSuperato=false;
-	public ProvaHandler(Socket client)  {
-		this.client = client;
-
+	private boolean primoRunSuperato=false; 
+	private ProvaServer server;
+	public ProvaHandler(Socket client,ProvaServer server)  {
+		this.client = client;		
+		this.server = server;
 		
 		
 	}
@@ -165,6 +166,30 @@ public class ProvaHandler implements Runnable{
 			out.writeObject(p);
 			out.flush();
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void receiveDadoFromClient() {
+		try {
+			System.out.println("inizio ad aspettare dado");
+			int dado =(int)in.readObject();
+			System.out.println("ricevuto dado");
+			server.receiveDado(dado);
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void receivePosizioneFromClient() {
+		try {
+			Posizione pos =(Posizione)in.readObject();
+			server.receivePosition(pos);
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

@@ -40,29 +40,18 @@ public class MainFrame extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					//devo inserire lista giocatori per creare 
-					MainFrame frame = new MainFrame(new String[]{"Paoli","Tommasio","SIUM"});
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the frame.
 	 */
 	public MainFrame(String[] giocatori,ProvaClient client,ProvaServer server) {
 		this.client=client;
+		this.server = server;
 		setIconImage(Toolkit.getDefaultToolkit().getImage("icon.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(300, 100, 800, 700);
-		this.board=new Board();
+		this.board=new Board(this);
 		
 		this.panel=new SidePanel(giocatori,this) ;
 		panel.setTurno(0);
@@ -132,9 +121,11 @@ public class MainFrame extends JFrame {
 	
 	public void sendDado(int n) {
 		if(this.client==null) {
+			System.out.println("sono nel send dado mainframe");
 			server.starTurnoDue(n);
 		}else {
 			//chiamo ProvaClient e gli faccio inviare il dado
+			client.sendDadoToServer(n);
 		}
 		
 	}
@@ -143,7 +134,8 @@ public class MainFrame extends JFrame {
 		if(this.client==null) {
 			server.startTurnoTre(p);
 		}else {
-			//chiamo ProvaClient e gli faccio inviare il dado
+			//chiamo ProvaClient e gli faccio inviare la posizione
+			client.sendPositionToServer(p);
 		}
 	}
 

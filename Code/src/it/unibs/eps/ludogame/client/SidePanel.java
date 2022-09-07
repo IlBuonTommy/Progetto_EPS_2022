@@ -36,7 +36,7 @@ public class SidePanel extends JPanel {
 	public SidePanel(String[] nome,MainFrame framePrincipale) {
 		Random rand = new Random();
 		setLayout(new BorderLayout(0, 0));
-		this.mainFrame=mainFrame;
+		this.framePrincipale=framePrincipale;
 		JPanel toppanel = new JPanel();
 		add(toppanel, BorderLayout.CENTER);
 		toppanel.setLayout(new GridLayout(4,0, 0, 0));
@@ -73,9 +73,19 @@ public class SidePanel extends JPanel {
 				
 				int n = rand.nextInt(6)+1;
 				dadoAnimation(n);
+				Thread t = new Thread(new Runnable() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						framePrincipale.sendDado(n);
+					}
+					
+				});
+				t.start();
 				setRollButton(false);
 				//chiamo funzione che prende dado
-				framePrincipale.setDado(n);
+				
 			}
 		});
 		panel_1.add(rollButton);

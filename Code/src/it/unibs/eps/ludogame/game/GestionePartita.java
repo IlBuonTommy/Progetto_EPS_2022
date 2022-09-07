@@ -14,6 +14,8 @@ public class GestionePartita {
 	}
 	
 	public void gestioneTurnoUno(){
+		System.out.println("turno 1, indice: " + server.getServerModel().getCurrentPlayerIndex());
+		
 		if(server.getServerModel().currentIsBot()){
 			//genero numero random da 1 a 6 e lo salvo su valoreDadoS
 			valoreDadoS = (int)Math.floor(Math.random()*(6)+1);
@@ -26,19 +28,23 @@ public class GestionePartita {
 			gestioneTurnoQuattro();
 		}else{
 			//abilito il bottone di lancio dado del giocatore corrente
-			
+			server.startWaitingDado();
 		}
 	}
 	//questa funzione è richiamata dal tasto lancia dado 
 	public void gestioneTurnoDue(int valoreDado){
+		System.out.println("turno 2");
 		valoreDadoS = valoreDado;
 		//mando a tutti i client il valore del dado
 		server.sendDado(valoreDado);
 		//mando alla view i bottoni che può abilitare QUESTO PASSAGGIO PUò ESSERE FATTO IN AUTONOMIA DAL PROGRAMMA DEL GIOCATORE
 		server.sendMovePosition(valoreDadoS);
+		
+		server.startWaitingPosition();
 	}
 	//questa funzione viene richiamata dalla pressione del bottone da parte di un giocatore
 	public void gestioneTurnoTre(Posizione tastoPremuto){
+		System.out.println("turno 3");
 		//modifico il model in base al tasto premuto del giocatore
 		if(!server.getServerModel().tastoPremuto(tastoPremuto.getNomeposizione(),tastoPremuto.getArrayposizione(), tastoPremuto.getColor(), valoreDadoS)){
 			gestioneTurnoDue(valoreDadoS);
@@ -51,6 +57,7 @@ public class GestionePartita {
 		gestioneTurnoQuattro();
 	}
 	public void gestioneTurnoQuattro(){
+		System.out.println("turno 4");
 		if(server.getServerModel().checkWin()!=-1){
 			//il gioco finisce chiudiamo le connessioni e tutti a baita
 			//System.out.println("Partita terminata, Complimenti ha vinto il giocatore: "+ model.getPlayer()[model.checkWin()].getUsername());

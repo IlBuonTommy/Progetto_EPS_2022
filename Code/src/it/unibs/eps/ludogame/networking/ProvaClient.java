@@ -192,5 +192,25 @@ public class ProvaClient {
 	
 		
 	}
+
+	public void sendPositionToServer(Posizione p) {
+		// TODO Auto-generated method stub
+
+		try {
+			out.flush();
+			out.writeObject(p);
+			out.flush();
+			System.out.println("mandato posizione");
+			//richiestaModelIniziale();
+			//Avviare View
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+
+	}
 	
 }
