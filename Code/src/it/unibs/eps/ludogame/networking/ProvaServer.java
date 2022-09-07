@@ -29,6 +29,7 @@ public class ProvaServer {
 		private boolean partitaAvviata = false;
 		private String nomeServer;
 		private GameModel serverModel;
+		private MainFrame framePrincipale;
 		private int nGiocatoriConnessi=0;
 		public ProvaServer(int numMaxGiocatori, HostWaitingRoom frameWaiting, String nomeServer) {
 			this.numMaxGiocatori = numMaxGiocatori;
@@ -121,7 +122,16 @@ public class ProvaServer {
 			//il model viene inviato a tutti i client
 			serverModel = new GameModel(numMaxGiocatori,listaGiocatori);	
 			allClientSendModel();
+			for (ProvaHandler c : clients) {
+				c.disabilitaTasti();
 
+			}
+			//framePrincipale.disableAllButtons();
+			
+		}
+		
+		public void inizioGame() {
+			framePrincipale.disableAllButtons();
 		}
 		
 		
@@ -162,7 +172,7 @@ public class ProvaServer {
 			for(int i = 0;i<listaGiocatori.length;i++) {
 				listaGiocatori[i] = serverModel.getPlayer()[i].getUsername();
 			}
-			MainFrame framePrincipale = new MainFrame(listaGiocatori);
+			 framePrincipale = new MainFrame(listaGiocatori);
 			framePrincipale.setVisible(true);
 			framePrincipale.setLocationRelativeTo(null);
 			

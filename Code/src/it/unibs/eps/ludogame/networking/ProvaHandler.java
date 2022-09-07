@@ -103,4 +103,16 @@ public class ProvaHandler implements Runnable{
 	
 	}
 
+	public void disabilitaTasti() {
+		// TODO Auto-generated method stub
+		Pacchetto p = new Pacchetto("disable",null);
+		try {
+			out.writeObject(p);
+			out.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }

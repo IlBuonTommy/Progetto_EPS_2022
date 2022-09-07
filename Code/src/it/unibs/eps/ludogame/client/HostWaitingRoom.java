@@ -149,6 +149,7 @@ public class HostWaitingRoom extends JFrame {
 					s.creaBot();
 					s.gestioneTurnoIniziale();
 					s.creaMainFrame();
+					s.inizioGame();
 					frame.dispose();
 
 				

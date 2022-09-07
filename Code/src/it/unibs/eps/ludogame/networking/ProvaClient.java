@@ -27,6 +27,7 @@ public class ProvaClient {
 	private Posizione posizioneUtente;
 	private  int valoreDado;
 	private ClientWaitingRoom clientFrame;
+	private MainFrame framePrincipale;
 	public ProvaClient(String serverIp,String playerName, ClientWaitingRoom clientframe) {
 		this.SERVER_IP = serverIp;
 		this.playerName = playerName;
@@ -94,16 +95,41 @@ public class ProvaClient {
 		
 	}
 	
+	public void comunicazioneInGameDaServer() {
+		try {
+			while(true) {
+			Pacchetto p = (Pacchetto)in.readObject();
+			String tipoRicevuto = p.getType();
+				if(tipoRicevuto.equals("disable")) {
+					System.out.println("sono disabile");
+					framePrincipale.disableAllButtons();
+				}
+			}
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 	public void avviaMainFrame() {
 		String[] listaGiocatori = new String[modelClient.getPlayer().length];
 
 		for(int i = 0;i<listaGiocatori.length;i++) {
 			listaGiocatori[i] = modelClient.getPlayer()[i].getUsername();
 		}
-
-		MainFrame framePrincipale = new MainFrame(listaGiocatori);
+		
+		framePrincipale = new MainFrame(listaGiocatori);
 		framePrincipale.setVisible(true);
 		framePrincipale.setLocationRelativeTo(null);
+
+		comunicazioneInGameDaServer();
+
 		clientFrame.closeFrame();
 	}
 	
