@@ -126,6 +126,9 @@ public class ProvaServer {
 				c.resettaFrame();
 			}
 			framePrincipale.resetta(serverModel.getBase(), serverModel.getFinale(), serverModel.getPlancia(), serverModel.getCurrentPlayerIndex());
+			if(serverModel.getCurrentPlayerIndex()==0){
+				framePrincipale.enableRoll();
+			}
 		}
 		
 		public void sendDado(int dado) {

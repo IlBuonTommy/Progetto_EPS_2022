@@ -126,6 +126,7 @@ public class ClientHandler implements Runnable{
 			return;
 		}
 		model.nextTurn();
+		System.out.println(model.toString());
 		gestioneTurnoUno();
 	}
 	

@@ -53,7 +53,7 @@ public class Board extends JPanel {
 			MyButton b = new MyButton(i);
 			b.setBackground(Color.decode(getColor(i)));
 			b.setOpaque(true);
-			//controllo se è un bottone visibile
+			//controllo se ï¿½ un bottone visibile
 			if(isVisible(i)) {
 				//inserisco bottone in matrix base
 				if(b.getButtonPosition().getNomeposizione()==Posizione.NomePosizione.Base) {
@@ -189,7 +189,7 @@ public class Board extends JPanel {
 	 * @param arrpos
 	 */
 	public void enableButton(Posizione[] arrpos) {
-		for (int i=0;i<arrpos.length;i++) {
+		for (int i=0;i<4 && arrpos[i]!=null;i++) {
 			Posizione.NomePosizione nompos=arrpos[i].getNomeposizione();
 			int color=arrpos[i].getColor();
 			int posizione=arrpos[i].getArrayposizione();
@@ -255,7 +255,8 @@ public class Board extends JPanel {
 			System.out.println("ENTRA IN REPAINT");
 			
 			for (int i=0;i<40;i++) {
-				this.boardButton[i].setState(false);
+				this.boardButton[i].setState(false, -1);
+				System.out.println("repaint board color di "+i+" = "+board[i].getColore()+" doppio "+board[i].getDoppio());
 				if(board[i].getColore()>-1) {
 					
 					this.boardButton[i].setState(true,board[i].getColore(),board[i].getDoppio());
@@ -264,14 +265,14 @@ public class Board extends JPanel {
 			
 			for(int i=0;i<4;i++) {
 				for (int j=0;j<4;j++) {
-					this.baseButton[i][j].setState(false);
+					this.baseButton[i][j].setState(false, -1);
 					
 					if(base[i][j].getColore()>-1) {
 						
 						this.baseButton[i][j].setState(true,base[i][j].getColore(),base[i][j].getDoppio());
 					}
 					
-					this.fineButton[i][j].setState(false);
+					this.fineButton[i][j].setState(false, -1);
 					
 					if(fine[i][j].getColore()>-1) {
 						this.fineButton[i][j].setState(true,fine[i][j].getColore(),fine[i][j].getDoppio());

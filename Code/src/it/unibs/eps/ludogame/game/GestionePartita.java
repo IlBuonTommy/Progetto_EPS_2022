@@ -75,7 +75,7 @@ public class GestionePartita {
 			return;
 		}
 		server.getServerModel().nextTurn();
-		server.sendModelInGame();
+		server.sendModelInGame();			
 		gestioneTurnoUno();
 	}
 	

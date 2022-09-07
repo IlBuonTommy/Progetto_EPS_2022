@@ -205,11 +205,11 @@ public class GameModel implements Serializable{
         //controlla se deve andare in finale
         boolean finaleT = false;
         if(plancia[posizione].getColore()==0){
-            if(posizione <= 39 && nuovaPosizione >= (10*plancia[posizione].getColore())){
+            if(posizione <= 39 && nuovaPosizione >= (10*plancia[posizione].getColore()) && posizione > 33){
                 finaleT = true;
             }
         }else{
-            if(posizione <= (10*plancia[posizione].getColore())-1 && nuovaPosizione >= (10*plancia[posizione].getColore())){
+            if(posizione <= (10*plancia[posizione].getColore())-1 && nuovaPosizione >= (10*plancia[posizione].getColore()) && posizione > (10*plancia[posizione].getColore())-7){
                 finaleT = true;
             }
         }
@@ -264,12 +264,15 @@ public class GameModel implements Serializable{
         }
 
         //effettua la mossa
-        plancia[nuovaPosizione].setColore(-1);;
-        if(plancia[posizione].getDoppio()){
-            plancia[posizione].setDoppio(false);
-        }else{
-            plancia[posizione].setColore(-1);
+        if(daEseguire){
+            plancia[nuovaPosizione].setColore(plancia[posizione].getColore());
+            if(plancia[posizione].getDoppio()){
+                plancia[posizione].setDoppio(false);
+            }else{
+                plancia[posizione].setColore(-1);
+            }
         }
+            
         return true;
     }
 
@@ -467,31 +470,31 @@ public class GameModel implements Serializable{
      * @param valoreDado indica il valore del dado del giocatore corrente
      * @return boolean se true, il movimento è stato fatto senza errori, false il moviemnto non è stato fatto.
      */
-    public boolean tastoPremuto(Posizione.NomePosizione pos, int x, int y, int valoreDado){
+    public boolean tastoPremuto(Posizione.NomePosizione pos, int posizione, int colore, int valoreDado){
         if(pos == Posizione.NomePosizione.Base){
-            if(movimentoDaBase(x, valoreDado, false)){
+            if(movimentoDaBase(colore, valoreDado, false)){
                 //DEBUG ONLY
-                System.out.println("GameModel: MOSSA ESEGUITA: Tasto premuto in Base dal colore "+PlayerColor.valueOf(x));
+                System.out.println("GameModel: MOSSA ESEGUITA: Tasto premuto in Base dal colore "+PlayerColor.valueOf(colore));
                 
-                movimentoDaBase(x, valoreDado, true);
+                movimentoDaBase(colore, valoreDado, true);
                 return true;
             }
         }
         if(pos == Posizione.NomePosizione.Fine){
-            if(movimentoDaFinale(y, x, valoreDado, false)){
+            if(movimentoDaFinale(posizione, colore, valoreDado, false)){
                 //DEBUG ONLY
-                System.out.println("GameModel: MOSSA ESEGUITA: Tasto premuto in Finale dal colore "+PlayerColor.valueOf(x)+ " nella posizione "+y);
+                System.out.println("GameModel: MOSSA ESEGUITA: Tasto premuto in Finale dal colore "+PlayerColor.valueOf(colore)+ " nella posizione "+posizione);
 
-                movimentoDaFinale(y, x, valoreDado, true);
+                movimentoDaFinale(posizione, colore, valoreDado, true);
                 return true;
             }
         }
         if(pos == Posizione.NomePosizione.Board){
-            if(movimentoDaPlancia(x, valoreDado, false)){
+            if(movimentoDaPlancia(posizione, valoreDado, false)){
                 //DEBUG ONLY
-                System.out.println("GameModel: MOSSA ESEGUITA: Tasto premuto in plancia in posizione "+x);
+                System.out.println("GameModel: MOSSA ESEGUITA: Tasto premuto in plancia in posizione "+posizione);
 
-                movimentoDaPlancia(x, valoreDado, true);
+                movimentoDaPlancia(posizione, valoreDado, true);
                 return true;
             }
         }
