@@ -248,11 +248,8 @@ public class ClientWaitingRoom extends JFrame {
 		client.richiestaModelIniziale();
 	}
 
-	public void creaMainFrame(String[] listaGiocatori) {
+	public void closeFrame() {
 		// TODO Auto-generated method stub
-		MainFrame framePrincipale = new MainFrame(listaGiocatori);
-		framePrincipale.setVisible(true);
-		framePrincipale.setLocationRelativeTo(null);
 		frame.dispose();
 	}
 }

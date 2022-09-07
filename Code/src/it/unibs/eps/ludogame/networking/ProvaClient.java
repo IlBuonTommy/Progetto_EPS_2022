@@ -100,7 +100,11 @@ public class ProvaClient {
 		for(int i = 0;i<listaGiocatori.length;i++) {
 			listaGiocatori[i] = modelClient.getPlayer()[i].getUsername();
 		}
-		clientFrame.creaMainFrame(listaGiocatori);
+
+		MainFrame framePrincipale = new MainFrame(listaGiocatori);
+		framePrincipale.setVisible(true);
+		framePrincipale.setLocationRelativeTo(null);
+		clientFrame.closeFrame();
 	}
 	
 }
