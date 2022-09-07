@@ -35,6 +35,7 @@ public class GestionePartita {
 		//mando a tutti i client il valore del dado
 		diceToAll(valoreDado);
 		//mando alla view i bottoni che può abilitare QUESTO PASSAGGIO PUò ESSERE FATTO IN AUTONOMIA DAL PROGRAMMA DEL GIOCATORE
+		
 	}
 	//questa funzione viene richiamata dalla pressione del bottone da parte di un giocatore
 	public void gestioneTurnoTre(Posizione tastoPremuto){
