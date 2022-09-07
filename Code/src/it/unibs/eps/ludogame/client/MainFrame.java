@@ -9,6 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+
+import it.unibs.eps.ludogame.game.Casella;
+
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -110,6 +113,10 @@ public class MainFrame extends JFrame {
 	 */
 	public void setTurno(int giocatore) {
 		this.panel.setTurno(giocatore);
+	}
+	
+	public void resetta(Casella[][] base,Casella[][] fine,Casella[] board) {
+		this.board.resetta(board, base, fine);
 	}
 
 }

@@ -124,7 +124,7 @@ public class ProvaServer {
 			allClientSendModel();
 			for (ProvaHandler c : clients) {
 				c.disabilitaTasti();
-
+				c.resettaFrame();
 			}
 			//framePrincipale.disableAllButtons();
 			
@@ -132,6 +132,7 @@ public class ProvaServer {
 		
 		public void inizioGame() {
 			framePrincipale.disableAllButtons();
+			
 		}
 		
 		

@@ -103,6 +103,10 @@ public class ProvaClient {
 				if(tipoRicevuto.equals("disable")) {
 					System.out.println("sono disabile");
 					framePrincipale.disableAllButtons();
+					
+				}
+				if(tipoRicevuto.equals("repaint")) {
+					framePrincipale.resetta(modelClient.getBase(), modelClient.getFinale(), modelClient.getPlancia());
 				}
 			}
 			
@@ -115,7 +119,7 @@ public class ProvaClient {
 		}
 		
 	}
-	
+
 	
 	public void avviaMainFrame() {
 		String[] listaGiocatori = new String[modelClient.getPlayer().length];
@@ -127,10 +131,21 @@ public class ProvaClient {
 		framePrincipale = new MainFrame(listaGiocatori);
 		framePrincipale.setVisible(true);
 		framePrincipale.setLocationRelativeTo(null);
+		Thread t = new Thread(new Runnable() {
 
-		comunicazioneInGameDaServer();
-
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				comunicazioneInGameDaServer();
+				
+			}
+			
+		});
+		t.run();
+		
 		clientFrame.closeFrame();
+	
+		
 	}
 	
 }

@@ -114,5 +114,16 @@ public class ProvaHandler implements Runnable{
 			e.printStackTrace();
 		}
 	}
+	
+	public void resettaFrame() {
+		Pacchetto p = new Pacchetto("repaint",null);
+		try {
+			out.writeObject(p);
+			out.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
