@@ -11,6 +11,8 @@ import java.net.Socket;
 import it.unibs.eps.ludogame.client.ClientWaitingRoom;
 import it.unibs.eps.ludogame.client.MainFrame;
 import it.unibs.eps.ludogame.client.Posizione;
+import it.unibs.eps.ludogame.client.Sconfitta;
+import it.unibs.eps.ludogame.client.Vittoria;
 import it.unibs.eps.ludogame.game.GameModel;
 
 public class ProvaClient {
@@ -134,6 +136,19 @@ public class ProvaClient {
 				
 				if(tipoRicevuto.equals("setPosizioni")) {
 					framePrincipale.enableBoardButtons((Posizione[])p.getMessage());
+				}
+				if(tipoRicevuto.equals("setVincitore")) {
+					int vincitore=(int)p.getMessage();
+					framePrincipale.dispose();
+					if(vincitore==this.playerIndex) {
+						Vittoria vittoria=new Vittoria();
+						vittoria.setVisible(true);
+						vittoria.setLocationRelativeTo(null);
+					}else {
+						Sconfitta sconfitta=new Sconfitta();
+						sconfitta.setVisible(true);
+						sconfitta.setLocationRelativeTo(null);
+					}
 				}
 			}
 			

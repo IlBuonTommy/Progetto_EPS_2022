@@ -11,6 +11,8 @@ import java.util.concurrent.Executors;
 import it.unibs.eps.ludogame.client.HostWaitingRoom;
 import it.unibs.eps.ludogame.client.MainFrame;
 import it.unibs.eps.ludogame.client.Posizione;
+import it.unibs.eps.ludogame.client.Sconfitta;
+import it.unibs.eps.ludogame.client.Vittoria;
 import it.unibs.eps.ludogame.game.GameModel;
 import it.unibs.eps.ludogame.game.GestionePartita;
 import it.unibs.eps.ludogame.game.Giocatore;
@@ -120,6 +122,28 @@ public class ProvaServer {
 
 			}
 		}
+		
+		public void setWinner(int vincitore) {
+			
+			for (ProvaHandler c : clients) {
+				c.setVincitore(vincitore);
+			}
+			
+			framePrincipale.dispose();
+			if(vincitore==0) {
+				Vittoria vittoria=new Vittoria();
+				vittoria.setVisible(true);
+				vittoria.setLocationRelativeTo(null);
+			}else {
+				Sconfitta sconfitta=new Sconfitta();
+				sconfitta.setVisible(true);
+				sconfitta.setLocationRelativeTo(null);
+			}
+			
+			
+			
+		}
+		
 		public void sendModelInGame() {
 			for (ProvaHandler c : clients) {
 				c.setUpdateModel(serverModel);

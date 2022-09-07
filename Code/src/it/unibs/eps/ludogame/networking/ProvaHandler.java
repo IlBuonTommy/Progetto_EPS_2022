@@ -128,6 +128,16 @@ public class ProvaHandler implements Runnable{
 		}
 	}
 	
+	public void setVincitore(int vincitore) {
+		Pacchetto p = new Pacchetto("setVincitore",vincitore);
+		try {
+			out.writeObject(p);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void setTurno(int turno) {
 		System.out.println("set turno))");
 		Pacchetto p = new Pacchetto("setTurno",turno);

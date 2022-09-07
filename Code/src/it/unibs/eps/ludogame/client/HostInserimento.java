@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 import it.unibs.eps.ludogame.networking.ProvaClient;
 import it.unibs.eps.ludogame.networking.ProvaServer;
 import it.unibs.eps.ludogame.networking.ServerGameLudo;
-import it.unibs.eps.ludogame.networking.TestProvaServer;
+
 
 import javax.swing.JLabel;
 import java.awt.Font;

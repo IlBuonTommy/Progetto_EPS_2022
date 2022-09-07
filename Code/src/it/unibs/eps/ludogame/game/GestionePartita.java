@@ -59,9 +59,11 @@ public class GestionePartita {
 	}
 	public void gestioneTurnoQuattro(){
 		System.out.println("turno 4");
-		if(server.getServerModel().checkWin()!=-1){
+		int vincitore=server.getServerModel().checkWin();
+		if(vincitore!=-1){
 			//il gioco finisce chiudiamo le connessioni e tutti a baita
 			//System.out.println("Partita terminata, Complimenti ha vinto il giocatore: "+ model.getPlayer()[model.checkWin()].getUsername());
+			server.setWinner(vincitore);
 			System.out.println("GIOCO FINITO GAEE");
 			/*try {
 				//client.close();
