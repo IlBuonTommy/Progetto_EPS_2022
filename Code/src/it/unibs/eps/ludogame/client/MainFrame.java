@@ -117,6 +117,8 @@ public class MainFrame extends JFrame {
 	
 	public void resetta(Casella[][] base,Casella[][] fine,Casella[] board) {
 		this.board.resetta(board, base, fine);
+		this.repaint();
+		System.out.println("base:" + base[0][0].toString());
 	}
 
 }

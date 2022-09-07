@@ -256,6 +256,7 @@ public class Board extends JPanel {
 			for (int i=0;i<40;i++) {
 				this.boardButton[i].setState(false);
 				if(board[i].getColore()>-1) {
+					
 					this.boardButton[i].setState(true,board[i].getColore(),board[i].getDoppio());
 				}
 			}
@@ -265,13 +266,14 @@ public class Board extends JPanel {
 					this.baseButton[i][j].setState(false);
 					
 					if(base[i][j].getColore()>-1) {
-						this.boardButton[i].setState(true,board[i].getColore(),board[i].getDoppio());
+						System.out.println("sono nell'if");
+						this.baseButton[i][j].setState(true,base[i][j].getColore(),base[i][j].getDoppio());
 					}
 					
 					this.fineButton[i][j].setState(false);
 					
 					if(fine[i][j].getColore()>-1) {
-						this.boardButton[i].setState(true,board[i].getColore(),board[i].getDoppio());
+						this.fineButton[i][j].setState(true,fine[i][j].getColore(),fine[i][j].getDoppio());
 					}
 				}
 			}
