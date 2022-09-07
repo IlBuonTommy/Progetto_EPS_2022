@@ -62,8 +62,8 @@ public class ProvaClient {
 			modelClient = (GameModel)in.readObject();
 			System.out.println("Model client ricevuto: " + modelClient.toString());
 			for(int i=0;i<modelClient.getPlayer().length;i++) {
-				if(this.playerName.equals(modelClient.getPlayer()[i])) {
-					this.playerIndex=i+1;
+				if(this.playerName.equals(modelClient.getPlayer()[i].getUsername())) {
+					this.playerIndex=i;
 					System.out.println("Player Index di "+this.playerName +" : "+this.playerIndex);
 				}
 			}
@@ -117,6 +117,7 @@ public class ProvaClient {
 				
 				if(tipoRicevuto.equals("setTurno")) {
 					System.out.println("sono arrivato nel set turno");
+					System.out.println("index: " + this.playerIndex);
 					framePrincipale.setTurno((int)p.getMessage());
 					if((int)p.getMessage()==this.playerIndex) {
 						framePrincipale.enableRoll();

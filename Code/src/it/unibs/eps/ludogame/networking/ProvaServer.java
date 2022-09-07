@@ -201,6 +201,7 @@ public class ProvaServer {
 		
 		public void settaTurnoClient() {
 			int currentPlayer=serverModel.getCurrentPlayerIndex();
+			System.out.println("INDEX SERVER:" + currentPlayer);
 			if(currentPlayer!=0) {
 				clients.get(currentPlayer-1).setTurno(currentPlayer);
 			}
