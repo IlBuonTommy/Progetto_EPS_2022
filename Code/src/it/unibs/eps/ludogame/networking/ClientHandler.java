@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import it.unibs.eps.ludogame.client.Posizione;
 import it.unibs.eps.ludogame.game.GameModel;
 import it.unibs.eps.ludogame.game.Giocatore;
-import networking.ultimaprova.Server;
 public class ClientHandler implements Runnable{
 	private Socket client;
 	private int valoreDadoS;
