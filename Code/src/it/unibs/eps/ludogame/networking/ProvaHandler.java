@@ -129,9 +129,12 @@ public class ProvaHandler implements Runnable{
 	}
 	
 	public void setTurno(int turno) {
+		System.out.println("set turno))");
 		Pacchetto p = new Pacchetto("setTurno",turno);
 		try {
+			System.out.println("pacchetto turno: " + p.toString());
 			out.writeObject(p);
+			System.out.println("mandato");
 			out.flush();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

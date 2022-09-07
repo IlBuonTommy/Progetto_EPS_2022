@@ -28,6 +28,7 @@ public class GestionePartita {
 			gestioneTurnoQuattro();
 		}else{
 			//abilito il bottone di lancio dado del giocatore corrente
+			server.settaTurnoClient();
 			server.startWaitingDado();
 		}
 	}

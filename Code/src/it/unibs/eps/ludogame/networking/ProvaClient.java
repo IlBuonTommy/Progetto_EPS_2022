@@ -116,6 +116,7 @@ public class ProvaClient {
 				}
 				
 				if(tipoRicevuto.equals("setTurno")) {
+					System.out.println("sono arrivato nel set turno");
 					framePrincipale.setTurno((int)p.getMessage());
 					if((int)p.getMessage()==this.playerIndex) {
 						framePrincipale.enableRoll();
