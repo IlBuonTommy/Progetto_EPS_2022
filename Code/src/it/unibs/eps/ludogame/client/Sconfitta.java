@@ -19,14 +19,14 @@ public class Sconfitta extends JFrame {
 
 	private JPanel contentPane;
 	private String[] listaSconfitta=new String[] {"un fico secco","un panino al salame","uno spiedo","20 nuggets","una ferrari"};
-	//private ProvaClient client;
-	//private ProcaServer server;
+	private JFrame frame;
 	
 
 	/**
 	 * Create the frame.
 	 */
 	public Sconfitta(String nomeVincitore) {
+		frame=this;
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("dice0.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,7 +82,7 @@ public class Sconfitta extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				System.out.println("Exit");
+				frame.dispose();
 				}
 		});
 		

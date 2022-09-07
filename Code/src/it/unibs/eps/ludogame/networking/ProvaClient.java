@@ -145,7 +145,8 @@ public class ProvaClient {
 						vittoria.setVisible(true);
 						vittoria.setLocationRelativeTo(null);
 					}else {
-						Sconfitta sconfitta=new Sconfitta();
+						String nome=modelClient.getPlayer()[vincitore].getUsername();
+						Sconfitta sconfitta=new Sconfitta(nome);
 						sconfitta.setVisible(true);
 						sconfitta.setLocationRelativeTo(null);
 					}

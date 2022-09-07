@@ -135,7 +135,8 @@ public class ProvaServer {
 				vittoria.setVisible(true);
 				vittoria.setLocationRelativeTo(null);
 			}else {
-				Sconfitta sconfitta=new Sconfitta();
+				String nome=serverModel.getPlayer()[vincitore].getUsername();
+				Sconfitta sconfitta=new Sconfitta(nome);
 				sconfitta.setVisible(true);
 				sconfitta.setLocationRelativeTo(null);
 			}
