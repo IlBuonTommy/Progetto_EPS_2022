@@ -11,6 +11,8 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import it.unibs.eps.ludogame.game.Casella;
+import it.unibs.eps.ludogame.networking.ProvaClient;
+import it.unibs.eps.ludogame.networking.ProvaServer;
 
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -32,7 +34,8 @@ public class MainFrame extends JFrame {
 	private JPanel contentPane;
 	private Board board;
 	private SidePanel panel;
-	
+	private ProvaClient client;
+	private ProvaServer server;
 
 	/**
 	 * Launch the application.
@@ -54,13 +57,14 @@ public class MainFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainFrame(String[] giocatori) {
+	public MainFrame(String[] giocatori,ProvaClient client,ProvaServer server) {
+		this.client=client;
 		setIconImage(Toolkit.getDefaultToolkit().getImage("icon.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(300, 100, 800, 700);
 		this.board=new Board();
 		
-		this.panel=new SidePanel(giocatori) ;
+		this.panel=new SidePanel(giocatori,this) ;
 		panel.setTurno(0);
 		this.setMinimumSize(new Dimension(600,600));
 		this.setMaximumSize(new Dimension(900,800));
@@ -97,11 +101,10 @@ public class MainFrame extends JFrame {
 	}
 	
 	/**
-	 * disabilita lancio del dado e abilita movimenti nella board
+	 *  abilita movimenti nella board
 	 * @param posizioni
 	 */
 	public void enableBoardButtons(Posizione[] posizioni) {
-		this.panel.setRollButton(false);
 		
 		this.board.enableButton(posizioni);
 	}
@@ -124,6 +127,15 @@ public class MainFrame extends JFrame {
 		this.panel.setTurno(currentPlayer);
 		this.repaint();
 		System.out.println("base:" + base[0][0].toString());
+	}
+	
+	public void sendDado(int n) {
+		if(this.client==null) {
+			server.starTurnoDue(n);
+		}else {
+			//chiamo ProvaClient e gli faccio inviare il dado
+		}
+		
 	}
 
 }

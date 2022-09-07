@@ -29,13 +29,14 @@ public class SidePanel extends JPanel {
 	private  ImageIcon diceImage;
 	private JLabel rollLabel;
 	private int nGiocatori;
+	private MainFrame mainFrame;
 	/**
 	 * Create the panel.
 	 */
-	public SidePanel(String[] nome) {
+	public SidePanel(String[] nome,MainFrame mainFrame) {
 		Random rand = new Random();
 		setLayout(new BorderLayout(0, 0));
-		
+		this.mainFrame=mainFrame;
 		JPanel toppanel = new JPanel();
 		add(toppanel, BorderLayout.CENTER);
 		toppanel.setLayout(new GridLayout(4,0, 0, 0));
@@ -71,6 +72,7 @@ public class SidePanel extends JPanel {
 				
 				int n = rand.nextInt(6)+1;
 				dadoAnimation(n);
+				setRollButton(false);
 				//chiamo funzione che prende dado
 			}
 		});

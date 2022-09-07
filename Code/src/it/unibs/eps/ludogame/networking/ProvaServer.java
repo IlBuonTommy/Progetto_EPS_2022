@@ -132,6 +132,12 @@ public class ProvaServer {
 
 			}
 		}
+		
+		
+		public void starTurnoDue(int dado) {
+			gestione.gestioneTurnoDue(dado);
+		}
+		
 		public void gestioneTurnoIniziale(){
 			//creo il model con i dati dei player che mi hanno passato le view
 			//il model viene inviato a tutti i client
@@ -146,6 +152,13 @@ public class ProvaServer {
 			
 		}
 		
+		//abbozziamo
+		public void AttesaDado() {
+			boolean waiting=true;
+			while(waiting) {
+				//
+			}
+		}
 		
 		public void inizioGame() {
 			framePrincipale.disableAllButtons();
@@ -195,7 +208,7 @@ public class ProvaServer {
 			for(int i = 0;i<listaGiocatori.length;i++) {
 				listaGiocatori[i] = serverModel.getPlayer()[i].getUsername();
 			}
-			 framePrincipale = new MainFrame(listaGiocatori);
+			 framePrincipale = new MainFrame(listaGiocatori,null,this);
 			framePrincipale.setVisible(true);
 			framePrincipale.setLocationRelativeTo(null);
 			
@@ -210,6 +223,8 @@ public class ProvaServer {
 				}
 			}
 		}
+		
+		
 
 
 }

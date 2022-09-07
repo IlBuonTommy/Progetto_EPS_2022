@@ -136,6 +136,28 @@ public class ProvaClient {
 		}
 		
 	}
+	
+	public synchronized void sendDadoToServer(int n) {
+
+		try {
+			out = new ObjectOutputStream(clientSocket.getOutputStream());
+			in = new ObjectInputStream(clientSocket.getInputStream());
+			out.flush();
+			out.writeObject(n);
+			out.flush();
+			System.out.println("mandato Dado");
+			//richiestaModelIniziale();
+			//Avviare View
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+
+
+}
 
 	
 	public void avviaMainFrame() {
@@ -145,7 +167,7 @@ public class ProvaClient {
 			listaGiocatori[i] = modelClient.getPlayer()[i].getUsername();
 		}
 		
-		framePrincipale = new MainFrame(listaGiocatori);
+		framePrincipale = new MainFrame(listaGiocatori,this,null);
 		framePrincipale.setVisible(true);
 		framePrincipale.setLocationRelativeTo(null);
 		Thread t = new Thread(new Runnable() {
