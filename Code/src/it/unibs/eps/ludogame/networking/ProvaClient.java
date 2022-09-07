@@ -115,7 +115,9 @@ public class ProvaClient {
 				}
 				if(tipoRicevuto.equals("setTurno")) {
 					framePrincipale.setTurno((int)p.getMessage());
-					
+					if((int)p.getMessage()==this.playerIndex) {
+						framePrincipale.enableRoll();
+					}
 				}
 				if(tipoRicevuto.equals("setDado")) {
 					framePrincipale.setDado((int)p.getMessage());
