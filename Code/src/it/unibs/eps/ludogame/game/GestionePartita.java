@@ -33,20 +33,19 @@ public class GestionePartita {
 	public void gestioneTurnoDue(int valoreDado){
 		valoreDadoS = valoreDado;
 		//mando a tutti i client il valore del dado
-		diceToAll(valoreDado);
+		server.sendDado(valoreDado);
 		//mando alla view i bottoni che può abilitare QUESTO PASSAGGIO PUò ESSERE FATTO IN AUTONOMIA DAL PROGRAMMA DEL GIOCATORE
-		
+		server.sendMovePosition(valoreDadoS);
 	}
 	//questa funzione viene richiamata dalla pressione del bottone da parte di un giocatore
 	public void gestioneTurnoTre(Posizione tastoPremuto){
 		//modifico il model in base al tasto premuto del giocatore
-		server.getServerModel().tastoPremuto(tastoPremuto.getNomeposizione(), tastoPremuto.getColor(), tastoPremuto.getArrayposizione(), valoreDadoS);
-
 		if(!server.getServerModel().tastoPremuto(tastoPremuto.getNomeposizione(),tastoPremuto.getArrayposizione(), tastoPremuto.getColor(), valoreDadoS)){
 			gestioneTurnoDue(valoreDadoS);
 			return;
 		}
 		//disabilito tutti i tasti al giocatore corrente
+		server.disableAllButton();
 		//invio a tutti i giocatori il nuovo model e lo visualizzo
 		server.sendModelInGame();
 		gestioneTurnoQuattro();
@@ -54,13 +53,14 @@ public class GestionePartita {
 	public void gestioneTurnoQuattro(){
 		if(server.getServerModel().checkWin()!=-1){
 			//il gioco finisce chiudiamo le connessioni e tutti a baita
-			System.out.println("Partita terminata, Complimenti ha vinto il giocatore: "+ model.getPlayer()[model.checkWin()].getUsername());
-			try {
-				client.close();
+			//System.out.println("Partita terminata, Complimenti ha vinto il giocatore: "+ model.getPlayer()[model.checkWin()].getUsername());
+			System.out.println("GIOCO FINITO GAEE");
+			/*try {
+				//client.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
 			return;
 		}
 		if(valoreDadoS==6){

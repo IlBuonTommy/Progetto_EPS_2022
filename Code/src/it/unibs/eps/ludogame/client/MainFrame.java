@@ -125,6 +125,7 @@ public class MainFrame extends JFrame {
 	public void resetta(Casella[][] base,Casella[][] fine,Casella[] board, int currentPlayer) {
 		this.board.resetta(board, base, fine);
 		this.panel.setTurno(currentPlayer);
+		
 		this.repaint();
 		System.out.println("base:" + base[0][0].toString());
 	}
@@ -136,6 +137,14 @@ public class MainFrame extends JFrame {
 			//chiamo ProvaClient e gli faccio inviare il dado
 		}
 		
+	}
+	
+	public void sendPosition(Posizione p) {
+		if(this.client==null) {
+			server.startTurnoTre(p);
+		}else {
+			//chiamo ProvaClient e gli faccio inviare il dado
+		}
 	}
 
 }

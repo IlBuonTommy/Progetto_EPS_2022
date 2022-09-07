@@ -110,20 +110,28 @@ public class ProvaClient {
 					framePrincipale.disableAllButtons();
 					
 				}
+				
 				if(tipoRicevuto.equals("repaint")) {
 					framePrincipale.resetta(modelClient.getBase(), modelClient.getFinale(), modelClient.getPlancia(), modelClient.getCurrentPlayerIndex());
 				}
+				
 				if(tipoRicevuto.equals("setTurno")) {
 					framePrincipale.setTurno((int)p.getMessage());
 					if((int)p.getMessage()==this.playerIndex) {
 						framePrincipale.enableRoll();
 					}
 				}
+				
 				if(tipoRicevuto.equals("setDado")) {
 					framePrincipale.setDado((int)p.getMessage());
 				}
+				
 				if(tipoRicevuto.equals("setModel")) {
 					modelClient = (GameModel)p.getMessage();
+				}
+				
+				if(tipoRicevuto.equals("setPosizioni")) {
+					framePrincipale.enableBoardButtons((Posizione[])p.getMessage());
 				}
 			}
 			

@@ -31,6 +31,7 @@ public class Board extends JPanel {
 	private MyButton boardButton[]=new MyButton[40];
 	private MyButton baseButton[][]=new MyButton[4][4];
 	private MyButton fineButton[][]=new MyButton[4][4];
+	private MainFrame framePrincipale;
 	
 	
 	//RED(0),BLUE(1),GREEN(2),YELLOW(3),EMPTY(-1)
@@ -38,9 +39,9 @@ public class Board extends JPanel {
 	
 	/**
 	 * Create the panel.
-	 */	public Board() {
+	 */	public Board(MainFrame frameprincipale) {
 		this.setLayout(new GridLayout(11, 11, 0, 0));
-		
+		this.framePrincipale=frameprincipale;
 		
 		
 		//creo ciclo data una griglie di 11*11
@@ -77,8 +78,8 @@ public class Board extends JPanel {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						MyButton o = (MyButton)e.getSource();
-						o.getButtonPosition();
 						
+						frameprincipale.sendPosition(o.getButtonPosition());
 						
 					}
 				}

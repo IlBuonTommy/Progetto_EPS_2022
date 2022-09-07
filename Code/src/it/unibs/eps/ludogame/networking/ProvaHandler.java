@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import it.unibs.eps.ludogame.client.Posizione;
 import it.unibs.eps.ludogame.game.GameModel;
 
 public class ProvaHandler implements Runnable{
@@ -154,9 +155,19 @@ public class ProvaHandler implements Runnable{
 			out.writeObject(p);
 			out.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public void sendListaPos(Posizione[] listapos) {
+		Pacchetto p = new Pacchetto("setPosizioni",listapos);
+		try {
+			out.writeObject(p);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

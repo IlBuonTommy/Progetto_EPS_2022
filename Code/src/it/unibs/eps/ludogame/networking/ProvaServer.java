@@ -10,6 +10,7 @@ import java.util.concurrent.Executors;
 
 import it.unibs.eps.ludogame.client.HostWaitingRoom;
 import it.unibs.eps.ludogame.client.MainFrame;
+import it.unibs.eps.ludogame.client.Posizione;
 import it.unibs.eps.ludogame.game.GameModel;
 import it.unibs.eps.ludogame.game.GestionePartita;
 import it.unibs.eps.ludogame.game.Giocatore;
@@ -122,7 +123,7 @@ public class ProvaServer {
 		public void sendModelInGame() {
 			for (ProvaHandler c : clients) {
 				c.setUpdateModel(serverModel);
-
+				c.resettaFrame();
 			}
 		}
 		
@@ -136,6 +137,29 @@ public class ProvaServer {
 		
 		public void starTurnoDue(int dado) {
 			gestione.gestioneTurnoDue(dado);
+		}
+		
+		public void sendMovePosition(int dado) {
+			Posizione[] listapos=serverModel.getTastiAbilitati(dado);
+			int currentPlayer=serverModel.getCurrentPlayerIndex();
+			if(currentPlayer==0) {
+				framePrincipale.enableBoardButtons(listapos);
+			}else {
+				clients.get(currentPlayer-1).sendListaPos(listapos);
+			}
+		}
+		
+		public void startTurnoTre(Posizione p) {
+			gestione.gestioneTurnoTre(p);
+		}
+		
+		public void disableAllButton() {
+			int currentPlayer=serverModel.getCurrentPlayerIndex();
+			if(currentPlayer==0) {
+				framePrincipale.disableAllButtons();
+			}else {
+				clients.get(currentPlayer-1).disabilitaTasti();
+			}
 		}
 		
 		public void gestioneTurnoIniziale(){
