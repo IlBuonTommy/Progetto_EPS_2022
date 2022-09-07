@@ -148,8 +148,6 @@ public class ProvaClient {
 	public synchronized void sendDadoToServer(int n) {
 
 		try {
-			out = new ObjectOutputStream(clientSocket.getOutputStream());
-			in = new ObjectInputStream(clientSocket.getInputStream());
 			out.flush();
 			out.writeObject(n);
 			out.flush();

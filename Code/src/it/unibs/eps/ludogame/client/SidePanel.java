@@ -29,11 +29,11 @@ public class SidePanel extends JPanel {
 	private  ImageIcon diceImage;
 	private JLabel rollLabel;
 	private int nGiocatori;
-	private MainFrame mainFrame;
+	private MainFrame framePrincipale;
 	/**
 	 * Create the panel.
 	 */
-	public SidePanel(String[] nome,MainFrame mainFrame) {
+	public SidePanel(String[] nome,MainFrame framePrincipale) {
 		Random rand = new Random();
 		setLayout(new BorderLayout(0, 0));
 		this.mainFrame=mainFrame;
@@ -64,6 +64,7 @@ public class SidePanel extends JPanel {
 		panel_1.add(this.rollLabel, BorderLayout.NORTH);
 		
 		rollButton = new JButton("LANCIA");
+		
 		rollButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -74,6 +75,7 @@ public class SidePanel extends JPanel {
 				dadoAnimation(n);
 				setRollButton(false);
 				//chiamo funzione che prende dado
+				framePrincipale.setDado(n);
 			}
 		});
 		panel_1.add(rollButton);
