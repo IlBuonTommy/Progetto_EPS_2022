@@ -176,7 +176,7 @@ public class GameModel implements Serializable{
         //controllo se ha pedina doppia davanti
         for(int i=1; i<=valoreDado; i++){
             if(plancia[posizione].getColore()==0){
-                if(posizione <= 39 && nuovaPosizione >= (10*plancia[posizione].getColore()) && posizione > 33){
+                if(posizione <= 39 && nuovaPosizione >= (10*plancia[posizione].getColore()) && posizione > 33 && i+posizione>39){
                     i=valoreDado+1;
                 }else{
                     if(posizione+i>39){
@@ -188,7 +188,7 @@ public class GameModel implements Serializable{
                     }
                 }
             }else{
-                if(posizione <= (10*plancia[posizione].getColore())-1 && nuovaPosizione >= (10*plancia[posizione].getColore()) && posizione > (10*plancia[posizione].getColore())-7){
+                if(posizione <= (10*plancia[posizione].getColore())-1 && nuovaPosizione >= (10*plancia[posizione].getColore()) && posizione > (10*plancia[posizione].getColore())-7 && i+posizione>(10*plancia[posizione].getColore())-1){
                     i=valoreDado+1;
                 }else{
                     if(posizione+i>39){
@@ -205,7 +205,7 @@ public class GameModel implements Serializable{
         //controlla se deve andare in finale
         boolean finaleT = false;
         if(plancia[posizione].getColore()==0){
-            if(posizione <= 39 && nuovaPosizione >= (10*plancia[posizione].getColore()) && posizione > 33){
+            if(posizione <= 39 && nuovaPosizione >= 0 && posizione > 33){
                 finaleT = true;
             }
         }else{
