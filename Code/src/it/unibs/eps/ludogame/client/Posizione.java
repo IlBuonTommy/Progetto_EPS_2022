@@ -1,9 +1,10 @@
 package it.unibs.eps.ludogame.client;
+import java.io.Serializable;
 import java.util.HashMap;
 
 //import Posizione.NomePosizione;
 
-public class Posizione {
+public class Posizione implements Serializable{
 	
 	public static enum NomePosizione{
 		Base,Fine,Board

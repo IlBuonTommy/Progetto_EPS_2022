@@ -256,6 +256,7 @@ public class Board extends JPanel {
 			
 			for (int i=0;i<40;i++) {
 				this.boardButton[i].setState(false, -1);
+				System.out.println("sisout: "+ i + " " + board[i].getColore());
 				if(board[i].getColore()>-1) {
 					
 					this.boardButton[i].setState(true,board[i].getColore(),board[i].getDoppio());

@@ -157,9 +157,9 @@ public class ProvaServer {
 		}
 		
 		public void sendDado(int dado) {
+			framePrincipale.setDado(dado);
 			for (ProvaHandler c : clients) {
 				c.setDado(dado);
-
 			}
 		}
 		
@@ -227,9 +227,10 @@ public class ProvaServer {
 		public void settaTurnoClient() {
 			int currentPlayer=serverModel.getCurrentPlayerIndex();
 			System.out.println("INDEX SERVER:" + currentPlayer);
-			if(currentPlayer!=0) {
-				clients.get(currentPlayer-1).setTurno(currentPlayer);
+			for (ProvaHandler c : clients) {
+				c.setTurno(currentPlayer);
 			}
+			//framePrincipale.setTurno(currentPlayer);
 		}
 		
 		public void inizioGame() {

@@ -124,6 +124,7 @@ public class ProvaClient {
 					if((int)p.getMessage()==this.playerIndex) {
 						framePrincipale.enableRoll();
 					}
+					//framePrincipale.resetta(modelClient.getBase(), modelClient.getFinale(), modelClient.getPlancia(),this.playerIndex );
 				}
 				
 				if(tipoRicevuto.equals("setDado")) {

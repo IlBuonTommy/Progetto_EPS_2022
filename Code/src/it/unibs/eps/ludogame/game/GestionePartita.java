@@ -13,7 +13,7 @@ public class GestionePartita {
 		this.server = server;
 	}
 	
-	public void gestioneTurnoUno(){
+	public synchronized void gestioneTurnoUno(){
 		System.out.println("turno 1, indice: " + server.getServerModel().getCurrentPlayerIndex());
 		
 		if(server.getServerModel().currentIsBot()){
@@ -21,6 +21,7 @@ public class GestionePartita {
 			valoreDadoS = (int)Math.floor(Math.random()*(6)+1);
 			
 			server.sendDado(valoreDadoS);
+			
 			//faccio fare il movimento al bot
 			server.getServerModel().movimentoBOT(server.getServerModel().getCurrentPlayerIndex(), valoreDadoS);
 			//aggiorno il model dei vari client e visualizzo quello nuovo
