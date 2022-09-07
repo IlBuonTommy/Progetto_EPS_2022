@@ -176,7 +176,7 @@ public class GameModel implements Serializable{
         //controllo se ha pedina doppia davanti
         for(int i=1; i<=valoreDado; i++){
             if(plancia[posizione].getColore()==0){
-                if(posizione <= 39 && posizione+i >= (10*plancia[posizione].getColore())){
+                if(posizione <= 39 && nuovaPosizione >= (10*plancia[posizione].getColore()) && posizione > 33){
                     i=valoreDado+1;
                 }else{
                     if(posizione+i>39){
@@ -188,7 +188,7 @@ public class GameModel implements Serializable{
                     }
                 }
             }else{
-                if(posizione <= (10*plancia[posizione].getColore())-1 && posizione+i >= (10*plancia[posizione].getColore())){
+                if(posizione <= (10*plancia[posizione].getColore())-1 && nuovaPosizione >= (10*plancia[posizione].getColore()) && posizione > (10*plancia[posizione].getColore())-7){
                     i=valoreDado+1;
                 }else{
                     if(posizione+i>39){
@@ -232,6 +232,7 @@ public class GameModel implements Serializable{
                 }
                 return true;
             }
+            return false;
         }
         
         //controlla se deve mangiare
@@ -252,14 +253,18 @@ public class GameModel implements Serializable{
 
         //controlla se crea una doppia
         if(plancia[nuovaPosizione].getColore()==plancia[posizione].getColore() && !plancia[nuovaPosizione].getDoppio()){
-            if(daEseguire){
-                plancia[nuovaPosizione].setDoppio(true);
-                if(plancia[posizione].getDoppio()){
-                    plancia[posizione].setDoppio(false);
-                }else{
-                    plancia[posizione].setColore(-1);
-                }
+            if(nuovaPosizione != 0 && nuovaPosizione != 10 && nuovaPosizione != 20 && nuovaPosizione != 30){
+                if(daEseguire){
+                    plancia[nuovaPosizione].setDoppio(true);
+                    if(plancia[posizione].getDoppio()){
+                        plancia[posizione].setDoppio(false);
+                    }else{
+                        plancia[posizione].setColore(-1);
+                    }
                 return true;
+                }
+            }else{
+                return false;
             }
         }
 
