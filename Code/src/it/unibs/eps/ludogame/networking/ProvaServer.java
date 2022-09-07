@@ -199,6 +199,13 @@ public class ProvaServer {
 			}
 		}
 		
+		public void settaTurnoClient() {
+			int currentPlayer=serverModel.getCurrentPlayerIndex();
+			if(currentPlayer!=0) {
+				clients.get(currentPlayer-1).setTurno(currentPlayer);
+			}
+		}
+		
 		public void inizioGame() {
 			framePrincipale.disableAllButtons();
 			framePrincipale.resetta(serverModel.getBase(), serverModel.getFinale(), serverModel.getPlancia(),0);
