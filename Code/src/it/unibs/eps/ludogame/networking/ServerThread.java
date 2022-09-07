@@ -52,9 +52,6 @@ class ServerThread implements Runnable {
 	public void setNeedUpdate(boolean needUpdate) {
 		this.needUpdate = needUpdate;
 	}
-	
-	
-	
 
 	public int getValoreDado() {
 		return valoreDado;
@@ -63,6 +60,7 @@ class ServerThread implements Runnable {
 	public void setValoreDado(int valoreDado) {
 		this.valoreDado = valoreDado;
 	}
+
 	public Posizione getUserInput() {
 		return userInput;
 	}
@@ -73,10 +71,10 @@ class ServerThread implements Runnable {
 
 	public void updateModel(Posizione userInput) {
 		// aggiorno il server model usando il metodo movimento da...
-		serverModel.tastoPremuto(userInput.getNomeposizione(),userInput.getColor() ,userInput.getArrayposizione(),valoreDado);
+		serverModel.tastoPremuto(userInput.getNomeposizione(), userInput.getColor(), userInput.getArrayposizione(),
+				valoreDado);
 		needUpdate = true;
 	}
-
 
 	public synchronized void run() {
 		try {
@@ -84,30 +82,37 @@ class ServerThread implements Runnable {
 
 			inDalClient = new ObjectInputStream(client.getInputStream());
 			outVersoClient = new ObjectOutputStream(client.getOutputStream());
-		//	setNomeGiocatore((String)inDalClient.readObject());
+			// setNomeGiocatore((String)inDalClient.readObject());
 			outVersoClient.writeObject(serverModel);
 			while (true) {
-				
-				Pacchetto pacchettoRicevuto = (Pacchetto)inDalClient.readObject();
-				//Pacchetto pacchettoRicevuto = inDal;
-				switch(pacchettoRicevuto.getType()) {
-					case "posizione":	userInput = (Posizione)pacchettoRicevuto.getMessage();
-										needUpdate=true;
-										//updateModel(userInput);
-										outVersoClient.writeObject(serverModel);break;
-					case "dado":  		outVersoClient.writeObject(valoreDado);break;
-					case "model":		outVersoClient.writeObject(serverModel);
-					default: System.out.println("errore"); 
+
+				Pacchetto pacchettoRicevuto = (Pacchetto) inDalClient.readObject();
+				// Pacchetto pacchettoRicevuto = inDal;
+				switch (pacchettoRicevuto.getType()) {
+					case "posizione":
+						userInput = (Posizione) pacchettoRicevuto.getMessage();
+						needUpdate = true;
+						// updateModel(userInput);
+						outVersoClient.writeObject(serverModel);
+						break;
+					case "dado":
+						outVersoClient.writeObject(valoreDado);
+						break;
+					case "model":
+						outVersoClient.writeObject(serverModel);
+					default:
+						System.out.println("errore");
 				}
-			/*	if (pacchettoRicevuto.getType().equals("posizione")) {
-					userInput = (Posizione)pacchettoRicevuto.getMessage();
-					updateModel(userInput);
-					outVersoClient.writeObject(serverModel);
-				}*/
+				/*
+				 * if (pacchettoRicevuto.getType().equals("posizione")) {
+				 * userInput = (Posizione)pacchettoRicevuto.getMessage();
+				 * updateModel(userInput);
+				 * outVersoClient.writeObject(serverModel);
+				 * }
+				 */
 
 			}
 
-			
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 		}

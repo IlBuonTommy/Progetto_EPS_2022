@@ -6,20 +6,22 @@ import java.util.Arrays;
 import it.unibs.eps.ludogame.game.Casella;
 import it.unibs.eps.ludogame.game.Giocatore;
 
-public class Controllore implements Serializable{
-	
-    private Casella plancia[];
-    private Casella base[][];
-    private Casella finale[][];
-    private Giocatore player[];
-    int numGiocatori;
-	
+public class Controllore implements Serializable {
+
+	private Casella plancia[];
+	private Casella base[][];
+	private Casella finale[][];
+	private Giocatore player[];
+	int numGiocatori;
+
 	public void mandaBenvenuto() {
 		// TODO Auto-generated method stub
 		System.out.println("CIAO");
-	/*	for(int i=0;i<player.length;i++) {
-			System.out.println("CIAO " + player[i].getUsername());
-		}*/
+		/*
+		 * for(int i=0;i<player.length;i++) {
+		 * System.out.println("CIAO " + player[i].getUsername());
+		 * }
+		 */
 	}
 
 	public Casella[] getPlancia() {
@@ -68,10 +70,5 @@ public class Controllore implements Serializable{
 				+ Arrays.toString(finale) + ", player=" + Arrays.toString(player) + ", numGiocatori=" + numGiocatori
 				+ "]";
 	}
-
-	
-	
-	
-	
 
 }

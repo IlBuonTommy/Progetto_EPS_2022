@@ -28,10 +28,10 @@ public class ClientController extends MultiClient{
 		return true;
 	}
 	
-	public boolean isMyTurn(Giocatore p) {
+	/*public boolean isMyTurn(Giocatore p) {
 		Giocatore currentPlayer = model.getCurrentPlayer();
 		return currentPlayer != null && currentPlayer == p;
-	}
+	}*/
 	
 	public void checkVincita() {
 		if(model.ControlloVincitaTempDebug() != -1) {

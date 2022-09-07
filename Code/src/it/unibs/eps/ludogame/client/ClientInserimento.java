@@ -1,9 +1,7 @@
 package it.unibs.eps.ludogame.client;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Label;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,11 +13,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import it.unibs.eps.ludogame.networking.ClientGameLudo;
 import it.unibs.eps.ludogame.networking.ProvaClient;
 
 public class ClientInserimento extends JFrame {
@@ -117,12 +113,12 @@ public class ClientInserimento extends JFrame {
 					// ClientGameLudo client = new
 					// ClientGameLudo(textFieldIP.getText(),textFieldNome.getText());
 					ProvaClient client = new ProvaClient(textFieldIP.getText(), textFieldNome.getText(), clientframe);
-					
+
 					System.out.println("fuori");
 					if (client.checkConnection()) {
 						System.out.println("dentro");
 						System.out.println("comunicato");
-						
+
 						client.comunica();
 						System.out.println("dopo comunica");
 						frame.dispose();
@@ -135,7 +131,7 @@ public class ClientInserimento extends JFrame {
 								// TODO Auto-generated method stub
 								clientframe.richiediModel(client);
 							}
-							
+
 						});
 						t.start();
 

@@ -1,7 +1,5 @@
 package it.unibs.eps.ludogame.game;
 
-import java.io.IOException;
-
 import it.unibs.eps.ludogame.client.Posizione;
 import it.unibs.eps.ludogame.networking.ProvaServer;
 

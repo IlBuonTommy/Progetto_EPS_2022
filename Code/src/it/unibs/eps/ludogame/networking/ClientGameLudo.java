@@ -9,50 +9,47 @@ import it.unibs.eps.ludogame.client.Posizione;
 import it.unibs.eps.ludogame.game.GameModel;
 
 public class ClientGameLudo {
-	private  String SERVER_IP;
+	private String SERVER_IP;
 	private static final int SERVER_PORT = 50358;
-	private  Socket clientSocket;
-	private  String playerName;
-	private  ObjectOutputStream out;
-	private  ObjectInputStream in;
-	private  GameModel model = null;
+	private Socket clientSocket;
+	private String playerName;
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
+	private GameModel model = null;
 	private boolean isMyTurn = true;
 	private Posizione posizioneUtente;
-	private  int valoreDado;
-	
-	public ClientGameLudo(String serverIp,String playerName) {
+	private int valoreDado;
+
+	public ClientGameLudo(String serverIp, String playerName) {
 		this.SERVER_IP = serverIp;
 		this.playerName = playerName;
 
-		
-		
 	}
-	
+
 	public boolean checkConnection() {
 		System.out.println("[CLIENT]: in esecuzione.");
-	
-		//	clientSocket = new Socket(SERVER_IP,SERVER_PORT);
-			System.out.println("primacom");
-			try {
-				clientSocket = new Socket(SERVER_IP,SERVER_PORT);
-				
-				return true;
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return false;
-			}
 
-		
+		// clientSocket = new Socket(SERVER_IP,SERVER_PORT);
+		System.out.println("primacom");
+		try {
+			clientSocket = new Socket(SERVER_IP, SERVER_PORT);
+
+			return true;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+
 	}
-	
-	public  void inizializza() {
-		Pacchetto p = new Pacchetto("nome",playerName);
+
+	public void inizializza() {
+		Pacchetto p = new Pacchetto("nome", playerName);
 		try {
 			out.writeObject(p);
-			playerName = (String)in.readObject();
-			//out.writeObject(p);
-			//model = (GameModel)in.readObject();
+			playerName = (String) in.readObject();
+			// out.writeObject(p);
+			// model = (GameModel)in.readObject();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,46 +57,53 @@ public class ClientGameLudo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
-	public  void richiediDado()
-	{
+
+	public void richiediDado() {
 		try {
-			out.writeObject(new Pacchetto("dado",null));
+			out.writeObject(new Pacchetto("dado", null));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			valoreDado = (int)in.readObject();
+			valoreDado = (int) in.readObject();
 		} catch (ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println(valoreDado);
 	}
+
 	public void comunica() {
 		try {
 			System.out.println("sono in comunica");
-		
-			/*model = (GameModel)in.readObject();
-			inizializza();
-			System.out.println(model.toString());
-			System.out.println("Sono il giocatore:" + playerName);*/
+
+			/*
+			 * model = (GameModel)in.readObject();
+			 * inizializza();
+			 * System.out.println(model.toString());
+			 * System.out.println("Sono il giocatore:" + playerName);
+			 */
 			System.out.println("prima di invio");
 			out.writeObject(playerName);
 			System.out.println("dopo di invio");
-		}catch (IOException e){
+		} catch (IOException e) {
 			System.err.println("Eccezione dal client");
 			System.err.println(e.getMessage());
-		} /*catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		
+		} /*
+			 * catch (ClassNotFoundException e) {
+			 * // TODO Auto-generated catch block
+			 * e.printStackTrace();
+			 * }
+			 */
+
 	}
-	/*public static void main(String[] args) {
-		connect();
-	}*/
+	/*
+	 * public static void main(String[] args) {
+	 * connect();
+	 * }
+	 */
 
 }

@@ -1,4 +1,5 @@
 package it.unibs.eps.ludogame.server;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -13,42 +14,37 @@ public class ClientThread implements Runnable {
 	private Socket socket;
 	public Controllore controller;
 	private ObjectInputStream in;
-	private  ObjectOutputStream out;
+	private ObjectOutputStream out;
 
-	
 	ClientThread(Socket socket, Controllore controller) {
 		this.socket = socket;
 		this.controller = controller;
 	}
 
-	
 	@Override
 	public synchronized void run() {
-		//Qua vanno inseriti i metodi che il client deve fare
+		// Qua vanno inseriti i metodi che il client deve fare
 		try {
 			in = new ObjectInputStream(socket.getInputStream());
 			out = new ObjectOutputStream(socket.getOutputStream());
-			Casella[] base = (Casella[])in.readObject();
-			
+			Casella[] base = (Casella[]) in.readObject();
+
 			System.out.println(base.toString());
-		
-			
-		}
-		catch (Exception e) {  }
-		finally {
+
+		} catch (Exception e) {
+		} finally {
 			try {
 				in.close();
 				out.close();
 				socket.close();
+			} catch (IOException e) {
 			}
-			catch (IOException e) { }
-	
+
 		}
 	}
 
+	protected void out(String data) {
 
-	protected void out(String data){
-		
 		try {
 			out.writeObject(data);
 		} catch (IOException e) {
