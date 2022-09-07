@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 import it.unibs.eps.ludogame.client.HostWaitingRoom;
 import it.unibs.eps.ludogame.client.MainFrame;
 import it.unibs.eps.ludogame.game.GameModel;
+import it.unibs.eps.ludogame.game.GestionePartita;
 import it.unibs.eps.ludogame.game.Giocatore;
 
 public class ProvaServer {
@@ -31,6 +32,7 @@ public class ProvaServer {
 		private GameModel serverModel;
 		private MainFrame framePrincipale;
 		private int nGiocatoriConnessi=0;
+		private GestionePartita gestione;
 		public ProvaServer(int numMaxGiocatori, HostWaitingRoom frameWaiting, String nomeServer) {
 			this.numMaxGiocatori = numMaxGiocatori;
 			this.frameWaiting = frameWaiting;
@@ -117,6 +119,19 @@ public class ProvaServer {
 
 			}
 		}
+		public void sendModelInGame() {
+			for (ProvaHandler c : clients) {
+				c.setUpdateModel(serverModel);
+
+			}
+		}
+		
+		public void sendDado(int dado) {
+			for (ProvaHandler c : clients) {
+				c.setDado(dado);
+
+			}
+		}
 		public void gestioneTurnoIniziale(){
 			//creo il model con i dati dei player che mi hanno passato le view
 			//il model viene inviato a tutti i client
@@ -126,16 +141,23 @@ public class ProvaServer {
 				c.disabilitaTasti();
 				c.resettaFrame();
 			}
-			//framePrincipale.disableAllButtons();
+			gestione = new GestionePartita(this);
+			gestione.gestioneTurnoUno();
 			
 		}
+		
 		
 		public void inizioGame() {
 			framePrincipale.disableAllButtons();
-			
+			framePrincipale.resetta(serverModel.getBase(), serverModel.getFinale(), serverModel.getPlancia(),0);
 		}
 		
 		
+		public GameModel getServerModel() {
+			return serverModel;
+		}
+
+
 		public synchronized void avvia() {
 				System.out.println("[SERVER]: avviato correttamente.");
 				//createModel();

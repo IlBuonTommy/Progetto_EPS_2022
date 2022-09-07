@@ -23,7 +23,7 @@ public class ProvaClient {
 	private PrintWriter stampa;
 	private BufferedReader leggi;
 	private  GameModel modelClient = null;
-	private boolean isMyTurn = true;
+	private int playerIndex;
 	private Posizione posizioneUtente;
 	private  int valoreDado;
 	private ClientWaitingRoom clientFrame;
@@ -32,7 +32,6 @@ public class ProvaClient {
 		this.SERVER_IP = serverIp;
 		this.playerName = playerName;
 		this.clientFrame = clientframe;
-		
 		
 	}
 	
@@ -106,7 +105,17 @@ public class ProvaClient {
 					
 				}
 				if(tipoRicevuto.equals("repaint")) {
-					framePrincipale.resetta(modelClient.getBase(), modelClient.getFinale(), modelClient.getPlancia());
+					framePrincipale.resetta(modelClient.getBase(), modelClient.getFinale(), modelClient.getPlancia(), modelClient.getCurrentPlayerIndex());
+				}
+				if(tipoRicevuto.equals("setTurno")) {
+					framePrincipale.setTurno((int)p.getMessage());
+					
+				}
+				if(tipoRicevuto.equals("setDado")) {
+					framePrincipale.setDado((int)p.getMessage());
+				}
+				if(tipoRicevuto.equals("setModel")) {
+					modelClient = (GameModel)p.getMessage();
 				}
 			}
 			

@@ -115,8 +115,13 @@ public class MainFrame extends JFrame {
 		this.panel.setTurno(giocatore);
 	}
 	
-	public void resetta(Casella[][] base,Casella[][] fine,Casella[] board) {
+	public void setDado(int dado) {
+		this.panel.dadoAnimation(dado);
+	}
+	
+	public void resetta(Casella[][] base,Casella[][] fine,Casella[] board, int currentPlayer) {
 		this.board.resetta(board, base, fine);
+		this.panel.setTurno(currentPlayer);
 		this.repaint();
 		System.out.println("base:" + base[0][0].toString());
 	}

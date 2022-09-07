@@ -125,5 +125,38 @@ public class ProvaHandler implements Runnable{
 			e.printStackTrace();
 		}
 	}
+	
+	public void setTurno(int turno) {
+		Pacchetto p = new Pacchetto("setTurno",turno);
+		try {
+			out.writeObject(p);
+			out.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void setDado(int dado) {
+		Pacchetto p = new Pacchetto("setDado",dado);
+		try {
+			out.writeObject(p);
+			out.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void setUpdateModel(GameModel model) {
+		Pacchetto p = new Pacchetto("setModel",model);
+		try {
+			out.writeObject(p);
+			out.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
