@@ -26,7 +26,7 @@ public class Sconfitta extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Sconfitta() {
+	public Sconfitta(String nomeVincitore) {
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("dice0.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -105,9 +105,13 @@ public class Sconfitta extends JFrame {
 		JLabel lblCosaVinci = new JLabel("Devi pagare "+listaSconfitta[n]);
 		lblCosaVinci.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCosaVinci.setFont(new Font("MV Boli", Font.PLAIN, 15));
-		lblCosaVinci.setBounds(56, 124, 333, 55);
+		lblCosaVinci.setBounds(52, 152, 333, 45);
 		contentPane.add(lblCosaVinci);
+		
+		JLabel lblNomeVincitore = new JLabel("Ha vinto "+nomeVincitore);
+		lblNomeVincitore.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNomeVincitore.setFont(new Font("MV Boli", Font.PLAIN, 15));
+		lblNomeVincitore.setBounds(52, 114, 333, 45);
+		contentPane.add(lblNomeVincitore);
 	}
-
-
 }
