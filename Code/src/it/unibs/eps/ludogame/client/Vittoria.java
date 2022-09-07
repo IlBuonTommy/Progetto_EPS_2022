@@ -26,14 +26,14 @@ public class Vittoria extends JFrame {
 
 	private JPanel contentPane;
 	private String[] listaVittoria=new String[] {"un fico secco","un panino al salame","uno spiedo offerto","20 nuggets","la gloria eterna"};
-
+	private JFrame frame;
 	
 
 	/**
 	 * Create the frame.
 	 */
 	public Vittoria() {
-
+		this.frame=this;
 		
 		
 		setResizable(false);
@@ -90,8 +90,7 @@ public class Vittoria extends JFrame {
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				System.out.println("Exit");
+				frame.dispose();
 				}
 		});
 		
