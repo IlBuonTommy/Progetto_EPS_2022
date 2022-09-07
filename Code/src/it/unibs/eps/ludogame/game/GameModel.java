@@ -205,7 +205,7 @@ public class GameModel implements Serializable{
         //controlla se deve andare in finale
         boolean finaleT = false;
         if(plancia[posizione].getColore()==0){
-            if(posizione <= 39 && nuovaPosizione >= 0 && posizione > 33){
+            if(posizione <= 39 && posizione+valoreDado-40>=0 && posizione > 33){
                 finaleT = true;
             }
         }else{
