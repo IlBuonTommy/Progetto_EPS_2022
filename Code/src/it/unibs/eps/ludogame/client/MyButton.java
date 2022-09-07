@@ -13,6 +13,7 @@ public class MyButton extends JButton {
 	private boolean draw;
 	private boolean doppio;
 	private Posizione posizione;
+	private JLabel label;
 	
 	
 	
@@ -21,12 +22,13 @@ public class MyButton extends JButton {
 		this.draw=false;
 		doppio=false;
 		this.posizione=new Posizione(p);
-		
+		label = new JLabel("");
+		add(label);
 	}
 	
 	 public void paintComponent(Graphics g) {
 	       super.paintComponent(g);
-	       //controllo se è presente una pedina
+	       //controllo se ï¿½ presente una pedina
 	       if(color>-1) {
 	    	   String c=this.listaColori[color];
 	    	   g.setColor(Color.decode(c));
@@ -46,12 +48,13 @@ public class MyButton extends JButton {
 		       g.drawOval(x, y, min, min);
 		       
 		       if(this.doppio) {
-		    	   JLabel label = new JLabel("D");
+		    	   label.setText("D");
 		    	   label.setAlignmentX((float) 0.55);
 		    	   label.setAlignmentY((float) 0.55);
 		    	   label.setForeground(Color.white);
-		   		   add(label);
-		       }
+		       }else{
+					label.setText("");
+			   }
 		       
 	       }
 	       

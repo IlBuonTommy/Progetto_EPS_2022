@@ -258,7 +258,7 @@ public class ProvaServer {
 			// TODO Auto-generated method stub
 			if(nGiocatoriConnessi < numMaxGiocatori) {
 				for(int i=nGiocatoriConnessi+1;i<(numMaxGiocatori);i++) {
-					listaGiocatori[i] = new Giocatore(i,listaBot[numMaxGiocatori-i],true);
+					listaGiocatori[i] = new Giocatore(i,listaBot[numMaxGiocatori-i-1],true);
 					
 				}
 			}
