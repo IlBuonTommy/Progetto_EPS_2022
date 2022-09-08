@@ -27,16 +27,25 @@ public class ProvaClient {
 	private PrintWriter stampa;
 	private BufferedReader leggi;
 	private  GameModel modelClient = null;
+	private Casella[] plancia;
+	private Casella[][] base;
+	private Casella[][] finale;
 	private int playerIndex;
 	private Posizione posizioneUtente;
 	private  int valoreDado;
 	private ClientWaitingRoom clientFrame;
 	private MainFrame framePrincipale;
+	int i=0;
+	int j=0;
+	int iPlancia=0;
 	public ProvaClient(String serverIp,String playerName, ClientWaitingRoom clientframe) {
 		this.SERVER_IP = serverIp;
 		this.playerName = playerName;
 		this.clientFrame = clientframe;
-		
+		 // this.plancia = new Casella[40];
+	        this.base = new Casella[4][4];
+	        
+	       // this.finale = new Casella[4][4];
 	}
 	
 	public boolean checkConnection() {
@@ -65,6 +74,10 @@ public class ProvaClient {
 			out.flush();
 			modelClient = (GameModel)in.readObject();
 			System.out.println("Model client ricevuto: " + modelClient.toString());
+			base = modelClient.getBase();
+			//finale = modelClient.getFinale();
+			plancia = modelClient.getPlancia();
+			//playerIndex = modelClient.getCurrentPlayerIndex();
 			for(int i=0;i<modelClient.getPlayer().length;i++) {
 				if(this.playerName.equals(modelClient.getPlayer()[i].getUsername())) {
 					this.playerIndex=i;
@@ -113,7 +126,11 @@ public class ProvaClient {
 				}
 				
 				if(tipoRicevuto.equals("repaint")) {
-					framePrincipale.resetta(modelClient.getBase(), modelClient.getFinale(), modelClient.getPlancia(), modelClient.getCurrentPlayerIndex());
+					
+					framePrincipale.resetta(base, modelClient.getFinale(), plancia, playerIndex);
+					//framePrincipale.resetta(base,finale,plancia,playerIndex);
+					
+					
 					//framePrincipale.repaint();
 				}
 				
@@ -158,23 +175,63 @@ public class ProvaClient {
 				}
 				
 				if(tipoRicevuto.equals("setBase")) {
+					//System.out.println((int)p.getMessage());
+					//for(int i=0;i<16;i++) {
+					//base[i][j]=new Casella();
+					base[i][j].setColore((int)p.getMessage());
+					System.out.println("BASE COLORE RICEVUTO: " + base[i][j].getColore() );
+					
+					if(i==3 && j==3) {
+						i=0;
+						j=0;
+					}else {
+						i++;
+						j++;
+					}
+						
+						
+					/*base = (Casella[][])p.getMessage();
 					modelClient.setBase((Casella[][])p.getMessage());
-					System.out.println(Arrays.toString(modelClient.getBase()));
+					
+					for(int i=0;i<modelClient.getBase().length;i++) {
+						for(int j=0;j<modelClient.getBase().length;j++) {
+							System.out.println("BASE RICEVUTA SENZA SET: " + base[i][j]);
+							System.out.println("BASE RICEVUTA CON SET:" + modelClient.getBase()[i][j].getColore());
+						}
+					}*/
+				//	base = (Casella[][])p.getMessage();
+					//System.out.println(Arrays.toString(modelClient.getBase()));
 					
 				}
 				if(tipoRicevuto.equals("setFinale")) {
 					modelClient.setFinale((Casella[][])p.getMessage());
+					//finale = (Casella[][])p.getMessage();
 					System.out.println(Arrays.toString(modelClient.getFinale()));
 					
 				}
-				if(tipoRicevuto.equals("setPlancia")) {
-					modelClient.setPlancia((Casella[])p.getMessage());
-					System.out.println(Arrays.toString(modelClient.getPlancia()));
+				if(tipoRicevuto.equals("setPlanciaColore")) {
+					//modelClient.setPlancia((Casella[])p.getMessage());
+					plancia[iPlancia].setColore((int)p.getMessage());
+					//System.out.println(Arrays.toString(modelClient.getPlancia()));
+					
+				}
+				if(tipoRicevuto.equals("setPlanciaDoppio")) {
+					//modelClient.setPlancia((Casella[])p.getMessage());
+					plancia[iPlancia].setDoppio((boolean)p.getMessage());
+					if(iPlancia == 39) {
+						iPlancia = 0;
+					}else {
+						iPlancia++;
+					}
+					//System.out.println(Arrays.toString(modelClient.getPlancia()));
 					
 				}
 				if(tipoRicevuto.equals("setCurrentPlayer")) {
-					modelClient.setCurrentPlayerIndex((int)p.getMessage());
-					System.out.println("index: " + modelClient.getCurrentPlayerIndex());
+					
+					//modelClient.setCurrentPlayerIndex((int)p.getMessage());
+					playerIndex = (int)p.getMessage();
+					//System.out.println("index: " + modelClient.getCurrentPlayerIndex());
+					//framePrincipale.resetta(modelClient.getBase(), modelClient.getFinale(), modelClient.getPlancia(), modelClient.getCurrentPlayerIndex());
 					
 				}
 			}
@@ -220,7 +277,8 @@ public class ProvaClient {
 		framePrincipale = new MainFrame(listaGiocatori,this,null);
 		framePrincipale.setVisible(true);
 		framePrincipale.setLocationRelativeTo(null);
-		Thread t = new Thread(new Runnable() {
+		comunicazioneInGameDaServer();
+	/*	Thread t = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
@@ -230,7 +288,7 @@ public class ProvaClient {
 			}
 			
 		});
-		t.run();
+		t.run();*/
 		
 		clientFrame.closeFrame();
 	

@@ -254,6 +254,7 @@ public class Board extends JPanel {
 
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
+				System.out.println("BASE DEL RESET:" + base[i][j].getColore());
 				this.baseButton[i][j].setState(false, -1);
 
 				if (base[i][j].getColore() > -1) {
@@ -268,6 +269,7 @@ public class Board extends JPanel {
 				}
 			}
 		}
+		
 	}
 
 	/**

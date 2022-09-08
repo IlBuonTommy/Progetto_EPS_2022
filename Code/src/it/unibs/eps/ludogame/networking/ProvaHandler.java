@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Arrays;
 
 import it.unibs.eps.ludogame.client.Posizione;
 import it.unibs.eps.ludogame.game.Casella;
@@ -129,13 +130,34 @@ public class ProvaHandler implements Runnable {
 		}
 	}
 	public void setBase(Casella[][] base) {
-		Pacchetto p = new Pacchetto("setBase", base);
+		
+		try {
+			for(int i=0;i<base.length;i++) {
+				for(int j=0;j<base.length;j++) {
+					Pacchetto p = new Pacchetto("setBase",base[i][j].getColore());
+					out.writeObject(p);
+					out.flush();
+				}
+				
+			}
+			//System.out.println("numero mandato!");
+		} catch (IOException e) {
+			e.printStackTrace();
+	/*	Pacchetto p = new Pacchetto("setBase", base);
+		for(int i=0;i<base.length;i++) {
+			for(int j=0;j<base.length;j++) {
+				System.out.println("BASE MANDATA:" + base[i][j].getColore());
+			}
+		}
+		
 		try {
 			out.writeObject(p);
 			out.flush();
+			//System.out.println("numero mandato!");
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
+	}
 	}
 	public void setFinale(Casella[][] finale) {
 		Pacchetto p = new Pacchetto("setFinale", finale);
@@ -146,14 +168,45 @@ public class ProvaHandler implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	public void setPlancia(Casella[] plancia) {
+	public void setPlanciaColore(Casella[] plancia) {
+
+		try {
+			for(int i=0;i<plancia.length;i++) {
+				
+					Pacchetto p = new Pacchetto("setPlanciaColore",plancia[i].getColore());
+					out.writeObject(p);
+					out.flush();
+
+				
+			}
+			//System.out.println("numero mandato!");
+		} catch (IOException e) {
+			e.printStackTrace();	
+		}
+	}
+		public void setPlanciaDoppio(Casella[] plancia) {
+
+			try {
+				for(int i=0;i<plancia.length;i++) {
+					
+						Pacchetto p = new Pacchetto("setPlanciaDoppio",plancia[i].getDoppio());
+						out.writeObject(p);
+						out.flush();
+
+					
+				}
+				//System.out.println("numero mandato!");
+			} catch (IOException e) {
+				e.printStackTrace();	
+		}
+		/*
 		Pacchetto p = new Pacchetto("setPlancia", plancia);
 		try {
 			out.writeObject(p);
 			out.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 
@@ -203,16 +256,7 @@ public class ProvaHandler implements Runnable {
 		}
 
 	}
-	
-	public void sendPosizioneScelta(Posizione pos) {
-		Pacchetto p = new Pacchetto("setModel", pos);
-		try {
-			out.writeObject(p);
-			out.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	public void receiveDadoFromClient() {
 		try {
@@ -242,6 +286,7 @@ public class ProvaHandler implements Runnable {
 
 	public void setCurrentPlayer(int currentPlayer) {
 		Pacchetto p = new Pacchetto("currentPlayer", currentPlayer);
+		System.out.println("CurrentPLayer: "+ currentPlayer);
 		try {
 			out.writeObject(p);
 			out.flush();

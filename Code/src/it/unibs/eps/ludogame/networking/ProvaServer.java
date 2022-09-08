@@ -144,12 +144,13 @@ public class ProvaServer {
 
 	public void sendModelInGame() {
 		for (ProvaHandler c : clients) {
-			//c.setUpdateModel(serverModel);
+		//	c.setUpdateModel(serverModel);
 			c.setBase(serverModel.getBase());
 			c.setFinale(serverModel.getFinale());
-			c.setPlancia(serverModel.getPlancia());
+			c.setPlanciaColore(serverModel.getPlancia());
+			c.setPlanciaDoppio(serverModel.getPlancia());
 			c.setCurrentPlayer(serverModel.getCurrentPlayerIndex());
-			c.resettaFrame();
+			//c.resettaFrame();
 		}
 		framePrincipale.resetta(serverModel.getBase(), serverModel.getFinale(), serverModel.getPlancia(),
 				serverModel.getCurrentPlayerIndex());

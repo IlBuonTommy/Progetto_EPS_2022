@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.util.Arrays;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -94,6 +95,7 @@ public class MainFrame extends JFrame {
 	}
 
 	public void resetta(Casella[][] base, Casella[][] fine, Casella[] board, int currentPlayer) {
+		
 		this.board.resetta(board, base, fine);
 		this.panel.setTurno(currentPlayer);
 
