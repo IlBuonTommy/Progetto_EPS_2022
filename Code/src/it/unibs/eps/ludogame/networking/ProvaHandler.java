@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import it.unibs.eps.ludogame.client.Posizione;
+import it.unibs.eps.ludogame.game.Casella;
 import it.unibs.eps.ludogame.game.GameModel;
 
 public class ProvaHandler implements Runnable {
@@ -127,6 +128,34 @@ public class ProvaHandler implements Runnable {
 			e.printStackTrace();
 		}
 	}
+	public void setBase(Casella[][] base) {
+		Pacchetto p = new Pacchetto("setBase", base);
+		try {
+			out.writeObject(p);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void setFinale(Casella[][] finale) {
+		Pacchetto p = new Pacchetto("setFinale", finale);
+		try {
+			out.writeObject(p);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void setPlancia(Casella[] plancia) {
+		Pacchetto p = new Pacchetto("setPlancia", plancia);
+		try {
+			out.writeObject(p);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 	public void setTurno(int turno) {
 		System.out.println("set turno))");
@@ -154,6 +183,7 @@ public class ProvaHandler implements Runnable {
 	}
 
 	public void setUpdateModel(GameModel model) {
+		System.out.println("UPDATE MODEL SERVER");
 		Pacchetto p = new Pacchetto("setModel", model);
 		try {
 			out.writeObject(p);
@@ -172,6 +202,16 @@ public class ProvaHandler implements Runnable {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void sendPosizioneScelta(Posizione pos) {
+		Pacchetto p = new Pacchetto("setModel", pos);
+		try {
+			out.writeObject(p);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void receiveDadoFromClient() {
@@ -195,6 +235,17 @@ public class ProvaHandler implements Runnable {
 			server.receivePosition(pos);
 		} catch (ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void setCurrentPlayer(int currentPlayer) {
+		Pacchetto p = new Pacchetto("currentPlayer", currentPlayer);
+		try {
+			out.writeObject(p);
+			out.flush();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 

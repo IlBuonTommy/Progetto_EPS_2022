@@ -48,6 +48,22 @@ public class GameModel implements Serializable{
 		return finale;
 	}
 
+	public void setPlancia(Casella[] plancia) {
+		this.plancia = plancia;
+	}
+
+	public void setBase(Casella[][] base) {
+		this.base = base;
+	}
+
+	public void setFinale(Casella[][] finale) {
+		this.finale = finale;
+	}
+
+	public void setCurrentPlayerIndex(int currentPlayerIndex) {
+		this.currentPlayerIndex = currentPlayerIndex;
+	}
+
 	/** 
      * @return bool se il giocatore attuale è un bot ritorna true, false viceversa.
      */

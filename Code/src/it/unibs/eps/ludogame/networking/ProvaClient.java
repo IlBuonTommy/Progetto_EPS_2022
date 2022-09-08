@@ -7,12 +7,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Arrays;
 
 import it.unibs.eps.ludogame.client.ClientWaitingRoom;
 import it.unibs.eps.ludogame.client.MainFrame;
 import it.unibs.eps.ludogame.client.Posizione;
 import it.unibs.eps.ludogame.client.Sconfitta;
 import it.unibs.eps.ludogame.client.Vittoria;
+import it.unibs.eps.ludogame.game.Casella;
 import it.unibs.eps.ludogame.game.GameModel;
 
 public class ProvaClient {
@@ -112,6 +114,7 @@ public class ProvaClient {
 				
 				if(tipoRicevuto.equals("repaint")) {
 					framePrincipale.resetta(modelClient.getBase(), modelClient.getFinale(), modelClient.getPlancia(), modelClient.getCurrentPlayerIndex());
+					//framePrincipale.repaint();
 				}
 				
 				if(tipoRicevuto.equals("setTurno")) {
@@ -130,10 +133,14 @@ public class ProvaClient {
 				
 				if(tipoRicevuto.equals("setModel")) {
 					modelClient = (GameModel)p.getMessage();
+					//framePrincipale.resetta(modelClient.getBase(), modelClient.getFinale(), modelClient.getPlancia(),this.playerIndex );
+					
+					System.out.println("CLIENT MODEL: " + modelClient.toString());
 				}
 				
 				if(tipoRicevuto.equals("setPosizioni")) {
 					framePrincipale.enableBoardButtons((Posizione[])p.getMessage());
+					
 				}
 				if(tipoRicevuto.equals("setVincitore")) {
 					int vincitore=(int)p.getMessage();
@@ -148,6 +155,27 @@ public class ProvaClient {
 						sconfitta.setVisible(true);
 						sconfitta.setLocationRelativeTo(null);
 					}
+				}
+				
+				if(tipoRicevuto.equals("setBase")) {
+					modelClient.setBase((Casella[][])p.getMessage());
+					System.out.println(Arrays.toString(modelClient.getBase()));
+					
+				}
+				if(tipoRicevuto.equals("setFinale")) {
+					modelClient.setFinale((Casella[][])p.getMessage());
+					System.out.println(Arrays.toString(modelClient.getFinale()));
+					
+				}
+				if(tipoRicevuto.equals("setPlancia")) {
+					modelClient.setPlancia((Casella[])p.getMessage());
+					System.out.println(Arrays.toString(modelClient.getPlancia()));
+					
+				}
+				if(tipoRicevuto.equals("setCurrentPlayer")) {
+					modelClient.setCurrentPlayerIndex((int)p.getMessage());
+					System.out.println("index: " + modelClient.getCurrentPlayerIndex());
+					
 				}
 			}
 			

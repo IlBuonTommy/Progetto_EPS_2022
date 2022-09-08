@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import javax.swing.JPanel;
 
@@ -302,5 +303,13 @@ public class Board extends JPanel {
 
 		return false;
 	}
+
+	@Override
+	public String toString() {
+		return "Board [boardButton=" + Arrays.toString(boardButton) + ", baseButton=" + Arrays.toString(baseButton)
+				+ ", fineButton=" + Arrays.toString(fineButton) + ", framePrincipale=" + framePrincipale + "]";
+	}
+	
+	
 
 }

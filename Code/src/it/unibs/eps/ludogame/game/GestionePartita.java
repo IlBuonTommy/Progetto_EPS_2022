@@ -40,12 +40,12 @@ public class GestionePartita {
 		server.sendDado(valoreDado);
 		//mando alla view i bottoni che può abilitare QUESTO PASSAGGIO PUò ESSERE FATTO IN AUTONOMIA DAL PROGRAMMA DEL GIOCATORE
 		server.sendMovePosition(valoreDadoS);
-		
 		server.startWaitingPosition();
 	}
 	//questa funzione viene richiamata dalla pressione del bottone da parte di un giocatore
 	public void gestioneTurnoTre(Posizione tastoPremuto){
 		System.out.println("turno 3");
+		
 		//modifico il model in base al tasto premuto del giocatore
 		if(!server.getServerModel().tastoPremuto(tastoPremuto.getNomeposizione(),tastoPremuto.getArrayposizione(), tastoPremuto.getColor(), valoreDadoS)){
 			gestioneTurnoDue(valoreDadoS);
@@ -54,7 +54,7 @@ public class GestionePartita {
 		//disabilito tutti i tasti al giocatore corrente
 		server.disableAllButton();
 		//invio a tutti i giocatori il nuovo model e lo visualizzo
-		server.sendModelInGame();
+		server.sendModelInGame(); //far mandare array separati in sendModelInGame...
 		gestioneTurnoQuattro();
 	}
 	public void gestioneTurnoQuattro(){
@@ -77,6 +77,7 @@ public class GestionePartita {
 			gestioneTurnoUno();
 			return;
 		}
+		
 		server.getServerModel().nextTurn();
 		server.sendModelInGame();			
 		gestioneTurnoUno();

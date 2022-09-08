@@ -144,7 +144,11 @@ public class ProvaServer {
 
 	public void sendModelInGame() {
 		for (ProvaHandler c : clients) {
-			c.setUpdateModel(serverModel);
+			//c.setUpdateModel(serverModel);
+			c.setBase(serverModel.getBase());
+			c.setFinale(serverModel.getFinale());
+			c.setPlancia(serverModel.getPlancia());
+			c.setCurrentPlayer(serverModel.getCurrentPlayerIndex());
 			c.resettaFrame();
 		}
 		framePrincipale.resetta(serverModel.getBase(), serverModel.getFinale(), serverModel.getPlancia(),
@@ -175,6 +179,7 @@ public class ProvaServer {
 				framePrincipale.enableBoardButtons(listapos);
 			} else {
 				clients.get(currentPlayer - 1).sendListaPos(listapos);
+				//clients.get(currentPlayer - 1).setUpdateModel(serverModel);
 			}
 		} else {
 			gestione.gestioneTurnoQuattro();
