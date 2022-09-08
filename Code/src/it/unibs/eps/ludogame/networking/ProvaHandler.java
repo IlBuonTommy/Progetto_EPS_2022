@@ -160,13 +160,29 @@ public class ProvaHandler implements Runnable {
 	}
 	}
 	public void setFinale(Casella[][] finale) {
+
+		try {
+			for(int i=0;i<finale.length;i++) {
+				for(int j=0;j<finale.length;j++) {
+					Pacchetto p = new Pacchetto("setFinale",finale[i][j].getColore());
+					out.writeObject(p);
+					out.flush();
+				}
+				
+			}
+			//System.out.println("numero mandato!");
+		} catch (IOException e) {
+			e.printStackTrace();
+	}
+		
+		/*
 		Pacchetto p = new Pacchetto("setFinale", finale);
 		try {
 			out.writeObject(p);
 			out.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	public void setPlanciaColore(Casella[] plancia) {
 

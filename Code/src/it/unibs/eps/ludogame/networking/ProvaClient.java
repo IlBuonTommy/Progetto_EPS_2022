@@ -42,10 +42,9 @@ public class ProvaClient {
 		this.SERVER_IP = serverIp;
 		this.playerName = playerName;
 		this.clientFrame = clientframe;
-		 // this.plancia = new Casella[40];
-	        this.base = new Casella[4][4];
-	        
-	       // this.finale = new Casella[4][4];
+		this.plancia = new Casella[40];
+	    this.base = new Casella[4][4];
+	    this.finale = new Casella[4][4];
 	}
 	
 	public boolean checkConnection() {
@@ -75,7 +74,7 @@ public class ProvaClient {
 			modelClient = (GameModel)in.readObject();
 			System.out.println("Model client ricevuto: " + modelClient.toString());
 			base = modelClient.getBase();
-			//finale = modelClient.getFinale();
+			finale = modelClient.getFinale();
 			plancia = modelClient.getPlancia();
 			//playerIndex = modelClient.getCurrentPlayerIndex();
 			for(int i=0;i<modelClient.getPlayer().length;i++) {
@@ -126,12 +125,13 @@ public class ProvaClient {
 				}
 				
 				if(tipoRicevuto.equals("repaint")) {
-					
-					framePrincipale.resetta(base, modelClient.getFinale(), plancia, playerIndex);
+					modelClient.setBase(base);
+					modelClient.setPlancia(plancia);
+					modelClient.setFinale(finale);
+					modelClient.setCurrentPlayerIndex(playerIndex);
+					framePrincipale.resetta(base, finale, plancia, playerIndex);
 					//framePrincipale.resetta(base,finale,plancia,playerIndex);
 					
-					
-					//framePrincipale.repaint();
 				}
 				
 				if(tipoRicevuto.equals("setTurno")) {
@@ -175,9 +175,6 @@ public class ProvaClient {
 				}
 				
 				if(tipoRicevuto.equals("setBase")) {
-					//System.out.println((int)p.getMessage());
-					//for(int i=0;i<16;i++) {
-					//base[i][j]=new Casella();
 					base[i][j].setColore((int)p.getMessage());
 					System.out.println("BASE COLORE RICEVUTO: " + base[i][j].getColore() );
 					
@@ -188,26 +185,16 @@ public class ProvaClient {
 						i++;
 						j++;
 					}
-						
-						
-					/*base = (Casella[][])p.getMessage();
-					modelClient.setBase((Casella[][])p.getMessage());
-					
-					for(int i=0;i<modelClient.getBase().length;i++) {
-						for(int j=0;j<modelClient.getBase().length;j++) {
-							System.out.println("BASE RICEVUTA SENZA SET: " + base[i][j]);
-							System.out.println("BASE RICEVUTA CON SET:" + modelClient.getBase()[i][j].getColore());
-						}
-					}*/
-				//	base = (Casella[][])p.getMessage();
-					//System.out.println(Arrays.toString(modelClient.getBase()));
-					
 				}
 				if(tipoRicevuto.equals("setFinale")) {
-					modelClient.setFinale((Casella[][])p.getMessage());
-					//finale = (Casella[][])p.getMessage();
-					System.out.println(Arrays.toString(modelClient.getFinale()));
-					
+					finale[i][j].setColore((int)p.getMessage());
+					if(i==3 && j==3) {
+						i=0;
+						j=0;
+					}else {
+						i++;
+						j++;
+					}
 				}
 				if(tipoRicevuto.equals("setPlanciaColore")) {
 					//modelClient.setPlancia((Casella[])p.getMessage());
