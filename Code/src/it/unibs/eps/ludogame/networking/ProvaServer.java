@@ -151,6 +151,7 @@ public class ProvaServer {
 			c.setPlanciaColore(serverModel.getPlancia());
 			c.setPlanciaDoppio(serverModel.getPlancia());
 			c.setCurrentPlayer(serverModel.getCurrentPlayerIndex());
+			c.resettaFrame();
 			//c.resettaFrame();
 		}
 		framePrincipale.resetta(serverModel.getBase(), serverModel.getFinale(), serverModel.getPlancia(),

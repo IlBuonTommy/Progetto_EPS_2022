@@ -119,7 +119,7 @@ public class ProvaClient {
 			Pacchetto p = (Pacchetto)in.readObject();
 			String tipoRicevuto = p.getType();
 				if(tipoRicevuto.equals("disable")) {
-					System.out.println("sono disabile");
+					System.out.println("Client: disabilito il tasto lancia");
 					framePrincipale.disableAllButtons();
 					
 				}
@@ -183,8 +183,10 @@ public class ProvaClient {
 					if(i==3 && j==3) {
 						i=0;
 						j=0;
-					}else {
+					}else if(j==3) {
 						i++;
+						j=0;
+					}else{
 						j++;
 					}
 				}
@@ -193,8 +195,10 @@ public class ProvaClient {
 					if(i==3 && j==3) {
 						i=0;
 						j=0;
-					}else {
+					}else if(j==3) {
 						i++;
+						j=0;
+					}else{
 						j++;
 					}
 				}
@@ -215,7 +219,7 @@ public class ProvaClient {
 					//System.out.println(Arrays.toString(modelClient.getPlancia()));
 					
 				}
-				if(tipoRicevuto.equals("setCurrentPlayer")) {
+				if(tipoRicevuto.equals("currentPlayer")) {
 					
 					//modelClient.setCurrentPlayerIndex((int)p.getMessage());
 					playerIndex = (int)p.getMessage();
