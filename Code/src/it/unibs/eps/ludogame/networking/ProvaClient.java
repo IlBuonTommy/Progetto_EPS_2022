@@ -130,9 +130,7 @@ public class ProvaClient {
 					modelClient.setFinale(finale);
 					modelClient.setCurrentPlayerIndex(playerIndex);
 					
-							// TODO Auto-generated method stub
-							
-							framePrincipale.resetta(base, finale, plancia, playerIndex);
+					framePrincipale.resetta(base, finale, plancia, playerIndex);
 						
 					//framePrincipale.resetta(base,finale,plancia,playerIndex);
 					
@@ -269,18 +267,6 @@ public class ProvaClient {
 		framePrincipale.setVisible(true);
 		framePrincipale.setLocationRelativeTo(null);
 		comunicazioneInGameDaServer();
-	/*	Thread t = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				comunicazioneInGameDaServer();
-				
-			}
-			
-		});
-		t.run();*/
-		
 		clientFrame.closeFrame();
 	
 		

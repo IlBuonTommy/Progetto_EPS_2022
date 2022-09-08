@@ -143,20 +143,6 @@ public class ProvaHandler implements Runnable {
 			//System.out.println("numero mandato!");
 		} catch (IOException e) {
 			e.printStackTrace();
-	/*	Pacchetto p = new Pacchetto("setBase", base);
-		for(int i=0;i<base.length;i++) {
-			for(int j=0;j<base.length;j++) {
-				System.out.println("BASE MANDATA:" + base[i][j].getColore());
-			}
-		}
-		
-		try {
-			out.writeObject(p);
-			out.flush();
-			//System.out.println("numero mandato!");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
 	}
 	}
 	public synchronized void setFinale(Casella[][] finale) {
@@ -175,14 +161,6 @@ public class ProvaHandler implements Runnable {
 			e.printStackTrace();
 	}
 		
-		/*
-		Pacchetto p = new Pacchetto("setFinale", finale);
-		try {
-			out.writeObject(p);
-			out.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
 	}
 	public synchronized void setPlanciaColore(Casella[] plancia) {
 
@@ -215,14 +193,6 @@ public class ProvaHandler implements Runnable {
 			} catch (IOException e) {
 				e.printStackTrace();	
 		}
-		/*
-		Pacchetto p = new Pacchetto("setPlancia", plancia);
-		try {
-			out.writeObject(p);
-			out.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
 	}
 	
 
