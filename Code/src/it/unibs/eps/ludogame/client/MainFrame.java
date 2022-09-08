@@ -29,6 +29,7 @@ public class MainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainFrame(String[] giocatori, ProvaClient client, ProvaServer server) {
+		
 		this.client = client;
 		this.server = server;
 		setIconImage(Toolkit.getDefaultToolkit().getImage("icon.png"));

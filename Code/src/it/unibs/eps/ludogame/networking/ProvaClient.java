@@ -129,7 +129,11 @@ public class ProvaClient {
 					modelClient.setPlancia(plancia);
 					modelClient.setFinale(finale);
 					modelClient.setCurrentPlayerIndex(playerIndex);
-					framePrincipale.resetta(base, finale, plancia, playerIndex);
+					
+							// TODO Auto-generated method stub
+							
+							framePrincipale.resetta(base, finale, plancia, playerIndex);
+						
 					//framePrincipale.resetta(base,finale,plancia,playerIndex);
 					
 				}

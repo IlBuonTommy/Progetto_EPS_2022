@@ -97,7 +97,7 @@ public class ProvaHandler implements Runnable {
 
 	}
 
-	public void disabilitaTasti() {
+	public synchronized void disabilitaTasti() {
 		// TODO Auto-generated method stub
 		Pacchetto p = new Pacchetto("disable", null);
 		try {
@@ -109,7 +109,7 @@ public class ProvaHandler implements Runnable {
 		}
 	}
 
-	public void resettaFrame() {
+	public synchronized void resettaFrame() {
 		Pacchetto p = new Pacchetto("repaint", null);
 		try {
 			out.writeObject(p);
@@ -120,7 +120,7 @@ public class ProvaHandler implements Runnable {
 		}
 	}
 
-	public void setVincitore(int vincitore) {
+	public synchronized void setVincitore(int vincitore) {
 		Pacchetto p = new Pacchetto("setVincitore", vincitore);
 		try {
 			out.writeObject(p);
@@ -129,7 +129,7 @@ public class ProvaHandler implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	public void setBase(Casella[][] base) {
+	public synchronized void setBase(Casella[][] base) {
 		
 		try {
 			for(int i=0;i<base.length;i++) {
@@ -159,7 +159,7 @@ public class ProvaHandler implements Runnable {
 		}*/
 	}
 	}
-	public void setFinale(Casella[][] finale) {
+	public synchronized void setFinale(Casella[][] finale) {
 
 		try {
 			for(int i=0;i<finale.length;i++) {
@@ -184,7 +184,7 @@ public class ProvaHandler implements Runnable {
 			e.printStackTrace();
 		}*/
 	}
-	public void setPlanciaColore(Casella[] plancia) {
+	public synchronized void setPlanciaColore(Casella[] plancia) {
 
 		try {
 			for(int i=0;i<plancia.length;i++) {
@@ -200,7 +200,7 @@ public class ProvaHandler implements Runnable {
 			e.printStackTrace();	
 		}
 	}
-		public void setPlanciaDoppio(Casella[] plancia) {
+		public synchronized void setPlanciaDoppio(Casella[] plancia) {
 
 			try {
 				for(int i=0;i<plancia.length;i++) {
@@ -226,7 +226,7 @@ public class ProvaHandler implements Runnable {
 	}
 	
 
-	public void setTurno(int turno) {
+	public synchronized void setTurno(int turno) {
 		System.out.println("set turno))");
 		Pacchetto p = new Pacchetto("setTurno", turno);
 		try {
@@ -240,7 +240,7 @@ public class ProvaHandler implements Runnable {
 		}
 	}
 
-	public void setDado(int dado) {
+	public synchronized void setDado(int dado) {
 		Pacchetto p = new Pacchetto("setDado", dado);
 		try {
 			out.writeObject(p);
@@ -251,7 +251,7 @@ public class ProvaHandler implements Runnable {
 		}
 	}
 
-	public void setUpdateModel(GameModel model) {
+	public synchronized void setUpdateModel(GameModel model) {
 		System.out.println("UPDATE MODEL SERVER");
 		Pacchetto p = new Pacchetto("setModel", model);
 		try {
@@ -262,7 +262,7 @@ public class ProvaHandler implements Runnable {
 		}
 	}
 
-	public void sendListaPos(Posizione[] listapos) {
+	public synchronized void sendListaPos(Posizione[] listapos) {
 		Pacchetto p = new Pacchetto("setPosizioni", listapos);
 		try {
 			out.writeObject(p);
@@ -274,7 +274,7 @@ public class ProvaHandler implements Runnable {
 	}
 
 
-	public void receiveDadoFromClient() {
+	public synchronized void receiveDadoFromClient() {
 		try {
 			System.out.println("inizio ad aspettare dado");
 			int dado = (int) in.readObject();
@@ -287,7 +287,7 @@ public class ProvaHandler implements Runnable {
 
 	}
 
-	public void receivePosizioneFromClient() {
+	public synchronized void receivePosizioneFromClient() {
 		try {
 			System.out.println("inizio ad aspettare posizione");
 			Posizione pos = (Posizione) in.readObject();
@@ -300,7 +300,7 @@ public class ProvaHandler implements Runnable {
 
 	}
 
-	public void setCurrentPlayer(int currentPlayer) {
+	public synchronized void setCurrentPlayer(int currentPlayer) {
 		Pacchetto p = new Pacchetto("currentPlayer", currentPlayer);
 		System.out.println("CurrentPLayer: "+ currentPlayer);
 		try {

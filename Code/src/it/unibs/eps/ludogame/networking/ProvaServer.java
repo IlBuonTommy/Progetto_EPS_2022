@@ -143,6 +143,7 @@ public class ProvaServer {
 	}
 
 	public void sendModelInGame() {
+		
 		for (ProvaHandler c : clients) {
 		//	c.setUpdateModel(serverModel);
 			c.setBase(serverModel.getBase());
@@ -157,6 +158,7 @@ public class ProvaServer {
 		if (serverModel.getCurrentPlayerIndex() == 0) {
 			framePrincipale.enableRoll();
 		}
+		
 	}
 
 	public void sendDado(int dado) {
