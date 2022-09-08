@@ -189,7 +189,9 @@ public class ProvaHandler implements Runnable {
 
 	public void receivePosizioneFromClient() {
 		try {
+			System.out.println("inizio ad aspettare posizione");
 			Posizione pos = (Posizione) in.readObject();
+			
 			server.receivePosition(pos);
 		} catch (ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block

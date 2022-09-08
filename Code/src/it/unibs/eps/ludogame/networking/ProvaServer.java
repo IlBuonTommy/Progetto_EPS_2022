@@ -215,6 +215,7 @@ public class ProvaServer {
 	}
 
 	public void startWaitingDado() {
+		System.out.println("ENTRA IN WAITING DADO da Server");
 		int currentPlayer = serverModel.getCurrentPlayerIndex();
 		if (currentPlayer != 0) {
 			clients.get(currentPlayer - 1).receiveDadoFromClient();

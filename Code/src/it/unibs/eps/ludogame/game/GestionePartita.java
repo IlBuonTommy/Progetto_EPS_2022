@@ -29,6 +29,7 @@ public class GestionePartita {
 			//abilito il bottone di lancio dado del giocatore corrente
 			server.settaTurnoClient();
 			server.startWaitingDado();
+			
 		}
 	}
 	//questa funzione è richiamata dal tasto lancia dado 
