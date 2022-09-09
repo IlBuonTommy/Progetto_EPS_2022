@@ -15,7 +15,11 @@ import it.unibs.eps.ludogame.client.Vittoria;
 import it.unibs.eps.ludogame.game.GameModel;
 import it.unibs.eps.ludogame.game.GestionePartita;
 import it.unibs.eps.ludogame.game.Giocatore;
-
+/**
+ * server di gioco
+ * 
+ *
+ */
 public class ProvaServer {
 
 	private Socket client;
@@ -34,7 +38,12 @@ public class ProvaServer {
 	private MainFrame framePrincipale;
 	private int nGiocatoriConnessi = 0;
 	private GestionePartita gestione;
-
+/**
+ * costruttore
+ * @param numMaxGiocatori
+ * @param frameWaiting
+ * @param nomeServer
+ */
 	public ProvaServer(int numMaxGiocatori, HostWaitingRoom frameWaiting, String nomeServer) {
 		this.numMaxGiocatori = numMaxGiocatori;
 		this.frameWaiting = frameWaiting;
@@ -58,7 +67,11 @@ public class ProvaServer {
 	public void setPartitaAvviata(boolean partitaAvviata) {
 		this.partitaAvviata = partitaAvviata;
 	}
-
+/**
+ * metodo che accetta le connessioni di nuovi client, verificando che ci sia ancora posto nella lobby
+ * crea l'oggetto clientHandler e lo aggiunge alla pool di esecuzione
+ * @return false quando deve iniziare la partita perchè è stato raggiunto il numero massimo di giocatori
+ */
 	public synchronized boolean accettaConnessioni() {
 		if (nGiocatoriConnessi < numMaxGiocatori && partitaAvviata == false) {
 			System.out.println("[SERVER]: waiting for client connection");
@@ -66,12 +79,11 @@ public class ProvaServer {
 				client = listener.accept();
 				System.out.println("accettato");
 				clientHandler = new ProvaHandler(client, this);
-				System.out.println("handler");
+				
 				clients.add(clientHandler);
-				System.out.println("add");
+				
 				pool.execute(clientHandler);
-				System.out.println("arrivato qui");
-				// connectedClients.add(client);
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -84,35 +96,9 @@ public class ProvaServer {
 
 		}
 	}
-
-	/*
-	 * if(nGiocatoriConnessi<numMaxGiocatori-1) {
-	 * try {
-	 * Socket client = listener.accept();
-	 * 
-	 * System.out.println("connesso");
-	 * ProvaHandler p = new ProvaHandler(client);
-	 * pool.execute(p);
-	 * wait(1000);
-	 * //Thread t = new Thread(p);
-	 * //t.run();
-	 * System.out.println("NOME:"+ p.getNome());
-	 * frameWaiting.addPlayer(p.getNome());
-	 * return true;
-	 * } catch (IOException e) {
-	 * // TODO Auto-generated catch block
-	 * e.printStackTrace();
-	 * return false;
-	 * } catch (InterruptedException e) {
-	 * // TODO Auto-generated catch block
-	 * e.printStackTrace();
-	 * }
-	 * }else {
-	 * System.out.println("Numero massimo di giocatori raggiunto.Inizia la partita"
-	 * );
-	 * return false;
-	 * 
-	 * }
+	
+	/**
+	 * invio il model iniziale a tutti i client e avvio il metodo di comunicazione
 	 */
 	public void allClientSendModel() {
 		for (ProvaHandler c : clients) {
@@ -121,7 +107,10 @@ public class ProvaServer {
 
 		}
 	}
-
+/**
+ * verifico chi ha vinto e attivo i metodi che informano i client, per poter mostrare le relative schermate
+ * @param vincitore
+ */
 	public void setWinner(int vincitore) {
 
 		for (ProvaHandler c : clients) {
@@ -141,19 +130,19 @@ public class ProvaServer {
 		}
 
 	}
-
+/**
+ * chiamo le funzioni dell'handler che inviano i parametri del model aggiornati a tutti i client
+ */
 	public void sendModelInGame() {
 		framePrincipale.resetta(serverModel.getBase(), serverModel.getFinale(), serverModel.getPlancia(),serverModel.getCurrentPlayerIndex());
 
 		for (ProvaHandler c : clients) {
-		//	c.setUpdateModel(serverModel);
 			c.setBase(serverModel.getBase());
 			c.setFinale(serverModel.getFinale());
 			c.setPlanciaColore(serverModel.getPlancia());
 			c.setPlanciaDoppio(serverModel.getPlancia());
 			c.setCurrentPlayer(serverModel.getCurrentPlayerIndex());
 			c.resettaFrame();
-			//c.resettaFrame();
 		}
 		if (serverModel.getCurrentPlayerIndex() == 0) {
 			framePrincipale.enableRoll();
@@ -162,19 +151,28 @@ public class ProvaServer {
 		}
 		
 	}
-
+/**
+ * chiamo le funzioni dell'handler che inviano il dado ai client
+ * @param dado
+ */
 	public void sendDado(int dado) {
 		framePrincipale.setDado(dado);
 		for (ProvaHandler c : clients) {
 			c.setDado(dado);
 		}
 	}
-
+/**
+ * passo alla seconda fase di gioco
+ * @param dado
+ */
 	public void starTurnoDue(int dado) {
 		System.out.println("ricevuto dado sever");
 		gestione.gestioneTurnoDue(dado);
 	}
-
+/**
+ * chiamo le funzioni dell'handler che inviano le posizioni ai client
+ * @param dado
+ */
 	public void sendMovePosition(int dado) {
 		Posizione[] listapos = serverModel.getTastiAbilitati(dado);
 
@@ -184,18 +182,22 @@ public class ProvaServer {
 				framePrincipale.enableBoardButtons(listapos);
 			} else {
 				clients.get(currentPlayer - 1).sendListaPos(listapos);
-				//clients.get(currentPlayer - 1).setUpdateModel(serverModel);
 			}
 		} else {
 			gestione.gestioneTurnoQuattro();
 		}
 
 	}
-
+/**
+ * passo alla terza fase di gioco
+ * @param p
+ */
 	public void startTurnoTre(Posizione p) {
 		gestione.gestioneTurnoTre(p);
 	}
-
+/**
+ * chiamo le funzioni dell'handler che inviano il comando di disabilitare i tasti
+ */
 	public void disableAllButton() {
 		int currentPlayer = serverModel.getCurrentPlayerIndex();
 		if (currentPlayer == 0) {
@@ -204,7 +206,9 @@ public class ProvaServer {
 			clients.get(currentPlayer - 1).disabilitaTasti();
 		}
 	}
-
+/**
+ * avvio la prima fase di gioco
+ */
 	public void gestioneTurnoIniziale() {
 		// creo il model con i dati dei player che mi hanno passato le view
 		// il model viene inviato a tutti i client
@@ -219,11 +223,16 @@ public class ProvaServer {
 
 	}
 
-	// abbozziamo
+	/**
+	 * ricevo il dado
+	 * @param dado
+	 */
 	public void receiveDado(int dado) {
 		gestione.gestioneTurnoDue(dado);
 	}
-
+/**
+ * mi metto in attesa del dado dei giocatori
+ */
 	public void startWaitingDado() {
 		System.out.println("ENTRA IN WAITING DADO da Server");
 		int currentPlayer = serverModel.getCurrentPlayerIndex();
@@ -231,7 +240,9 @@ public class ProvaServer {
 			clients.get(currentPlayer - 1).receiveDadoFromClient();
 		}
 	}
-
+/**
+ * chiamo le funzioni dell'handler che inviano il turno ai client
+ */
 	public void settaTurnoClient() {
 		int currentPlayer = serverModel.getCurrentPlayerIndex();
 		System.out.println("INDEX SERVER:" + currentPlayer);
@@ -240,7 +251,9 @@ public class ProvaServer {
 		}
 		// framePrincipale.setTurno(currentPlayer);
 	}
-
+/**
+ * inizio del gioco
+ */
 	public void inizioGame() {
 		framePrincipale.disableAllButtons();
 		framePrincipale.resetta(serverModel.getBase(), serverModel.getFinale(), serverModel.getPlancia(), 0);
@@ -250,13 +263,15 @@ public class ProvaServer {
 	public GameModel getServerModel() {
 		return serverModel;
 	}
-
+/**
+ * avvio il server
+ */
 	public synchronized void avvia() {
 		System.out.println("[SERVER]: avviato correttamente.");
 		// createModel();
 		int n = 1;
 		while (true) {
-			System.out.println("ci sono");
+		
 			if (accettaConnessioni()) {
 				System.out.println("[SERVER]: new client connected");
 				try {
@@ -277,10 +292,12 @@ public class ProvaServer {
 				}
 			}
 		} // fine ciclo
-		System.out.println("finito ciclo");
+		
 
 	}
-
+/**
+ * creo il frame principale del server
+ */
 	public void creaMainFrame() {
 		// TODO Auto-generated method stub
 		String[] listaGiocatori = new String[serverModel.getPlayer().length];
@@ -293,7 +310,9 @@ public class ProvaServer {
 		framePrincipale.setLocationRelativeTo(null);
 
 	}
-
+/**
+ * genero il bot in base ai giocatori mancanti
+ */
 	public void creaBot() {
 		// TODO Auto-generated method stub
 		if (nGiocatoriConnessi < numMaxGiocatori) {
@@ -303,12 +322,17 @@ public class ProvaServer {
 			}
 		}
 	}
-
+/**
+ * ricevo la posizione
+ * @param pos
+ */
 	public void receivePosition(Posizione pos) {
 		// TODO Auto-generated method stub
 		gestione.gestioneTurnoTre(pos);
 	}
-
+/**
+ * mi metto in ascolto delle posizioni del client
+ */
 	public void startWaitingPosition() {
 		int currentPlayer = serverModel.getCurrentPlayerIndex();
 		if (currentPlayer != 0) {

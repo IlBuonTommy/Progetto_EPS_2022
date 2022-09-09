@@ -1,10 +1,15 @@
 package it.unibs.eps.ludogame.networking;
 
 import java.io.Serializable;
-
+/**
+ * 
+ * classe che serve per incapsulare dati da scambiare tra server e client e viceversa
+ *
+ */
 public class Pacchetto implements Serializable{
 	private String type;
 	private Object message;
+	
 	public Pacchetto(String type, Object message) {
 		this.type = type;
 		this.message = message;

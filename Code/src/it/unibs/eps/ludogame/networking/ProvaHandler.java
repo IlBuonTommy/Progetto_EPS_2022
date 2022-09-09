@@ -11,7 +11,11 @@ import java.util.Arrays;
 import it.unibs.eps.ludogame.client.Posizione;
 import it.unibs.eps.ludogame.game.Casella;
 import it.unibs.eps.ludogame.game.GameModel;
-
+/**
+ * classe thread che si occupa di gestire la comunicazione col singolo  client
+ * 
+ *
+ */
 public class ProvaHandler implements Runnable {
 	private String nome;
 	private Socket client;
@@ -52,14 +56,15 @@ public class ProvaHandler implements Runnable {
 	public void setPrimoRunSuperato(boolean primoRunSuperato) {
 		this.primoRunSuperato = primoRunSuperato;
 	}
-
+/**
+ * comunico il model al client
+ */
 	public void comunicazione() {
 		try {
 			System.out.println(threadModel.toString());
 			Pacchetto p = (Pacchetto) in.readObject();
 			String tipoOggetto = p.getType();
 			if (tipoOggetto.equals("model")) {
-				System.out.println("sono arrivato nellla rich modl");
 
 				out.writeObject(threadModel);
 				out.flush();
@@ -74,7 +79,9 @@ public class ProvaHandler implements Runnable {
 		}
 
 	}
-
+/**
+ * leggo il nome del client
+ */
 	@Override
 	public synchronized void run() {
 		// TODO Auto-generated method stub
@@ -96,7 +103,9 @@ public class ProvaHandler implements Runnable {
 		System.out.println("runnato");
 
 	}
-
+/**
+ * disabilito i tasti del client
+ */
 	public synchronized void disabilitaTasti() {
 		// TODO Auto-generated method stub
 		Pacchetto p = new Pacchetto("disable", null);
@@ -108,7 +117,9 @@ public class ProvaHandler implements Runnable {
 			e.printStackTrace();
 		}
 	}
-
+/**
+ * mando il comando per resettare il frame del client
+ */
 	public synchronized void resettaFrame() {
 		Pacchetto p = new Pacchetto("repaint", null);
 		try {
@@ -119,7 +130,10 @@ public class ProvaHandler implements Runnable {
 			e.printStackTrace();
 		}
 	}
-
+/**mando al client il vincitore
+ * 
+ * @param vincitore
+ */
 	public synchronized void setVincitore(int vincitore) {
 		Pacchetto p = new Pacchetto("setVincitore", vincitore);
 		try {
@@ -129,6 +143,10 @@ public class ProvaHandler implements Runnable {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * mando al client l'array base del model aggiornato
+	 * @param base
+	 */
 	public synchronized void setBase(Casella[][] base) {
 		
 		try {
@@ -140,11 +158,14 @@ public class ProvaHandler implements Runnable {
 				}
 				
 			}
-			//System.out.println("numero mandato!");
 		} catch (IOException e) {
 			e.printStackTrace();
 	}
 	}
+	/**
+	 * mando al client l'array finale del model aggiornato
+	 * @param finale
+	 */
 	public synchronized void setFinale(Casella[][] finale) {
 
 		try {
@@ -156,12 +177,15 @@ public class ProvaHandler implements Runnable {
 				}
 				
 			}
-			//System.out.println("numero mandato!");
 		} catch (IOException e) {
 			e.printStackTrace();
 	}
 		
 	}
+	/**
+	 * mandal client l'array plancia nella sua componente colore aggiornato
+	 * @param plancia
+	 */
 	public synchronized void setPlanciaColore(Casella[] plancia) {
 
 		try {
@@ -173,11 +197,14 @@ public class ProvaHandler implements Runnable {
 
 				
 			}
-			//System.out.println("numero mandato!");
 		} catch (IOException e) {
 			e.printStackTrace();	
 		}
 	}
+		/**
+		 * mando al client l'array plancia nella sua componente doppio
+		 * @param plancia
+		 */
 		public synchronized void setPlanciaDoppio(Casella[] plancia) {
 
 			try {
@@ -189,13 +216,16 @@ public class ProvaHandler implements Runnable {
 
 					
 				}
-				//System.out.println("numero mandato!");
+				
 			} catch (IOException e) {
 				e.printStackTrace();	
 		}
 	}
 	
-
+/**
+ * mando al client il turno
+ * @param turno
+ */
 	public synchronized void setTurno(int turno) {
 		System.out.println("set turno))");
 		Pacchetto p = new Pacchetto("setTurno", turno);
@@ -205,11 +235,13 @@ public class ProvaHandler implements Runnable {
 			System.out.println("mandato");
 			out.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
+/**
+ * mando al client il dado
+ * @param dado
+ */
 	public synchronized void setDado(int dado) {
 		Pacchetto p = new Pacchetto("setDado", dado);
 		try {
@@ -220,9 +252,12 @@ public class ProvaHandler implements Runnable {
 			e.printStackTrace();
 		}
 	}
-
+/**
+ * mando al client il model aggiornato
+ * @param model
+ */
 	public synchronized void setUpdateModel(GameModel model) {
-		System.out.println("UPDATE MODEL SERVER");
+		
 		Pacchetto p = new Pacchetto("setModel", model);
 		try {
 			out.writeObject(p);
@@ -231,7 +266,10 @@ public class ProvaHandler implements Runnable {
 			e.printStackTrace();
 		}
 	}
-
+/**
+ * mando al client la lista delle posizioni effettuabili
+ * @param listapos
+ */
 	public synchronized void sendListaPos(Posizione[] listapos) {
 		Pacchetto p = new Pacchetto("setPosizioni", listapos);
 		try {
@@ -243,7 +281,9 @@ public class ProvaHandler implements Runnable {
 
 	}
 
-
+/**
+ * ricevo il dado dal client
+ */
 	public synchronized void receiveDadoFromClient() {
 		try {
 			System.out.println("inizio ad aspettare dado");
@@ -256,7 +296,9 @@ public class ProvaHandler implements Runnable {
 		}
 
 	}
-
+/**
+ * ricevo la posizione dal client
+ */
 	public synchronized void receivePosizioneFromClient() {
 		try {
 			System.out.println("inizio ad aspettare posizione");
@@ -269,7 +311,10 @@ public class ProvaHandler implements Runnable {
 		}
 
 	}
-
+/**
+ * mando al client il giocatore corrente
+ * @param currentPlayer
+ */
 	public synchronized void setCurrentPlayer(int currentPlayer) {
 		Pacchetto p = new Pacchetto("currentPlayer", currentPlayer);
 		System.out.println("CurrentPLayer: "+ currentPlayer);
