@@ -145,11 +145,6 @@ public class GameModel implements Serializable{
         return -1;
     }
 
-    //DEBUG ONLY: ALESSIO
-    public int ControlloVincitaTempDebug() {
-    	return -1;
-    }
-
     /** Questo metodo esegue una mangiata sulla plancia
      * @param posizione indica la posizione della pedina da mangiare sulla plancia
      * @return boolean se true, la mangiata è stata eseguita correttamente
