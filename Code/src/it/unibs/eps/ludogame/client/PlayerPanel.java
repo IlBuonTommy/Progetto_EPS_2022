@@ -28,11 +28,18 @@ public class PlayerPanel extends JPanel {
 		this.add(this.fp);
 
 	}
-
+	/**
+	 * richiama facePanel setTurno
+	 * @param n
+	 */
 	public void setTurno(boolean n) {
 		this.fp.setTurno(n);
 	}
-
+	
+	/**
+	 * setta il nome di questo player
+	 * @param nome
+	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}

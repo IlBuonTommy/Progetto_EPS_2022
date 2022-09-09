@@ -73,7 +73,11 @@ public class SidePanel extends JPanel {
 		panel_1.add(rollButton);
 
 	}
-
+	
+	/**
+	 * 
+	 * @param state
+	 */
 	public void setRollButton(boolean state) {
 		this.rollButton.setEnabled(state);
 	}
@@ -88,7 +92,11 @@ public class SidePanel extends JPanel {
 		diceImage = new ImageIcon("dice" + n + ".png");
 		rollLabel.setIcon(diceImage);
 	}
-
+	
+	/**
+	 * in base al turno del giocatore setto le facce o spirale per ogni PlayerPanel
+	 * @param player
+	 */
 	public void setTurno(int player) {
 
 		for (int i = 0; i < this.nGiocatori; i++)

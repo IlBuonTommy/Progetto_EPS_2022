@@ -141,7 +141,11 @@ public class HostWaitingRoom extends JFrame {
 		});
 
 	}
-
+	
+	/**
+	 * invocata ogni volta che client si connette
+	 * @param nome
+	 */
 	public void addPlayer(String nome) {
 		if (this.contaGiocatori < numGiocatori) {
 			this.arrJlabel[this.contaGiocatori].setText(nome);

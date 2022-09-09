@@ -14,7 +14,10 @@ public class MyButton extends JButton {
 	private boolean doppio;
 	private Posizione posizione;
 	private JLabel label;
-
+	/**
+	 * 
+	 * @param p
+	 */
 	public MyButton(int p) {
 		this.color = -1;
 		this.draw = false;
@@ -23,7 +26,7 @@ public class MyButton extends JButton {
 		label = new JLabel("");
 		add(label);
 	}
-
+	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		// controllo se � presente una pedina

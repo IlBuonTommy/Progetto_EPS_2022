@@ -10,7 +10,10 @@ class RoundedBorder implements Border {
 
     private int radius;
 
-
+	/**
+	 * 
+	 * @param radius
+	 */
     RoundedBorder(int radius) {
         this.radius = radius;
     }
@@ -25,7 +28,7 @@ class RoundedBorder implements Border {
         return true;
     }
 
-
+   
     public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
     	g.setColor(Color.BLACK);
         g.drawRoundRect(x, y, width-1, height-1, radius, radius);

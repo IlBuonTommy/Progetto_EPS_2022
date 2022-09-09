@@ -229,21 +229,30 @@ public class ClientWaitingRoom extends JFrame {
 		contentPane.add(lblNewLabel_1);
 
 	}
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public ProvaClient getClient() {
 		return client;
 	}
-
+	
+	/**
+	 * setto valore del client
+	 * @param client
+	 */
 	public void setClient(ProvaClient client) {
 		this.client = client;
 	}
 
+	/**
+	 * invoca metodo in client che richiede model inziiale
+	 * @param client
+	 */
 	public synchronized void richiediModel(ProvaClient client) {
 		client.richiestaModelIniziale();
 	}
 
-	public void closeFrame() {
-		// TODO Auto-generated method stub
-		frame.dispose();
-	}
+	
 }

@@ -90,11 +90,22 @@ public class MainFrame extends JFrame {
 	public void setTurno(int giocatore) {
 		this.panel.setTurno(giocatore);
 	}
-
+	
+	/**
+	 * richiama setDado del Panel
+	 * @param dado
+	 */
 	public void setDado(int dado) {
 		this.panel.dadoAnimation(dado);
 	}
-
+	
+	/**
+	 * prende in input il modello dati del tabellone e il currentPlayer, richiama board e sidepanel
+	 * @param baseV
+	 * @param fineV
+	 * @param boardV
+	 * @param currentPlayerV
+	 */
 	public void resetta(Casella[][] baseV, Casella[][] fineV, Casella[] boardV, int currentPlayerV) {
 		
 		this.board.resetta(boardV, baseV, fineV);
@@ -104,6 +115,11 @@ public class MainFrame extends JFrame {
 		System.out.println("base:" + baseV[0][0].toString());
 	}
 
+	/**
+	 * invocato da click del bottone lancia
+	 * invia dado a server o client
+	 * @param n
+	 */
 	public void sendDado(int n) {
 		if (this.client == null) {
 			System.out.println("sono nel send dado mainframe");
@@ -115,6 +131,11 @@ public class MainFrame extends JFrame {
 
 	}
 
+	/**
+	 * invocato da click del bottone sul Tabellone
+	 * invia posizione a server o client
+	 * @param n
+	 */
 	public void sendPosition(Posizione p) {
 		if (this.client == null) {
 			server.startTurnoTre(p);

@@ -33,12 +33,21 @@ public class Posizione implements Serializable{
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * @param n
+	 */
 	public Posizione(int n) {
 		setNomePosizione(n);
 		this.arrayposizione=this.mappaPosizione(n);
 	}
 	
+	/**
+	 * 
+	 * @param nomepos
+	 * @param col
+	 * @param arraypos
+	 */
 	public Posizione(Posizione.NomePosizione nomepos,int col, int arraypos) {
 		this.arrayposizione=arraypos;
 		this.nomeposizione=nomepos;

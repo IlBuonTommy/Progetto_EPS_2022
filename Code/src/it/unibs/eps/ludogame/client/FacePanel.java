@@ -392,7 +392,11 @@ public class FacePanel extends JPanel {
 		this.setTurno(false);
 
 	}
-
+	
+	/**
+	 * setto se è il turno di questo player
+	 * @param b
+	 */
 	public void setTurno(boolean b) {
 		this.turno = b;
 	}

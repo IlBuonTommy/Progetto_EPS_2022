@@ -23,6 +23,7 @@ public class Sconfitta extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param nomeVincitore
 	 */
 	public Sconfitta(String nomeVincitore) {
 		frame = this;
