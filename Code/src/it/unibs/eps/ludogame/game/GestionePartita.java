@@ -81,15 +81,11 @@ public class GestionePartita {
 		}
 		server.getServerModel().nextTurn();
 		server.sendModelInGame();			
-		 Thread t = new Thread(new Runnable() {
+		 
+		gestioneTurnoUno();			
+		
 
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					gestioneTurnoUno();			}
-
-			});
-		 t.start();
+			
 	}
 	
 }
