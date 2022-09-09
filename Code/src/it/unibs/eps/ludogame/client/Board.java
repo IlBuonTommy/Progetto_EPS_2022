@@ -12,7 +12,11 @@ import java.util.Arrays;
 import javax.swing.JPanel;
 
 import it.unibs.eps.ludogame.game.Casella;
-
+/**
+ * 
+ * Questa classe si occupa di generare graficamente la board di gioco
+ *
+ */
 public class Board extends JPanel {
 
 	private static String blupedina = "#0E5DF1";
@@ -33,7 +37,9 @@ public class Board extends JPanel {
 	// 3 array di caselle: plancia[40] base[colore][4] finale[colore][4]
 
 	/**
-	 * Create the panel.
+	 * Creo il panel
+	 * @param frameprincipale , passo il frame dove deve essere costruita la board
+	 * 
 	 */
 	public Board(MainFrame frameprincipale) {
 		this.setLayout(new GridLayout(11, 11, 0, 0));
@@ -87,7 +93,9 @@ public class Board extends JPanel {
 			}
 
 	}
-
+	/**
+	 * genero la grafica
+	 */
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		// ottengo dimensioni
@@ -245,7 +253,7 @@ public class Board extends JPanel {
 
 		for (int i = 0; i < 40; i++) {
 			this.boardButton[i].setState(false, -1);
-			System.out.println("sisout: " + i + " " + board[i].getColore());
+			
 			if (board[i].getColore() > -1) {
 
 				this.boardButton[i].setState(true, board[i].getColore(), board[i].getDoppio());
@@ -254,7 +262,7 @@ public class Board extends JPanel {
 
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-				System.out.println("BASE DEL RESET:" + base[i][j].getColore());
+				
 				this.baseButton[i][j].setState(false, -1);
 
 				if (base[i][j].getColore() > -1) {

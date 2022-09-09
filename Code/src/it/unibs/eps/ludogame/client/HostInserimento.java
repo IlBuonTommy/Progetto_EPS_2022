@@ -20,7 +20,11 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import it.unibs.eps.ludogame.networking.ProvaServer;
-
+/**
+ * classe che si occupa di generare il frame di login del server
+ * 
+ *
+ */
 public class HostInserimento extends JFrame {
 
 	private JPanel contentPane;
@@ -43,7 +47,7 @@ public class HostInserimento extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Creo il frame.
 	 */
 	public HostInserimento() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("icon.png"));
@@ -132,7 +136,6 @@ public class HostInserimento extends JFrame {
 				// faccio controlli se inserito e avvio
 				if (!textFieldNome.getText().isEmpty() && !textFieldNome.getText().isBlank()) {
 
-					System.out.println("actionPerformed inserimento");
 					System.out.println(textFieldNome.getText());
 					System.out.println(sliderngiocatori.getValue());
 					ExecutorService executor = Executors.newFixedThreadPool(2);
@@ -144,7 +147,7 @@ public class HostInserimento extends JFrame {
 					executor.execute(new Runnable() {
 						public void run() {
 							prova.avvia();
-							// s.avvia();
+
 
 						}
 					});
@@ -155,7 +158,7 @@ public class HostInserimento extends JFrame {
 							frame.dispose();
 							frameWaiting.setVisible(true);
 							frameWaiting.setLocationRelativeTo(null);
-							System.out.println("finito questo");
+
 						}
 					});
 

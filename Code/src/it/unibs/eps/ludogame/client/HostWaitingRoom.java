@@ -14,9 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import it.unibs.eps.ludogame.networking.ProvaServer;
-
-//import it.unibs.eps.ludogame.networking.ServerGameLudo;
-
+/**
+ * 
+ * classe che genera il frame di attesa di nuovi giocatori sul server
+ *
+ */
 public class HostWaitingRoom extends JFrame {
 
 	private JPanel contentPane;
@@ -29,24 +31,7 @@ public class HostWaitingRoom extends JFrame {
 	private String nomeGiocatore;
 	private ProvaServer s;
 
-	/**
-	 * Launch the application.
-	 */
-	/*
-	 * public static void main(String[] args) {
-	 * 
-	 * EventQueue.invokeLater(new Runnable() {
-	 * public void run() {
-	 * try {
-	 * HostWaitingRoom frame = new HostWaitingRoom("Paolo",numGiocatori);
-	 * frame.setVisible(true);
-	 * } catch (Exception e) {
-	 * e.printStackTrace();
-	 * }
-	 * }
-	 * });
-	 * }
-	 */
+	
 
 	public ProvaServer getS() {
 		return s;
@@ -57,7 +42,7 @@ public class HostWaitingRoom extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Creo il frame.
 	 */
 	public HostWaitingRoom(String nomehost, int numGiocatori) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("icon.png"));
@@ -71,7 +56,6 @@ public class HostWaitingRoom extends JFrame {
 		this.frame = this;
 		this.arrJlabel = new JLabel[4];
 		this.nomeGiocatore = nomehost;
-		System.out.println("cipolla");
 		setResizable(false);
 		setTitle("Ludo");
 		setAlwaysOnTop(true);

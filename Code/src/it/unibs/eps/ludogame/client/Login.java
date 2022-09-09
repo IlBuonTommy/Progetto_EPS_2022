@@ -15,7 +15,11 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.Color;
 import javax.swing.JButton;
-
+/**
+ * 
+ * Classe che si occupa di generare il frame di login del server
+ *
+ */
 public class Login extends JFrame {
 
 	private JPanel contentPane;
@@ -40,7 +44,7 @@ public class Login extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * creo il frame.
 	 */
 	public Login() {
 		setTitle("Ludo");

@@ -12,7 +12,10 @@ import javax.swing.JPanel;
 import it.unibs.eps.ludogame.game.Casella;
 import it.unibs.eps.ludogame.networking.ProvaClient;
 import it.unibs.eps.ludogame.networking.ProvaServer;
-
+/**
+ * classe che genera tutta l'interfaccia principale
+ *
+ */
 public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
@@ -26,7 +29,7 @@ public class MainFrame extends JFrame {
 	 */
 
 	/**
-	 * Create the frame.
+	 * Creo il frame.
 	 */
 	public MainFrame(String[] giocatori, ProvaClient client, ProvaServer server) {
 		
@@ -47,8 +50,6 @@ public class MainFrame extends JFrame {
 		board.disableall();
 
 		getContentPane().add(panel, BorderLayout.EAST);
-
-		// board.resetta(new Casella[] {},new Casella[][] {},new Casella[][] {});
 
 	}
 
@@ -112,7 +113,7 @@ public class MainFrame extends JFrame {
 		this.panel.setTurno(currentPlayerV);
 
 		this.repaint();
-		System.out.println("base:" + baseV[0][0].toString());
+		
 	}
 
 	/**
@@ -122,7 +123,7 @@ public class MainFrame extends JFrame {
 	 */
 	public void sendDado(int n) {
 		if (this.client == null) {
-			System.out.println("sono nel send dado mainframe");
+
 			server.starTurnoDue(n);
 		} else {
 			// chiamo ProvaClient e gli faccio inviare il dado

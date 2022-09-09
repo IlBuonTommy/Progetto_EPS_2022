@@ -5,7 +5,11 @@ import java.awt.Graphics;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-
+/**
+ * 
+ * classe che crea un bottone personalizzato, che sarebbe la singola casella della board
+ *
+ */
 public class MyButton extends JButton {
 
 	private String[] listaColori = new String[] { "#E74C3C", "#0E5DF1", "#2AC503", "#FCFC5C", "#FFFFFF" };
@@ -14,8 +18,9 @@ public class MyButton extends JButton {
 	private boolean doppio;
 	private Posizione posizione;
 	private JLabel label;
+	
 	/**
-	 * 
+	 * costruttore
 	 * @param p
 	 */
 	public MyButton(int p) {
@@ -26,7 +31,9 @@ public class MyButton extends JButton {
 		label = new JLabel("");
 		add(label);
 	}
-	
+	/**
+	 * genero il componente
+	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		// controllo se � presente una pedina
@@ -62,7 +69,7 @@ public class MyButton extends JButton {
 	}
 
 	/**
-	 * 
+	 * imposto lo stato del bottone
 	 * @param state
 	 * @param color
 	 */
@@ -73,7 +80,7 @@ public class MyButton extends JButton {
 	}
 
 	/**
-	 * 
+	 * imposto lo stato del bottone
 	 * @param state
 	 */
 	public void setState(boolean state) {
@@ -81,7 +88,7 @@ public class MyButton extends JButton {
 	}
 
 	/**
-	 * 
+	 * imposto lo stato del bottone
 	 * @param state
 	 * @param color
 	 * @param doppio
@@ -94,7 +101,7 @@ public class MyButton extends JButton {
 	}
 
 	/**
-	 * 
+	 * imposto lo stato del bottone
 	 * @param state
 	 * @param doppio
 	 */
@@ -105,7 +112,7 @@ public class MyButton extends JButton {
 
 	/**
 	 * 
-	 * @return
+	 * @return posizione del bottone
 	 */
 	public Posizione getButtonPosition() {
 		// System.out.println(this.posizione.getNomeposizione()+" riga

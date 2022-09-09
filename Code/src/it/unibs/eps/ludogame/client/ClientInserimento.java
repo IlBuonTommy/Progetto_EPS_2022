@@ -17,7 +17,11 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import it.unibs.eps.ludogame.networking.ProvaClient;
-
+/**
+ * 
+ * Classe che si occupa di generare il frame dove il client fa login
+ *
+ */
 public class ClientInserimento extends JFrame {
 
 	private JPanel contentPane;
@@ -41,7 +45,7 @@ public class ClientInserimento extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Creo il frame
 	 */
 	public ClientInserimento() {
 		setTitle("Ludo");
@@ -108,19 +112,15 @@ public class ClientInserimento extends JFrame {
 			public synchronized void actionPerformed(ActionEvent e) {
 				// Controlli su ip e se connette
 				if (!textFieldNome.getText().isEmpty() && !textFieldNome.getText().isBlank()) {
-					System.out.println("apposto");
+					
 					ClientWaitingRoom clientframe = new ClientWaitingRoom();
-					// ClientGameLudo client = new
-					// ClientGameLudo(textFieldIP.getText(),textFieldNome.getText());
 					ProvaClient client = new ProvaClient(textFieldIP.getText(), textFieldNome.getText(), clientframe);
 
-					System.out.println("fuori");
+				
 					if (client.checkConnection()) {
-						System.out.println("dentro");
-						System.out.println("comunicato");
 
 						client.comunica();
-						System.out.println("dopo comunica");
+
 						frame.dispose();
 						clientframe.setVisible(true);
 						clientframe.setLocationRelativeTo(null);

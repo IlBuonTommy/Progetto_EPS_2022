@@ -7,7 +7,11 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
-
+/**
+ * 
+ * Classe che si occupa di generare il pannello in cui ci sono gli avatar dei giocatori
+ *
+ */
 public class FacePanel extends JPanel {
 
 	String[] colori = { "#E74C3C", "#0E5DF1", "#2AC503", "#E1E100" };
@@ -365,7 +369,7 @@ public class FacePanel extends JPanel {
 	private int offsettx, offsetty;
 
 	/**
-	 * Create the panel.
+	 * Creo il panel.
 	 */
 	public FacePanel(int n) {
 

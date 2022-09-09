@@ -12,7 +12,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import it.unibs.eps.ludogame.networking.ProvaClient;
-
+/**
+ * 
+ * Classe che si occupa di generare il frame di attesa inizio partita, del client
+ *
+ */
 public class ClientWaitingRoom extends JFrame {
 
 	private JPanel contentPane;
@@ -36,7 +40,7 @@ public class ClientWaitingRoom extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Creo il frame.
 	 */
 
 	public ClientWaitingRoom() {
@@ -231,8 +235,9 @@ public class ClientWaitingRoom extends JFrame {
 	}
 	
 	/**
+	 * ritorna il client
+	 * @return client
 	 * 
-	 * @return
 	 */
 	public ProvaClient getClient() {
 		return client;
@@ -247,13 +252,15 @@ public class ClientWaitingRoom extends JFrame {
 	}
 
 	/**
-	 * invoca metodo in client che richiede model inziiale
+	 * invoca metodo in client che richiede model iniziale
 	 * @param client
 	 */
 	public synchronized void richiediModel(ProvaClient client) {
 		client.richiestaModelIniziale();
 	}
-
+	/**
+	 * chiudo il frame
+	 */
     public void closeFrame() {
 		frame.dispose();
     }
