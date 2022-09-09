@@ -1,7 +1,11 @@
 package it.unibs.eps.ludogame.game;
 
 import java.io.Serializable;
-
+/**
+ * 
+ * classe che implementa le caratteristiche della casella
+ *
+ */
 public class Casella implements Serializable{
     private int colore;
     private boolean doppio;

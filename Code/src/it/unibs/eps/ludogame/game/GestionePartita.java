@@ -2,7 +2,11 @@ package it.unibs.eps.ludogame.game;
 
 import it.unibs.eps.ludogame.client.Posizione;
 import it.unibs.eps.ludogame.networking.ProvaServer;
-
+/**
+ * 
+ * classe che si occupa di gestire la partita
+ *
+ */
 public class GestionePartita {
 	private ProvaServer server;
 	private int valoreDadoS;
@@ -12,7 +16,9 @@ public class GestionePartita {
 		
 		
 	}
-	
+	/**
+	 * prima parte, gestione movimento del bot, oppure abilito il bottone di lancio del giocatore corrente
+	 */
 	public synchronized void gestioneTurnoUno(){
 		System.out.println("turno 1, indice: " + server.getServerModel().getCurrentPlayerIndex());
 		
@@ -33,7 +39,10 @@ public class GestionePartita {
 			server.startWaitingDado();
 		}
 	}
-	//questa funzione è richiamata dal tasto lancia dado 
+	/**
+	 * mando a tutti i client il valore del dado e mando alla view i bottoni che si possono abilitare sulla base del dado,attendo la mossa
+	 * @param valoreDado
+	 */
 	public void gestioneTurnoDue(int valoreDado){
 		System.out.println("turno 2");
 		valoreDadoS = valoreDado;
@@ -43,7 +52,10 @@ public class GestionePartita {
 		server.sendMovePosition(valoreDadoS);
 		server.startWaitingPosition();
 	}
-	//questa funzione viene richiamata dalla pressione del bottone da parte di un giocatore
+	/**
+	 * il giocatore preme, richiamando uesta funzione che modifica il model sulla base del tasto premuto
+	 * @param tastoPremuto
+	 */
 	public void gestioneTurnoTre(Posizione tastoPremuto){
 		System.out.println("turno 3");
 		
@@ -59,20 +71,17 @@ public class GestionePartita {
 		server.sendModelInGame();
 		gestioneTurnoQuattro();
 	}
+	/**
+	 * controllo se un giocatore ha vinto, nel caso il gioco termina con la visualizzazione dei frame di vittoria/sconfitta, altrimenti ricomincia il ciclo del turno
+	 */
 	public  void gestioneTurnoQuattro(){
 		System.out.println("turno 4");
 		int vincitore=server.getServerModel().checkWin();
 		if(vincitore!=-1){
 			//il gioco finisce chiudiamo le connessioni e tutti a baita
-			//System.out.println("Partita terminata, Complimenti ha vinto il giocatore: "+ model.getPlayer()[model.checkWin()].getUsername());
 			server.setWinner(vincitore);
-			System.out.println("GIOCO FINITO GAEE");
-			/*try {
-				//client.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
+			System.out.println("Gioco finito.");
+
 			return;
 		}
 		if(valoreDadoS==6){

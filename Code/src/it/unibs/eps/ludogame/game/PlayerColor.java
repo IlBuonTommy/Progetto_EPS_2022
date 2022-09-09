@@ -4,15 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
-* <h1>PlayerColor</h1>
-* <p>This ENUM defines the available player colors. It is also defining the
-* order of the players while playing and giving out colors at the start.</p>
-* <b>Note:</b> The availColor attribute is static so that every color is
-* only used once.
-*
-* @version 1.0
-* @since   2021-08-03
-*/
+ * 
+ * Enum che definisce il colore dei giocatori e li associa ai numeri
+ *
+ */
 public enum PlayerColor {
 	RED(0),
 	BLUE(1),
@@ -20,10 +15,7 @@ public enum PlayerColor {
 	YELLOW(3);
 
 	/**
-	 * <h1><i>toString</i></h1>
-	 * <p>This method is converting the ENUM to strings that are supported
-	 * by the MAEDN specification.</p>
-	 * @return String - return string supported by MAEDN specification
+	 * converte gli enum in toString
 	 */
 	@Override
 	public String toString() {
@@ -47,52 +39,37 @@ public enum PlayerColor {
     }
 
     /**
-	 * <h1><i>PlayerColor</i></h1>
-	 * <p>This constructor is called when creating a PlayerColor ENUM.
-	 * It is a workaround to map and integer value to each member of the ENUM.</p>
-	 * @param value - Integer of the index of the color
-	 */
+     * costruttore del colore
+     * @param value
+     */
     private PlayerColor(Integer value) {
         this.value = value;
     }
 
     /**
-	 * <h1><i>valueOf</i></h1>
-	 * <p>This method uses the static Hash Map to return a player color
-	 * for each integer index.</p>
-	 * @param playerColor - Integer of the player color
-	 * @return PlayerColor - returns the player color with that index
-	 */
+     * ritorna il colore di un singolo valore
+     * @param PlayerColor
+     * @return
+     */
     public static PlayerColor valueOf(Integer PlayerColor) {
         return (PlayerColor) map.get(PlayerColor);
     }
 
-    /**
-	 * <h1><i>getValue</i></h1>
-	 * <p>This method returns the integer of a player color from the ENUM.</p>
-	 * @return Integer - return value of a specific player color
-	 */
+  /**
+   *
+   * @return il valore di un singolo colore
+   */
     public Integer getValue() {
         return value;
     }
    
-    /**
-	 * <h1><i>getOffset</i></h1>
-	 * <p>This method returns the offset of the start field on the board
-	 * for a specific player color.</p>
-	 * @return Integer - return offset on the board for that player
-	 */
-    public Integer getOffset() {
-    	return 10 * value;
-    }
+    
 
     /**
-	 * <h1><i>getAvail</i></h1>
-	 * <p>This method checks if the requested color is still available and returns
-	 * an assigned Color to the player.</p>
-	 * @param requestedColor - PlayerColor either null or requested Color
-	 * @return PlayerColor - returns the selected color for the player
-	 */
+     * verifica la disponibilità del colore
+     * @param requestedColor
+     * @return il colore
+     */
     public static PlayerColor getAvail(PlayerColor requestedColor) {
     	if (requestedColor != null && availColor[requestedColor.getValue()]) {
     		availColor[requestedColor.getValue()] = false;
@@ -110,19 +87,16 @@ public enum PlayerColor {
     }
 
     /**
-	 * <h1><i>setAvail</i></h1>
-	 * <p>This method makes a color available again if a player disconnects for example.</p>
-	 * @param add - PlayerColor is the color that is available again
-	 */
+     * rende un colore disponibile
+     * @param add
+     */
     public static void setAvail(PlayerColor add) {
     	availColor[add.getValue()] = true;
     }
 
     /**
-	 * <h1><i>resetAvail</i></h1>
-	 * <p>This method resets the available colors to make
-	 * them all usable again after a game reset.</p>
-	 */
+     * resetta la disponibilità del colore
+     */
     public static void resetAvail() {
     	for (Integer i = 0; i < availColor.length; i++) {
     		availColor[i] = true;

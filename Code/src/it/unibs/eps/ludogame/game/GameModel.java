@@ -4,7 +4,11 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 import it.unibs.eps.ludogame.client.Posizione;
-
+/**
+ * 
+ * il model di gioco
+ *
+ */
 public class GameModel implements Serializable{
     //RED(0),BLUE(1),GREEN(2),YELLOW(3),EMPTY(-1)
     //3 array di caselle: plancia[40] base[colore][4] finale[colore][4]
@@ -65,7 +69,7 @@ public class GameModel implements Serializable{
 	}
 
 	/** 
-     * @return bool se il giocatore attuale √® un bot ritorna true, false viceversa.
+     * @return bool se il giocatore attuale Ë un bot ritorna true, false viceversa.
      */
     public boolean currentIsBot(){
         if(player[currentPlayerIndex].getBot())
@@ -107,9 +111,9 @@ public class GameModel implements Serializable{
         }
     }
     
-    /** Questo metodo controlla se √® rimasta qualche pedina nella base di un giocatore
+    /** Questo metodo controlla se Ë rimasta qualche pedina nella base di un giocatore
      * @param colore il colore sul quale si vuole effettuare il controllo
-     * @return boolean torna vero se c'√® almeno una pedina, falso altrimenti
+     * @return boolean torna vero se c'e almeno una pedina, falso altrimenti
      */
     public boolean someoneInBase(int colore){
         boolean test=false;
@@ -147,7 +151,7 @@ public class GameModel implements Serializable{
 
     /** Questo metodo esegue una mangiata sulla plancia
      * @param posizione indica la posizione della pedina da mangiare sulla plancia
-     * @return boolean se true, la mangiata √® stata eseguita correttamente
+     * @return boolean se true, la mangiata Ë stata eseguita correttamente
      */
     private boolean mangiata(int posizione){
         if(plancia[posizione].getDoppio())
@@ -175,7 +179,7 @@ public class GameModel implements Serializable{
      * @param posizione indica la posizione della pedina da muovere sulla plancia
      * @param valoreDado indica il valore del dado da considerare
      * @param daEseguire se messo a true il metodo effettua il movimento dopo aver valutato se fattibile
-     * @return boolean se true, il movimento √® fattibile, se false il movimento non si pu√≤ fare
+     * @return boolean se true, il movimento Ë fattibile, se false il movimento non si puÚ fare
      */
     public boolean movimentoDaPlancia(int posizione, int valoreDado, boolean daEseguire){
         //DEBUG ONLY
@@ -297,7 +301,7 @@ public class GameModel implements Serializable{
      * @param colore indica il colore della pedina da muovere sulla plancia dalla base
      * @param valoreDado indica il valore del dado da considerare
      * @param daEseguire se messo a true il metodo effettua il movimento dopo aver valutato se fattibile
-     * @return boolean se true, il movimento √® fattibile, se false il movimento non si pu√≤ fare
+     * @return boolean se true, il movimento Ë fattibile, se false il movimento non si puÚ fare
      */
     public boolean movimentoDaBase(int colore, int valoreDado, boolean daEseguire){
         //DEBUG ONLY
@@ -338,7 +342,7 @@ public class GameModel implements Serializable{
      * @param colore indica il colore della pedina da muovere
      * @param valoreDado indica il valore del dado da considerare
      * @param daEseguire se messo a true il metodo effettua il movimento dopo aver valutato se fattibile
-     * @return boolean se true, il movimento √® fattibile, se false il movimento non si pu√≤ fare
+     * @return boolean se true, il movimento Ë fattibile, se false il movimento non si puÚ fare
      */
     public boolean movimentoDaFinale(int posizione, int colore, int valoreDado, boolean daEseguire){
         //DEBUG ONLY
@@ -360,7 +364,7 @@ public class GameModel implements Serializable{
      * Il bot da la priorit√† a: mettere in base la pedina, uscire con una nuova pedina, creare una doppia pi√π distante, mangiare la pedina pi√π vicina alla vittoria, liberare l'uscita delle pedine, spostare la pedina pi√π distante, annullare il turno
      * @param colore indica il colore della pedina da muovere
      * @param valoreDado indica il valore del dado da considerare
-     * @return boolean se true, il movimento √® stato fatto senza errori
+     * @return boolean se true, il movimento Ë stato fatto senza errori
      */
     public boolean movimentoBOT(int colore, int valoreDado){
         //DEBUG ONLY
@@ -408,7 +412,7 @@ public class GameModel implements Serializable{
             return true;
         }
 
-        //creare doppia pi√π distante
+        //creare doppia pi˘ distante
         for(int i=0; i<4; i++){
             if(posizione[i]!=-1 && posizione[i]<40){
                 int nuovPos= posizione[i]+valoreDado;
@@ -426,7 +430,7 @@ public class GameModel implements Serializable{
             }
         }
 
-        //mangiare la pi√π distante
+        //mangiare la pi˘ distante
         for(int i=0; i<4; i++){
             if(posizione[i]!=-1 && posizione[i]<40){
                 int nuovPos= posizione[i]+valoreDado;
@@ -451,7 +455,7 @@ public class GameModel implements Serializable{
             }
         }
 
-        //Spostare la pi√π distante
+        //Spostare la pi˘ distante
         for(int i=0; i<4; i++){
             if(posizione[i]!=-1 && posizione[i]<40){
                 if(movimentoDaPlancia(posizione[i], valoreDado, false)){
@@ -477,14 +481,14 @@ public class GameModel implements Serializable{
     }
     
 
-    /** Questa funzione √® di collegamento tra il model e il controller, quando l'utente preme un tasto sulla plancia
+    /** Questa funzione Ë di collegamento tra il model e il controller, quando l'utente preme un tasto sulla plancia
      * viene passato la posizione del tasto premuto a questa funzione che controlla se il movimento desiderato dall'utente √® 
      * realizzabile o meno, in caso si possa effettuare lo esegue.
      * @param pos indica in che punto si trova la pedina sulla plancia
      * @param x il primo parametro della matrice o l'unico parametro del vettore plancia
      * @param y il secondo parametro della matrice
      * @param valoreDado indica il valore del dado del giocatore corrente
-     * @return boolean se true, il movimento √® stato fatto senza errori, false il moviemnto non √® stato fatto.
+     * @return boolean se true, il movimento √® stato fatto senza errori, false il moviemnto non Ë stato fatto.
      */
     public boolean tastoPremuto(Posizione.NomePosizione pos, int posizione, int colore, int valoreDado){
         if(pos == Posizione.NomePosizione.Base){
@@ -519,7 +523,7 @@ public class GameModel implements Serializable{
         return false;
     }
 
-    /** Questa funzione effettua un return dei tasti che pu√≤ premere il giocatore del turno corrente
+    /** Questa funzione effettua un return dei tasti che puÚ premere il giocatore del turno corrente
      * @param valoreDado indica il valore del dado del giocatore corrente
      * @return Posizione[] un array dei tasti da abilitare sulla plancia
      */
@@ -564,15 +568,5 @@ public class GameModel implements Serializable{
 				+ currentPlayerIndex + ", numGiocatori=" + numGiocatori + "]";
 	}
     
-  /*  public void updateServer(Controllore c) {
-        //DEBUG ONLY
-        System.out.println("GameModel: √® stato effettuato l'update sul server, classe Controllore");
-
-    	c.setBase(base);
-    	c.setFinale(finale);
-    	c.setNumGiocatori(numGiocatori);
-    	c.setPlancia(plancia);
-    	c.setPlayer(player);
-    }*/
 
 }
