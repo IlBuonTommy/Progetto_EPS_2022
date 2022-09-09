@@ -9,14 +9,7 @@ public class GestionePartita {
 	private Thread t;
 	public GestionePartita(ProvaServer server) {
 		this.server = server;
-		 t = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				gestioneTurnoUno();			}
-
-		});
+		
 		
 	}
 	
@@ -88,7 +81,15 @@ public class GestionePartita {
 		}
 		server.getServerModel().nextTurn();
 		server.sendModelInGame();			
-		t.start();
+		 t = new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					gestioneTurnoUno();			}
+
+			});
+		 t.start();
 	}
 	
 }
