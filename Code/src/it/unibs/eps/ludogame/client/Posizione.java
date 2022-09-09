@@ -2,8 +2,11 @@ package it.unibs.eps.ludogame.client;
 import java.io.Serializable;
 import java.util.HashMap;
 
-//import Posizione.NomePosizione;
-
+/**
+ * 
+ * classe che implementa la posizione dei giocatori nel gioco
+ *
+ */
 public class Posizione implements Serializable{
 	
 	public static enum NomePosizione{
@@ -34,7 +37,7 @@ public class Posizione implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * costruttore
 	 * @param n
 	 */
 	public Posizione(int n) {
@@ -43,7 +46,7 @@ public class Posizione implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * costruttore
 	 * @param nomepos
 	 * @param col
 	 * @param arraypos
@@ -128,7 +131,7 @@ public class Posizione implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * ritorna la mappa delle posizioni
 	 * @param n
 	 * @return
 	 */
@@ -143,8 +146,8 @@ public class Posizione implements Serializable{
 	}
 
 	/**
-	 * 
-	 * @return
+	 * ritorna il nome delle posizioni
+	 * @return nomeposizione
 	 */
 	public NomePosizione getNomeposizione() {
 		return nomeposizione;
@@ -152,16 +155,16 @@ public class Posizione implements Serializable{
 
 	
 	/**
-	 * 
-	 * @return
+	 * ritorna l'array delle posizioni
+	 * @return arrayposizione
 	 */
 	public int getArrayposizione() {
 		return arrayposizione;
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * ritorna il colore 
+	 * @return colore
 	 */
 	public int getColor() {
 		return this.colore;

@@ -13,7 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
+/**
+ * genero un frame che informa il giocatore della sua sconfitta
+ * 
+ *
+ */
 public class Sconfitta extends JFrame {
 
 	private JPanel contentPane;
@@ -22,7 +26,7 @@ public class Sconfitta extends JFrame {
 	private JFrame frame;
 
 	/**
-	 * Create the frame.
+	 * creo il frame.
 	 * @param nomeVincitore
 	 */
 	public Sconfitta(String nomeVincitore) {

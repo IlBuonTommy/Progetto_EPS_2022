@@ -5,14 +5,18 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Font;
-
+/**
+ * 
+ * Classe che genera la parte di pannello contenente gli avatar dei giocatori
+ *
+ */
 public class PlayerPanel extends JPanel {
 
 	private FacePanel fp;
 	private String nome;
 
 	/**
-	 * Create the panel.
+	 * Creo il panel.
 	 */
 	public PlayerPanel(int n, String nome) {
 

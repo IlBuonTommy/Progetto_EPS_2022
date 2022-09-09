@@ -12,7 +12,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
+/**
+ * genero un frame che informa il giocatore della sua vittoria
+ * 
+ *
+ */
 public class Vittoria extends JFrame {
 
 	private JPanel contentPane;
@@ -21,7 +25,7 @@ public class Vittoria extends JFrame {
 	
 
 	/**
-	 * Create the frame.
+	 * Creo il frame.
 	 */
 	public Vittoria() {
 		this.frame=this;

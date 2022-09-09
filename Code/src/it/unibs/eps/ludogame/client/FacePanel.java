@@ -9,7 +9,7 @@ import java.awt.RenderingHints;
 import javax.swing.JPanel;
 /**
  * 
- * Classe che si occupa di generare il pannello in cui ci sono gli avatar dei giocatori
+ * Classe che si occupa di generare  gli avatar dei giocatori
  *
  */
 public class FacePanel extends JPanel {

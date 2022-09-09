@@ -11,7 +11,7 @@ class RoundedBorder implements Border {
     private int radius;
 
 	/**
-	 * 
+	 * costruttore
 	 * @param radius
 	 */
     RoundedBorder(int radius) {

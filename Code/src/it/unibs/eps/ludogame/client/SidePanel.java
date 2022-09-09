@@ -11,7 +11,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
+/**
+ * pannello laterale 
+ * 
+ *
+ */
 public class SidePanel extends JPanel {
 
 	private JButton rollButton;
@@ -22,7 +26,7 @@ public class SidePanel extends JPanel {
 	private MainFrame framePrincipale;
 
 	/**
-	 * Create the panel.
+	 * Creo il panel.
 	 */
 	public SidePanel(String[] nome, MainFrame framePrincipale) {
 		Random rand = new Random();
