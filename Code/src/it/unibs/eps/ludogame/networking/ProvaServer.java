@@ -157,6 +157,8 @@ public class ProvaServer {
 		}
 		if (serverModel.getCurrentPlayerIndex() == 0) {
 			framePrincipale.enableRoll();
+		}else {
+			framePrincipale.disableAllButtons();
 		}
 		
 	}
