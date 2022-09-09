@@ -86,6 +86,7 @@ public class GestionePartita {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
+				server.settaTurnoClient();
 				gestioneTurnoUno();
 			}});
 		
