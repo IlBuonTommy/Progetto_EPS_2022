@@ -35,6 +35,7 @@ public class ProvaClient {
 	private  int valoreDado;
 	private ClientWaitingRoom clientFrame;
 	private MainFrame framePrincipale;
+	private int playerNumeroClient;
 	int i=0;
 	int j=0;
 	int iPlancia=0;
@@ -79,8 +80,8 @@ public class ProvaClient {
 			//playerIndex = modelClient.getCurrentPlayerIndex();
 			for(int i=0;i<modelClient.getPlayer().length;i++) {
 				if(this.playerName.equals(modelClient.getPlayer()[i].getUsername())) {
-					this.playerIndex=i;
-					System.out.println("Player Index di "+this.playerName +" : "+this.playerIndex);
+					this.playerNumeroClient=i;
+					System.out.println("Player Index di "+this.playerName +" : "+this.playerNumeroClient);
 				}
 			}
 			//Avvia view
@@ -138,12 +139,12 @@ public class ProvaClient {
 				
 				if(tipoRicevuto.equals("setTurno")) {
 					System.out.println("sono arrivato nel set turno");
-					System.out.println("index: " + this.playerIndex);
+					System.out.println("index: " + this.playerNumeroClient);
 					framePrincipale.setTurno((int)p.getMessage());
-					if((int)p.getMessage()==this.playerIndex) {
+					if((int)p.getMessage()==this.playerNumeroClient) {
 						framePrincipale.enableRoll();
 					}
-					//framePrincipale.resetta(modelClient.getBase(), modelClient.getFinale(), modelClient.getPlancia(),this.playerIndex );
+					//framePrincipale.resetta(modelClient.getBase(), modelClient.getFinale(), modelClient.getPlancia(),this.playerNumeroClient );
 				}
 				
 				if(tipoRicevuto.equals("setDado")) {
@@ -205,6 +206,11 @@ public class ProvaClient {
 				if(tipoRicevuto.equals("setPlanciaColore")) {
 					//modelClient.setPlancia((Casella[])p.getMessage());
 					plancia[iPlancia].setColore((int)p.getMessage());
+					if(iPlancia == 39) {
+						iPlancia = 0;
+					}else {
+						iPlancia++;
+					}
 					//System.out.println(Arrays.toString(modelClient.getPlancia()));
 					
 				}

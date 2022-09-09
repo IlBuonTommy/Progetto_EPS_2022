@@ -143,7 +143,8 @@ public class ProvaServer {
 	}
 
 	public void sendModelInGame() {
-		
+		framePrincipale.resetta(serverModel.getBase(), serverModel.getFinale(), serverModel.getPlancia(),serverModel.getCurrentPlayerIndex());
+
 		for (ProvaHandler c : clients) {
 		//	c.setUpdateModel(serverModel);
 			c.setBase(serverModel.getBase());
@@ -154,8 +155,6 @@ public class ProvaServer {
 			c.resettaFrame();
 			//c.resettaFrame();
 		}
-		framePrincipale.resetta(serverModel.getBase(), serverModel.getFinale(), serverModel.getPlancia(),
-				serverModel.getCurrentPlayerIndex());
 		if (serverModel.getCurrentPlayerIndex() == 0) {
 			framePrincipale.enableRoll();
 		}

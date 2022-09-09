@@ -29,7 +29,6 @@ public class GestionePartita {
 			//abilito il bottone di lancio dado del giocatore corrente
 			server.settaTurnoClient();
 			server.startWaitingDado();
-			
 		}
 	}
 	//questa funzione è richiamata dal tasto lancia dado 
@@ -54,7 +53,8 @@ public class GestionePartita {
 		//disabilito tutti i tasti al giocatore corrente
 		server.disableAllButton();
 		//invio a tutti i giocatori il nuovo model e lo visualizzo
-		server.sendModelInGame(); //far mandare array separati in sendModelInGame...
+		
+		server.sendModelInGame();
 		gestioneTurnoQuattro();
 	}
 	public void gestioneTurnoQuattro(){
@@ -77,7 +77,6 @@ public class GestionePartita {
 			gestioneTurnoUno();
 			return;
 		}
-		
 		server.getServerModel().nextTurn();
 		server.sendModelInGame();			
 		gestioneTurnoUno();
