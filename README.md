@@ -1,9 +1,9 @@
 # Progetto_EPS_2022
 Powered by Tommy, Ale e Paolo
-## Link utili per lo sviluppo
+## Link utili per lo sviluppo delle nuove regole
 - [Regole del gioco Ludo](https://it.wikipedia.org/wiki/Ludo_(gioco))
 - [Regole del gioco Non t'arrabbiare](https://it.wikipedia.org/wiki/Non_t%27arrabbiare)
-# Regole di gioco nostre
+# Regole di gioco rielaborate da noi
 In maniera casuale viene scelto chi deve fare la prima mossa e gli altri giocano a turno in senso orario.
 Il turno di gioco consiste nel lancio del dado e nel conseguente spostamento di uno dei piolini di tante caselle quant'è il numero ottenuto. 
 I piolini però possono lasciare la base di partenza solo se con il dado si ottiene un 6; ne consegue che se nessun piolino è fuori dalla base, con un numero diverso da 6 non si può fare alcuna mossa e il turno passa al giocatore seguente. 
