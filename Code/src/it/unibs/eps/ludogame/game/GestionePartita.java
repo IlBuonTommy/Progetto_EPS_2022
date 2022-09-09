@@ -6,9 +6,18 @@ import it.unibs.eps.ludogame.networking.ProvaServer;
 public class GestionePartita {
 	private ProvaServer server;
 	private int valoreDadoS;
-	
+	private Thread t;
 	public GestionePartita(ProvaServer server) {
 		this.server = server;
+		 t = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				gestioneTurnoUno();			}
+
+		});
+		
 	}
 	
 	public synchronized void gestioneTurnoUno(){
@@ -79,7 +88,7 @@ public class GestionePartita {
 		}
 		server.getServerModel().nextTurn();
 		server.sendModelInGame();			
-		gestioneTurnoUno();
+		t.start();
 	}
 	
 }
