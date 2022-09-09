@@ -254,5 +254,9 @@ public class ClientWaitingRoom extends JFrame {
 		client.richiestaModelIniziale();
 	}
 
+    public void closeFrame() {
+		frame.dispose();
+    }
+
 	
 }
