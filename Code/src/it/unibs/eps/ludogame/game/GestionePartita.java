@@ -59,7 +59,7 @@ public class GestionePartita {
 		server.sendModelInGame();
 		gestioneTurnoQuattro();
 	}
-	public  void gestioneTurnoQuattro(){
+	public synchronized void gestioneTurnoQuattro(){
 		System.out.println("turno 4");
 		int vincitore=server.getServerModel().checkWin();
 		if(vincitore!=-1){
@@ -81,8 +81,14 @@ public class GestionePartita {
 		}
 		server.getServerModel().nextTurn();
 		server.sendModelInGame();			
+		Thread t=new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				gestioneTurnoUno();
+			}});
 		
-		gestioneTurnoUno();
 			
 			
 	}
