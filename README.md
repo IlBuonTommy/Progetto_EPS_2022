@@ -1,5 +1,8 @@
 # Progetto_EPS_2022
 Powered by Tommy, Ale e Paolo
+In questa repo trovate un nostro progettino di una rielaborazione di un famoso gioco da tavolo conosciuto da molti come Ludo.
+Abbiamo cercato di realizzare una versione multiplayer client-server.
+Se volete avere più info le potrete trovare [qui](https://github.com/IlBuonTommy/Progetto_EPS_2022/blob/main/Relazione_Git.pdf)
 ## Link utili per lo sviluppo delle nuove regole
 - [Regole del gioco Ludo](https://it.wikipedia.org/wiki/Ludo_(gioco))
 - [Regole del gioco Non t'arrabbiare](https://it.wikipedia.org/wiki/Non_t%27arrabbiare)
